@@ -4,7 +4,7 @@ using UnityEditor;
 using System.Collections.Generic;
 
 
-public class Player : MonoBehaviour 
+public class PlayerExt1 : MonoBehaviour 
 {
     private class POIComparer : IComparer<POI>
     {   
@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
         Facing,
         Passing
     }
-    public Level Level;
+    public LevelExt1 Level;
     public Transform LOS;
 
     public GameObject DebugPointPrefab;
@@ -56,13 +56,13 @@ public class Player : MonoBehaviour
         var m = new Mesh();
         meshFilter.mesh = m;
 
-        this.GenerateLOSMesh();
+//        this.GenerateLOSMesh();
     }
 
 
     void Update()
     {
-//        GenerateLOSMesh();
+        GenerateLOSMesh();
     }
 
     bool drawHelpPoints = true;
