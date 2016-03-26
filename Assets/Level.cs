@@ -42,8 +42,11 @@ public class Level : MonoBehaviour
             new Vector3(10, 10, 0),
             new Vector3(9, 10, 0),
             new Vector3(10, 9, 0),
-            new Vector3(10, 7, 0),
+            new Vector3(10, 6, 0),
             new Vector3(7, 3, 0),
+            new Vector3(1, 1, 0),
+            new Vector3(4, 3, 0),
+
         };
         foreach (var wallPos in extraWalls)
         {

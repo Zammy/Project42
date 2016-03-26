@@ -45,6 +45,8 @@ public class PlayerExt1 : MonoBehaviour
     public GameObject DebugPointPrefab;
 
     List<POI> pois;
+    List<Vector3> vertices = new List<Vector3>();
+    List<int> triangles = new List<int>();
 
     const float GOES_THROUGH = 0.7071f;
     const float IGNORE = -0.7071f;
@@ -55,32 +57,17 @@ public class PlayerExt1 : MonoBehaviour
         var meshFilter = this.LOS.GetComponent<MeshFilter>();
         var m = new Mesh();
         meshFilter.mesh = m;
-
-//        this.GenerateLOSMesh();
     }
-
 
     void Update()
     {
         GenerateLOSMesh();
     }
 
-    bool drawHelpPoints = true;
-    Vector3 lastPos = Vector3.one;
-    Dictionary<int, GameObject> helpPoints = new Dictionary<int, GameObject>();
-
     void DrawHelpPointAt(int i, Vector3 at, Color color)
     {
         GameObject go;
-        if (helpPoints.ContainsKey(i))
-        {
-            go = helpPoints[i];
-        }
-        else
-        {
-            go = (GameObject)Instantiate(DebugPointPrefab);
-            helpPoints.Add(i, go);
-        }
+        go = (GameObject)Instantiate(DebugPointPrefab);
         go.GetComponent<SpriteRenderer>().color = color;
         go.transform.position = at;
     }
@@ -88,32 +75,17 @@ public class PlayerExt1 : MonoBehaviour
 	// Use this for initialization
 	void GenerateLOSMesh ()
     {
-        if ((this.transform.position - this.lastPos).sqrMagnitude > 1f)
-        {
-            drawHelpPoints = true;
-            lastPos = transform.position;
-        }
+        float rayLength = Camera.main.orthographicSize * 2 * Camera.main.aspect;
+        Quaternion bitBack = Quaternion.AngleAxis(-0.1f, Vector3.forward);
+        Quaternion bitForward = Quaternion.AngleAxis(0.1f, Vector3.forward);
+
         this.pois = this.Level.GetPOIS();
-        var playerPos = this.transform.position;
+
+        Vector3 playerPos = this.transform.position;
+        vertices.Clear();
+        vertices.Add(playerPos);
 
         pois.Sort(new POIComparer(playerPos));
-
-        List<Vector3> vertices = new List<Vector3>();
-        vertices.Add(playerPos);
-        List<int> triangles = new List<int>();
-
-
-        System.Action<Vector3> addVertex = (Vector3 vertex) =>
-        {
-            Debug.LogFormat("Add Vertex {0}", vertex);
-            
-            vertices.Add(vertex);
-        };
-
-
-        PointType firstPointType;
-        PointType lastPointType = (PointType) 0; //just to stop the compiler complaining
-//        float lastPointDistance;
 
         for (int i = 0; i < pois.Count; i++)
         {
@@ -123,103 +95,52 @@ public class PlayerExt1 : MonoBehaviour
             float dot = Vector3.Dot(fromPOItoPos.normalized, poi.GetNormal());
             if (dot > GOES_THROUGH)
             {
-                if (drawHelpPoints)
+                RaycastHit2D hit = Physics2D.Raycast(playerPos, -fromPOItoPos, rayLength);
+                if (hit != null)
                 {
-                    DrawHelpPointAt(i, poi.Pos, Color.green);
+                    vertices.Add(new Vector3(hit.point.x, hit.point.y));
                 }
-
-//                Debug.DrawRay(playerPos, -fromPOItoPos, Color.green, fromPOItoPos.magnitude);
-
-                RaycastHit2D hit = Physics2D.Raycast(playerPos, -fromPOItoPos, Camera.main.orthographicSize * 2);
-                if ( ( new Vector3(hit.point.x, hit.point.y) - poi.Pos).sqrMagnitude > 1f )
-                {
-                    continue;
-                }
-
-                addVertex(poi.Pos);
-
-                Debug.LogFormat("[{0}] Facing", vertices.Count -1);
-
-                if (i > 0)
-                {
-                    AddTriangle(PointType.Facing, lastPointType, vertices, triangles);
-                }
-                else
-                {
-                    firstPointType = PointType.Facing;
-                }
-
-                lastPointType = PointType.Facing;
-//                lastPointDistance = fromPOItoPos.sqrMagnitude;
-  
             }
             else if ( dot > IGNORE && dot < GOES_THROUGH )
             {
-                if (drawHelpPoints)
+                Vector3 posToPoi = -fromPOItoPos;
+
+                Vector3 bitBeforeRotated = bitBack * posToPoi;
+
+                RaycastHit2D hit = Physics2D.Raycast(playerPos, bitBeforeRotated, rayLength);
+                if (hit != null)
                 {
-                    DrawHelpPointAt(i, poi.Pos, Color.yellow);
+                    vertices.Add(new Vector3(hit.point.x, hit.point.y));
+
                 }
 
-//                Debug.DrawRay(playerPos, -fromPOItoPos, Color.yellow, fromPOItoPos.magnitude);
-
-                RaycastHit2D[] hits = Physics2D.RaycastAll(playerPos, -fromPOItoPos, Camera.main.orthographicSize * 2);
-                Vector3 hit0Pos = new Vector3(hits[0].point.x, hits[0].point.y);
-                if ( (hit0Pos - poi.Pos).sqrMagnitude < 1f ) //hits POI point
+                hit = Physics2D.Raycast(playerPos, posToPoi, rayLength);
+                if (hit != null)
                 {
-                    addVertex(poi.Pos);
-                    addVertex(hits[1].point);
-
-                    Debug.Log("#Hits POI " + i.ToString());
-                }
-                else if ((hit0Pos- playerPos).sqrMagnitude > fromPOItoPos.sqrMagnitude) //hits behind poi point
-                {
-                    addVertex(poi.Pos);
-                    addVertex(hits[0].point);
-
-                    Debug.Log("#Hits behind POI " + i.ToString());
-                }
-                else //hits point before that so ignore it
-                {
-                    Debug.Log("#Hits BEFORE POI " + i.ToString());
-
-                    continue;
+                    vertices.Add(new Vector3(hit.point.x, hit.point.y));
                 }
 
-                Debug.LogFormat("[{0} - {1}] Passing", vertices.Count -2, vertices.Count -1);
+                Vector3 bitAfterRotate = bitForward * posToPoi;
 
-                if (i > 0)
+                hit = Physics2D.Raycast(playerPos, bitAfterRotate, rayLength);
+                if (hit != null)
                 {
-                    AddTriangle(PointType.Passing, lastPointType, vertices, triangles);
+                    vertices.Add(new Vector3(hit.point.x, hit.point.y));
                 }
-                else
-                {
-                    firstPointType = PointType.Passing;
-                }
-
-                lastPointType = PointType.Passing;
             }
-            else
-            {
-                if (drawHelpPoints)
-                {
-                    DrawHelpPointAt(i, poi.Pos, Color.red);
-                }
-                continue;
-            }
-
-//            if (i > 0)
-//            {
-//                addTriangle( vertices.Count-1, vertices.Count-2);
-//            }
         }
 
-//        AddTriangle(firstPointType, lastPointType, )
-
+        triangles.Clear();
+        for (int i = 1; i < vertices.Count-1; i++)
+        {
+            triangles.Add(0);
+            triangles.Add(i+1);
+            triangles.Add(i);
+        }
         triangles.Add(0);
-        triangles.Add(vertices.Count-1);
         triangles.Add(1);
+        triangles.Add(vertices.Count-1);
             
-
         var meshFilter = this.LOS.GetComponent<MeshFilter>();
         var m = meshFilter.mesh;
         m.Clear();
@@ -228,114 +149,5 @@ public class PlayerExt1 : MonoBehaviour
         m.triangles = triangles.ToArray();
         m.RecalculateNormals();
         meshFilter.mesh = m;
-
-//        textStyle.normal.textColor = Color.cyan;
-
-
-        drawHelpPoints = false;
 	} 
-
-    void AddTriangle( PointType currentPointType, PointType lastPointType, List<Vector3> vertices, List<int> triangles)
-    {
-        System.Action<int, int> addTriangle = ((int i1, int i2) => 
-        {
-            triangles.Add(0);
-            if (i1 > i2)
-            {
-                Debug.LogFormat("Add triangle {0} -> {1} -> {2}",0, i1, i2);
-
-                triangles.Add(i1);
-                triangles.Add(i2);
-            }
-            else
-            {
-                Debug.LogFormat("Add triangle {0} -> {2} -> {1}",0, i1, i2);
-
-                triangles.Add(i2);
-                triangles.Add(i1);
-            }
-        });
-
-        Vector3 playerPos = this.transform.position;
-
-        if (currentPointType == PointType.Facing && lastPointType == PointType.Facing)
-        {
-            Debug.Log("Adding Facing Facing");
-            addTriangle(vertices.Count - 1, vertices.Count - 2);
-            return;
-        }
-
-        int facingPointIndex;
-        int passingPointIndex;
-        int passingPointIndex2;
-
-        if (currentPointType == PointType.Facing && lastPointType == PointType.Passing)
-        {
-            Debug.Log("Adding Facing Passing");
-
-            facingPointIndex = vertices.Count -1;
-            passingPointIndex2 = vertices.Count - 2;
-            passingPointIndex = vertices.Count - 3;
-        }
-        else if (currentPointType == PointType.Passing && lastPointType == PointType.Facing)
-        {
-            Debug.Log("Adding Passing Facing");
-
-            passingPointIndex2 = vertices.Count - 1;
-            passingPointIndex = vertices.Count - 2;
-            facingPointIndex = vertices.Count - 3;
-        }
-        else
-        {
-            throw new UnityException("This should not happen");
-        }
-             
-        Vector3 facingPoint  = vertices[facingPointIndex];
-        Vector3 passingPoint = vertices[passingPointIndex];
-        Vector3 passingPoint2 = vertices[passingPointIndex2];
-
-        float facingPointDist = (playerPos - facingPoint).sqrMagnitude;
-        float passingPointDist = (playerPos - passingPoint).sqrMagnitude;
-
-        if (facingPointDist > passingPointDist)
-        {
-            addTriangle(facingPointIndex, passingPointIndex2);
-        }
-        else
-        {
-            addTriangle(facingPointIndex, passingPointIndex);
-        }
-    }
-    
-//    void OnGUI()
-//    {
-//        Vector3 pos = this.transform.position;
-//        for (int i = 0; i < 4; i++)
-//        {
-//            Vector3 pointPos = points[i,0];
-//            Vector3 normal = points[i,1];
-//
-//            Vector3 diff = pos - pointPos;
-//
-//            float dot = Vector3.Dot(diff.normalized, normal.normalized);
-//
-//            Handles.Label(pointPos + normal, dot.ToString());
-//        }
-//    }
-
-//    GUIStyle textStyle = new GUIStyle();
-//    
-    void OnGUI()
-    {
-        if (pois == null) return;
-
-        Vector3 pos = this.transform.position;
-        for (int i = 0; i < pois.Count; i++)
-        {
-            Vector3 p = pois[i].Pos;
-            Handles.Label(p, i.ToString());
-//            Handles.Label(new Vector3(p.x, p.y-.5f), pois[i].AngleTo(pos).ToString(), textStyle );
-        }
-    }
-
 }

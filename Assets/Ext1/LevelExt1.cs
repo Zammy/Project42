@@ -23,7 +23,7 @@ public class POI //point of interest
 
     public float AngleTo(Vector3 pos)
     {
-        Vector3 diff = (this.Pos - pos).normalized;
+        Vector3 diff = (this.Pos - pos);//.normalized;
         return Quaternion.FromToRotation(Vector3.up, diff).eulerAngles.z;
     }
 

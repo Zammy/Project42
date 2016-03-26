@@ -10,15 +10,75 @@ public enum SegmentNormal
     Left
 }
 
+public class EndPoint
+{
+    public int Index;
+    public Segment Segment;
+
+    public float AngleTo(Vector3 pos)
+    {
+        var endPoint = this.GetPoint();
+        Vector3 diff = (endPoint - pos).normalized;
+        return Quaternion.FromToRotation(Vector3.up, diff).eulerAngles.z;
+    }
+
+    public Vector3 GetPoint()
+    {
+        var pos2d = Segment.Points[Index];
+        return new Vector3(pos2d.x, pos2d.y);
+    }
+}
+
 public class Segment
 {
     public Vector2[] Points = new Vector2[2];
     public SegmentNormal Normal;
 
+    private EndPoint[] EndPoints;
+
     public Segment (SegmentNormal normal, Vector2 start)
     {
         Normal = normal;
         Points[0] = start;
+    }
+
+    public EndPoint[] GetEndPoints()
+    {
+        if (EndPoints == null)
+        {
+            this.EndPoints = new EndPoint[]
+            {
+                new EndPoint()
+                {
+                    Index = 0,
+                    Segment = this
+                },
+                new EndPoint()
+                {
+                    Index = 1,
+                    Segment = this
+                }
+            };
+        }
+
+        return EndPoints;
+    }
+
+    public Vector3 GetNormal()
+    {
+        switch (Normal)
+        {
+            case SegmentNormal.Up:
+                return Vector3.up;
+            case SegmentNormal.Right:
+                return Vector3.right;
+            case SegmentNormal.Down:
+                return Vector3.down;
+            case SegmentNormal.Left:
+                return Vector3.left;
+            default:
+                throw new UnityException("This should not happen!");
+        }
     }
 }
 
@@ -27,6 +87,19 @@ public class LevelExt2 : Level
     List<Segment> segments = new List<Segment>();
 
     void Start()
+    {
+    }
+
+//    void Update()
+//    {   
+//        foreach (var seg in segments)
+//        {
+//            Vector3 diff = seg.Points[1] - seg.Points[0];
+//            Debug.DrawRay(seg.Points[0], diff, Color.green, diff.magnitude);
+//        }
+//    }
+
+    public List<Segment> GetSegments()
     {
         var walls = new List<Tile>();
         foreach(Tile tile in tiles)
@@ -212,15 +285,6 @@ public class LevelExt2 : Level
             }
         }
 
-
-    }
-
-    void Update()
-    {   
-        foreach (var seg in segments)
-        {
-            Vector3 diff = seg.Points[1] - seg.Points[0];
-            Debug.DrawRay(seg.Points[0], diff, Color.green, diff.magnitude);
-        }
+        return this.segments;
     }
 }
