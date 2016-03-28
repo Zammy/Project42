@@ -68,6 +68,30 @@ public class POI //point of interest
 
 public class LevelExt1 : Level
 {
+    const int TEST_ROOM_SIZE = 15;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        this.AddRoom(0, 0, TEST_ROOM_SIZE);
+
+        Point[] extraWalls = new Point[]
+        {
+            new Point ( 10, 10 ),
+            new Point (  9, 10 ),
+            new Point (  10, 9 ),
+            new Point (  10, 6 ),
+            new Point (  7, 3 ),
+            new Point (  1, 1 ),
+            new Point (  4, 3 ),
+
+        };
+        foreach (var wallPos in extraWalls)
+        {
+            this.AddTile(TileType.Wall, wallPos);
+        }
+    }
 
     public List<POI> GetPOIS()
     {

@@ -86,8 +86,29 @@ public class LevelExt2 : Level
 {
     List<Segment> segments = new List<Segment>();
 
-    void Start()
+    const int TEST_ROOM_SIZE = 15;
+
+    protected override void Awake()
     {
+        base.Awake();
+
+        this.AddRoom(0, 0, TEST_ROOM_SIZE);
+
+        Point[] extraWalls = new Point[]
+        {
+            new Point ( 10, 10 ),
+            new Point (  9, 10 ),
+            new Point (  10, 9 ),
+            new Point (  10, 6 ),
+            new Point (  7, 3 ),
+            new Point (  1, 1 ),
+            new Point (  4, 3 ),
+
+        };
+        foreach (var wallPos in extraWalls)
+        {
+            this.AddTile(TileType.Wall, wallPos);
+        }
     }
 
 //    void Update()
@@ -190,7 +211,7 @@ public class LevelExt2 : Level
                 {
                     if (seg == null)
                     {
-                        if (!IsWallAt(x, y+1))
+                        if (!IsTileOfTypeAt(TileType.Wall,x, y+1))
                         {
                             seg = new Segment(normal, new Vector2(wallPos.x - 0.5f, wallPos.y + 0.5f));
                             startedSegments.Add(seg);
@@ -199,12 +220,12 @@ public class LevelExt2 : Level
 
                     if (seg != null)
                     {
-                        if (IsWallAt(x, y+1))
+                        if (IsTileOfTypeAt(TileType.Wall,x, y+1))
                         {
                             finishSeg(seg, new Vector2(wallPos.x - 0.5f, wallPos.y + 0.5f));
 
                         }
-                        else if (!IsWallAt(x+1, y))
+                        else if (!IsTileOfTypeAt(TileType.Wall,x+1, y))
                         {
                             finishSeg(seg, new Vector2(wallPos.x + 0.5f, wallPos.y + 0.5f));
                         }
@@ -214,7 +235,7 @@ public class LevelExt2 : Level
                 {
                     if (seg == null)
                     {
-                        if (!IsWallAt(x+1, y))
+                        if (!IsTileOfTypeAt(TileType.Wall,x+1, y))
                         {
                             seg = new Segment(normal, new Vector2(wallPos.x + 0.5f, wallPos.y - 0.5f));
                             startedSegments.Add(seg);
@@ -223,12 +244,12 @@ public class LevelExt2 : Level
 
                     if (seg != null)
                     {
-                        if (IsWallAt(x+1, y))
+                        if (IsTileOfTypeAt(TileType.Wall,x+1, y))
                         {
                             finishSeg(seg, new Vector2(wallPos.x + 0.5f, wallPos.y - 0.5f));
 
                         }
-                        else if (!IsWallAt(x, y+1))
+                        else if (!IsTileOfTypeAt(TileType.Wall,x, y+1))
                         {
                             finishSeg(seg, new Vector2(wallPos.x + 0.5f, wallPos.y + 0.5f));
                         }
@@ -238,7 +259,7 @@ public class LevelExt2 : Level
                 {
                     if (seg == null)
                     {
-                        if (!IsWallAt(x, y-1))
+                        if (!IsTileOfTypeAt(TileType.Wall,x, y-1))
                         {
                             seg = new Segment(normal, new Vector2(wallPos.x - 0.5f, wallPos.y - 0.5f));
                             startedSegments.Add(seg);
@@ -247,12 +268,12 @@ public class LevelExt2 : Level
 
                     if (seg != null)
                     {
-                        if (IsWallAt(x, y-1))
+                        if (IsTileOfTypeAt(TileType.Wall,x, y-1))
                         {
                             finishSeg(seg, new Vector2(wallPos.x - 0.5f, wallPos.y - 0.5f));
 
                         }
-                        else if (!IsWallAt(x+1, y))
+                        else if (!IsTileOfTypeAt(TileType.Wall,x+1, y))
                         {
                             finishSeg(seg, new Vector2(wallPos.x + 0.5f, wallPos.y - 0.5f));
                         }
@@ -262,7 +283,7 @@ public class LevelExt2 : Level
                 {
                     if (seg == null)
                     {
-                        if (!IsWallAt(x-1, y))
+                        if (!IsTileOfTypeAt(TileType.Wall,x-1, y))
                         {
                             seg = new Segment(normal, new Vector2(wallPos.x - 0.5f, wallPos.y - 0.5f));
                             startedSegments.Add(seg);
@@ -271,12 +292,12 @@ public class LevelExt2 : Level
 
                     if (seg != null)
                     {
-                        if (IsWallAt(x-1, y))
+                        if (IsTileOfTypeAt(TileType.Wall,x-1, y))
                         {
                             finishSeg(seg, new Vector2(wallPos.x - 0.5f, wallPos.y - 0.5f));
 
                         }
-                        else if (!IsWallAt(x, y+1))
+                        else if (!IsTileOfTypeAt(TileType.Wall,x, y+1))
                         {
                             finishSeg(seg, new Vector2(wallPos.x - 0.5f, wallPos.y + 0.5f));
                         }

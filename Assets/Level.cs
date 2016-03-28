@@ -10,58 +10,75 @@ public class Level : MonoBehaviour
 
     public Transform LevelBase;
 
-    const int SIZE = 15;
+    public int SIZE = 50;
 
-    protected Tile[,] tiles = new Tile[SIZE,SIZE];
+    protected Tile[,] tiles;
 
 	// Use this for initialization
-	void Awake () 
+	protected virtual void Awake () 
     {
-        for (int x = 0; x < SIZE; x++)
-        {
-            for (int y = 0; y < SIZE; y++)
-            {
-                Vector3 pos = new Vector3(x, y, 0);
-                GameObject prefab = GroundPrefab;
-                if (x == 0 || x == SIZE -1)
-                {
-                    prefab = WallPrefab;
-                }
-
-                if (y == 0 || y == SIZE -1)
-                {
-                    prefab = WallPrefab;
-                }
-
-                tiles[x, y] = InstantiateTile(pos, prefab);
-            }
-        }
-
-        Vector3[] extraWalls = new Vector3[]
-        {
-            new Vector3(10, 10, 0),
-            new Vector3(9, 10, 0),
-            new Vector3(10, 9, 0),
-            new Vector3(10, 6, 0),
-            new Vector3(7, 3, 0),
-            new Vector3(1, 1, 0),
-            new Vector3(4, 3, 0),
-
-        };
-        foreach (var wallPos in extraWalls)
-        {
-            Destroy(tiles[(int)wallPos.x, (int)wallPos.y].gameObject);
-            tiles[(int)wallPos.x, (int)wallPos.y] = InstantiateTile(wallPos, WallPrefab);
-        }
+        tiles = new Tile[SIZE,SIZE];
 	}
 
-    Tile InstantiateTile(Vector3 pos, GameObject prefab)
+    public void AddRoom(int addX, int addY, int size)
     {
-        var tileGo = (GameObject)Instantiate(prefab, pos, Quaternion.identity);
-        tileGo.transform.SetParent(LevelBase);
-        tileGo.transform.localScale = Vector3.one;
-        return tileGo.GetComponent<Tile>();
+        for (int x = 0; x < size; x++)
+        {
+            for (int y = 0; y < size; y++)
+            {
+                Vector3 pos = new Vector3(addX + x, addX + y, 0);
+                GameObject prefab = GroundPrefab;
+                if (x == 0 || x == size -1)
+                {
+                    prefab = WallPrefab;
+                }
+
+                if (y == 0 || y == size -1)
+                {
+                    prefab = WallPrefab;
+                }
+
+                tiles[x+addX, y+addY] = InstantiateTile(pos, prefab);
+            }
+        }
     }
+
+    public void RemoveTileAt(Point pos)
+    {
+        try
+        {
+            var tile = this.tiles[pos.X, pos.Y] ;
+            if (tile != null)
+            {
+                Destroy(tile.gameObject);
+            }
+        }
+        catch
+        {}
+    }
+
+    public void AddTile(TileType type, Point pos)
+    {
+        RemoveTileAt(pos);
+        GameObject prefab;
+        switch (type)
+        {
+            case TileType.Ground:
+            {
+                prefab = GroundPrefab;
+                break;
+            }
+            case TileType.Wall:
+            {
+                prefab = WallPrefab;
+                break;
+            }
+            default:
+                throw new UnityException("This should not happen!");
+        }
+        this.tiles[pos.X, pos.Y] = InstantiateTile(new Vector3(pos.X, pos.Y, 0), prefab);
+    }
+
 
     public Tile GetTileAt(int x, int y)
     {
@@ -75,12 +92,30 @@ public class Level : MonoBehaviour
         }
      }
 
-     protected bool IsWallAt(int x, int y)
+     public Tile GetTileAt(Point p)
+     {
+        return GetTileAt(p.X, p.Y);
+     }
+
+     public bool IsTileOfTypeAt(TileType type, int x, int y)
      {
         var tile = GetTileAt(x,y);
         if (tile == null)
             return false;
 
-        return tile.TileTipe == TileType.Wall;
+        return tile.TileTipe == type;
      }
+
+    public bool IsTileOfTypeAt(TileType type, Point p)
+    {
+        return IsTileOfTypeAt(type, p.X , p.Y);
+    }
+
+    protected Tile InstantiateTile(Vector3 pos, GameObject prefab)
+    {
+        var tileGo = (GameObject)Instantiate(prefab, pos, Quaternion.identity);
+        tileGo.transform.SetParent(LevelBase);
+        tileGo.transform.localScale = Vector3.one;
+        return tileGo.GetComponent<Tile>();
+    }
 }
