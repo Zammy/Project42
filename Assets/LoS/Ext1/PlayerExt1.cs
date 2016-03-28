@@ -34,11 +34,6 @@ public class PlayerExt1 : MonoBehaviour
         #endregion
     }
 
-    private enum PointType
-    {
-        Facing,
-        Passing
-    }
     public LevelExt1 Level;
     public Transform LOS;
 
@@ -75,7 +70,7 @@ public class PlayerExt1 : MonoBehaviour
 	// Use this for initialization
 	void GenerateLOSMesh ()
     {
-        float rayLength = Camera.main.orthographicSize * 2 * Camera.main.aspect;
+        float rayLength = Camera.main.orthographicSize * 2 * Camera.main.aspect + 100;
         Quaternion bitBack = Quaternion.AngleAxis(-0.1f, Vector3.forward);
         Quaternion bitForward = Quaternion.AngleAxis(0.1f, Vector3.forward);
 
@@ -92,13 +87,15 @@ public class PlayerExt1 : MonoBehaviour
             POI poi = pois[i];
 
             Vector3 fromPOItoPos = playerPos - poi.Pos;
-            float dot = Vector3.Dot(fromPOItoPos.normalized, poi.GetNormal());
+            Vector3 fromPOItoPosDir = fromPOItoPos.normalized;
+            float dot = Vector3.Dot(fromPOItoPosDir, poi.GetNormal());
             if (dot > GOES_THROUGH)
             {
                 RaycastHit2D hit = Physics2D.Raycast(playerPos, -fromPOItoPos, rayLength);
                 if (hit != null)
                 {
-                    vertices.Add(new Vector3(hit.point.x, hit.point.y));
+                    Vector3 point = new Vector3(hit.point.x, hit.point.y);// + fromPOItoPosDir * ExtraMargin;
+                    vertices.Add(point);
                 }
             }
             else if ( dot > IGNORE && dot < GOES_THROUGH )
@@ -110,14 +107,15 @@ public class PlayerExt1 : MonoBehaviour
                 RaycastHit2D hit = Physics2D.Raycast(playerPos, bitBeforeRotated, rayLength);
                 if (hit != null)
                 {
-                    vertices.Add(new Vector3(hit.point.x, hit.point.y));
-
+                    Vector3 point = new Vector3(hit.point.x, hit.point.y);// + fromPOItoPosDir * ExtraMargin;
+                    vertices.Add(point);
                 }
 
                 hit = Physics2D.Raycast(playerPos, posToPoi, rayLength);
                 if (hit != null)
                 {
-                    vertices.Add(new Vector3(hit.point.x, hit.point.y));
+                    Vector3 point = new Vector3(hit.point.x, hit.point.y);// + fromPOItoPosDir * ExtraMargin;
+                    vertices.Add(point);
                 }
 
                 Vector3 bitAfterRotate = bitForward * posToPoi;
@@ -125,7 +123,8 @@ public class PlayerExt1 : MonoBehaviour
                 hit = Physics2D.Raycast(playerPos, bitAfterRotate, rayLength);
                 if (hit != null)
                 {
-                    vertices.Add(new Vector3(hit.point.x, hit.point.y));
+                    Vector3 point = new Vector3(hit.point.x, hit.point.y);// + fromPOItoPosDir * ExtraMargin;
+                    vertices.Add(point);
                 }
             }
         }
