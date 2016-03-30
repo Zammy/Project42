@@ -1,15 +1,41 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class CrewMember : MonoBehaviour {
+public class CrewMember : MonoBehaviour 
+{
+    //Set through Unity
+    public GameObject PistolPrefab;
+    public GameObject AssaultRilfePrefab;
+    public GameObject ShotgunPrefab;
+    //
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    Dictionary<CrewType, GameObject> crewTypeToWeapPrefab;
+
+    public Weapon Weapon
+    {
+        get;
+        set;
+    }
+
+    void Awake()
+    {
+        crewTypeToWeapPrefab = new Dictionary<CrewType, GameObject>()
+        {
+            { CrewType.Marine, AssaultRilfePrefab },
+            { CrewType.Assualt, ShotgunPrefab},
+            { CrewType.Medic, PistolPrefab }
+        };
+    }
+
+	public void SetCrewType(CrewType type)
+    {
+        GameObject weaponPrefab = crewTypeToWeapPrefab[type];
+
+        var weaponGo = (GameObject) Instantiate(weaponPrefab, this.transform.position, Quaternion.identity);
+        weaponGo.transform.SetParent(this.transform);
+        weaponGo.transform.localScale = Vector3.one;
+
+        this.Weapon = weaponGo.GetComponent<Weapon>();
+    }
 }

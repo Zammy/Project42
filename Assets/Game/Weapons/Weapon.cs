@@ -26,7 +26,7 @@ public class Weapon : MonoBehaviour
             isActive = value;
             if (value)
             {
-                this.ShootProj();
+                this.Shoot();
             }
         }
     }
