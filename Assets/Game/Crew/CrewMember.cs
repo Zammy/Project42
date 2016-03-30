@@ -38,4 +38,28 @@ public class CrewMember : MonoBehaviour
 
         this.Weapon = weaponGo.GetComponent<Weapon>();
     }
+
+    public void LookAtCursor(Vector3 cursorPos)
+    {
+        this.LookAt(cursorPos);
+
+        Vector3 fromPosToPoint = cursorPos - this.transform.position;
+        float angle = Mathf.Acos( Weapon.NuzzleOffset / fromPosToPoint.magnitude );
+
+        Vector3 cursorOffset = Quaternion.AngleAxis(-angle * Mathf.Rad2Deg, Vector3.forward) * fromPosToPoint;
+
+        cursorOffset = cursorOffset.normalized * Weapon.NuzzleOffset;
+
+        Vector3 actualPoint = cursorPos - cursorOffset;
+
+        this.LookAt(actualPoint);
+    }
+
+    public void LookAt(Vector3 point)
+    {
+        Vector3 fromPosToPoint = point - this.transform.position;
+        Vector3 dir = fromPosToPoint.normalized;
+        float rot_z = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
+    }
 }

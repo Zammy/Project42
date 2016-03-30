@@ -9,6 +9,12 @@ public class Projectile : MonoBehaviour
     public float DistanceLife;
     //
 
+    public bool IsFriendly
+    {
+        get;
+        set;
+    }
+
     public int Damage
     {
         get;
@@ -31,7 +37,12 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Crew" || collider.tag == "Projectile")
+        if (this.IsFriendly && collider.tag == "Crew")
+        {
+            return;
+        }
+
+        if (collider.tag == "Projectile")
         {
             return;
         }

@@ -46,9 +46,9 @@ public class Crew : MonoBehaviour
             CrewType type = crewTypes[i] ;
             var crewMember = InstantiateCrewMember(pos);
             crewMember.SetCrewType(type);
+            crewMember.Weapon.IsFriendly = true;
             this.crew[i] = crewMember;
         }
-       
     }
 
     CrewMember InstantiateCrewMember(Vector3 localPos)
@@ -98,19 +98,35 @@ public class Crew : MonoBehaviour
         move.Normalize();
         move = move * (Time.fixedDeltaTime * TempSpeed);
         this.transform.position += move;
-    }        
+    }
 
-    void FixedUpdate()
+    void LookAt()
     {
-        this.Movement();
+        Vector3 cursorScreenPos = Input.mousePosition;
+        Vector3 cursorWorldPos = Camera.main.ScreenToWorldPoint(cursorScreenPos);
+        cursorWorldPos.z = 0;
 
+        foreach (var crewMember in crew)
+        {
+            crewMember.LookAtCursor(cursorWorldPos);
+        }
+    }
+
+    void FireWeapons()
+    {
         bool fire1 = Mathf.Approximately(Input.GetAxis("Fire1"), 1f);
         bool fire2 = Mathf.Approximately(Input.GetAxis("Fire2"), 1f);
-
         this.crew[0].Weapon.IsActive = fire1;
         if (this.crew.Length > 1)
         {
             this.crew[1].Weapon.IsActive = fire2;
         }
+    }
+
+    void FixedUpdate()
+    {
+        this.Movement();
+        this.LookAt();
+        this.FireWeapons();
     }
 }

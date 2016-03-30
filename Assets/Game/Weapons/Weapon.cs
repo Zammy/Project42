@@ -12,6 +12,12 @@ public class Weapon : MonoBehaviour
     public float Accuracy; //lower is better
     //
 
+    public bool IsFriendly
+    {
+        get;
+        set;
+    }
+
     private bool isActive = false;
     public bool IsActive
     {
@@ -31,8 +37,19 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    public float NuzzleOffset
+    {
+        get;
+        private set;
+    }
+
 
     private float shootTime;
+
+    void Awake()
+    {
+        this.NuzzleOffset = this.Nuzzle.transform.localPosition.x;
+    }
 
     void FixedUpdate()
     {
@@ -58,6 +75,7 @@ public class Weapon : MonoBehaviour
         var projGo = (GameObject)Instantiate(ProjPrefab, this.Nuzzle.position, this.Nuzzle.rotation);
         var proj = projGo.GetComponent<Projectile>();
         proj.Damage = this.Damage;
+        proj.IsFriendly = this.IsFriendly;
 
         proj.transform.Rotate(Vector3.forward, Random.Range(-Accuracy, Accuracy));
 
