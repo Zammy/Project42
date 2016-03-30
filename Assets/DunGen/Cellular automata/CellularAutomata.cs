@@ -167,19 +167,28 @@ public class CellularAutomata : MonoBehaviour
     {
         this.GenerateInitialWalls();
 
-        yield return new WaitForSeconds(DelayBetweenIterations);
+        if (DelayBetweenIterations > 0f)
+        {
+            yield return new WaitForSeconds(DelayBetweenIterations);
+        }
 
         for (int i = 0; i < Iterations; i++)
         {
             Iterate();
 
-            yield return new WaitForSeconds(DelayBetweenIterations);
+            if (DelayBetweenIterations > 0f)
+            {
+                yield return new WaitForSeconds(DelayBetweenIterations);
+            }        
         }
 
         var rooms = FindRooms();
 
-        yield return new WaitForSeconds(DelayBetweenIterations);
-
+        if (DelayBetweenIterations > 0f)
+        {
+            yield return new WaitForSeconds(DelayBetweenIterations);
+        }
+       
         for (int i = rooms.Count - 1; i >= 0; i--)
         {
             var room = rooms[i];
@@ -193,18 +202,6 @@ public class CellularAutomata : MonoBehaviour
             }
         }
 
-//
-//        foreach (var room in rooms)
-//        {
-//            var color = new Color( Random.Range(0f, 1f), Random.Range(0.25f,0.75f), Random.Range(0.25f, 0.75f), 1f );
-//
-//            foreach (var ground in room)
-//            {
-//                var tile = Level.GetTileAt(ground);
-//                var sprite = tile.transform.FindChild("Background").GetComponent<SpriteRenderer>();
-//                sprite.color = color;
-//            }
-//        }
         Debug.Log("Rooms " + rooms.Count);
 
     }
