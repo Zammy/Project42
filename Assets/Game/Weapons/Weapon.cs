@@ -9,6 +9,7 @@ public class Weapon : MonoBehaviour
 
     public int Damage;
     public float RateOfFire;
+    public float Accuracy; //lower is better
     //
 
     private bool isActive = false;
@@ -50,6 +51,8 @@ public class Weapon : MonoBehaviour
         var projGo = (GameObject)Instantiate(ProjPrefab, this.Nuzzle.position, this.Nuzzle.rotation);
         var proj = projGo.GetComponent<Projectile>();
         proj.Damage = this.Damage;
+
+        proj.transform.Rotate(Vector3.forward, Random.Range(-Accuracy, Accuracy));
 
         shootTime = Time.time + RateOfFire;
     }

@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour
     //Set through Unity
     public GameObject ExplodePrefab;
     public float Speed;
+    public float DistanceLife;
     //
 
     public int Damage
@@ -19,6 +20,13 @@ public class Projectile : MonoBehaviour
     {
 	    float moveBy = this.Speed / (Time.fixedDeltaTime * 1000f);
         this.transform.position += this.transform.up * moveBy;
+
+        this.DistanceLife -= moveBy;
+
+        if (this.DistanceLife <= 0f)
+        {
+            Destroy(this.gameObject);
+        }
 	}
 
     void OnTriggerEnter2D(Collider2D collider)
