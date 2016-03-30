@@ -1,0 +1,393 @@
+fileFormatVersion: 2
+guid: 10332490fad984362a1e12bc327610e9
+timeCreated: 1459240454
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: sprite_fx_by_Bongwater-bandit_0
+    21300002: sprite_fx_by_Bongwater-bandit_1
+    21300004: sprite_fx_by_Bongwater-bandit_2
+    21300006: sprite_fx_by_Bongwater-bandit_3
+    21300008: sprite_fx_by_Bongwater-bandit_4
+    21300010: sprite_fx_by_Bongwater-bandit_5
+    21300012: sprite_fx_by_Bongwater-bandit_6
+    21300014: sprite_fx_by_Bongwater-bandit_7
+    21300016: sprite_fx_by_Bongwater-bandit_8
+    21300018: sprite_fx_by_Bongwater-bandit_9
+    21300020: sprite_fx_by_Bongwater-bandit_10
+    21300022: sprite_fx_by_Bongwater-bandit_11
+    21300024: sprite_fx_by_Bongwater-bandit_12
+    21300026: sprite_fx_by_Bongwater-bandit_14
+    21300028: sprite_fx_by_Bongwater-bandit_15
+    21300030: sprite_fx_by_Bongwater-bandit_16
+    21300032: Projectile1
+    21300034: sprite_fx_by_Bongwater-bandit_18
+    21300036: sprite_fx_by_Bongwater-bandit_19
+    21300038: sprite_fx_by_Bongwater-bandit_20
+    21300040: sprite_fx_by_Bongwater-bandit_21
+    21300042: sprite_fx_by_Bongwater-bandit_22
+    21300044: sprite_fx_by_Bongwater-bandit_23
+    21300046: sprite_fx_by_Bongwater-bandit_24
+    21300048: sprite_fx_by_Bongwater-bandit_25
+    21300050: sprite_fx_by_Bongwater-bandit_26
+    21300052: sprite_fx_by_Bongwater-bandit_27
+    21300054: sprite_fx_by_Bongwater-bandit_28
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 64
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: sprite_fx_by_Bongwater-bandit_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 152
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_1
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 153
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_2
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 152
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_3
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 152
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_4
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 135
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_5
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 133
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_6
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 133
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_7
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 133
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_8
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 135
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_9
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 121
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_10
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 121
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_11
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 121
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_12
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 99
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_14
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 101
+        width: 20
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_15
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 103
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_16
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 102
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Projectile1
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 105
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_18
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 77
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_19
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 75
+        width: 31
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_20
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 75
+        width: 30
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_21
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 75
+        width: 28
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_22
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 45
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_23
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 49
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_24
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 47
+        width: 24
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_25
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 52
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_26
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 29
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_27
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 28
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: sprite_fx_by_Bongwater-bandit_28
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 28
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
