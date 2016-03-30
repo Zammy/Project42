@@ -26,7 +26,7 @@ public class Weapon : MonoBehaviour
             isActive = value;
             if (value)
             {
-                this.Shoot();
+                this.ShootProj();
             }
         }
     }
@@ -45,7 +45,14 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    protected void Shoot()
+    protected virtual void Shoot()
+    {
+        this.ShootProj();
+
+        shootTime = Time.time + RateOfFire;
+    }
+
+    protected virtual void ShootProj()
     {
         //todo spawn and shoot projectile
         var projGo = (GameObject)Instantiate(ProjPrefab, this.Nuzzle.position, this.Nuzzle.rotation);
@@ -54,6 +61,5 @@ public class Weapon : MonoBehaviour
 
         proj.transform.Rotate(Vector3.forward, Random.Range(-Accuracy, Accuracy));
 
-        shootTime = Time.time + RateOfFire;
     }
 }
