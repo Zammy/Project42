@@ -96,8 +96,10 @@ public class LevelExt1 : Level
     public List<POI> GetPOIS()
     {
         var walls = new List<Tile>();
-        foreach(Tile tile in tiles)
+        foreach(Tile tile in this.tiles)
         {
+            if (tile == null) continue;
+
             if (tile.TileTipe == TileType.Wall)
             {
                 walls.Add(tile);

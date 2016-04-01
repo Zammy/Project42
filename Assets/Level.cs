@@ -17,7 +17,7 @@ public class Level : MonoBehaviour
 	// Use this for initialization
 	protected virtual void Awake () 
     {
-        tiles = new Tile[SIZE,SIZE];
+        this.tiles = new Tile[SIZE,SIZE];
 	}
 
     public void AddRoom(int addX, int addY, int size)

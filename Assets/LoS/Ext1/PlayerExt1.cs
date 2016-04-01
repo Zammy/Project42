@@ -78,7 +78,7 @@ public class PlayerExt1 : MonoBehaviour
 
         Vector3 playerPos = this.transform.position;
         vertices.Clear();
-        vertices.Add(playerPos);
+        vertices.Add(Vector3.zero);
 
         pois.Sort(new POIComparer(playerPos));
 
@@ -95,7 +95,7 @@ public class PlayerExt1 : MonoBehaviour
                 if (hit != null)
                 {
                     Vector3 point = new Vector3(hit.point.x, hit.point.y);// + fromPOItoPosDir * ExtraMargin;
-                    vertices.Add(point);
+                    vertices.Add(point - playerPos);
                 }
             }
             else if ( dot > IGNORE && dot < GOES_THROUGH )
@@ -108,14 +108,14 @@ public class PlayerExt1 : MonoBehaviour
                 if (hit != null)
                 {
                     Vector3 point = new Vector3(hit.point.x, hit.point.y);// + fromPOItoPosDir * ExtraMargin;
-                    vertices.Add(point);
+                    vertices.Add(point- playerPos);
                 }
 
                 hit = Physics2D.Raycast(playerPos, posToPoi, rayLength);
                 if (hit != null)
                 {
                     Vector3 point = new Vector3(hit.point.x, hit.point.y);// + fromPOItoPosDir * ExtraMargin;
-                    vertices.Add(point);
+                    vertices.Add(point- playerPos);
                 }
 
                 Vector3 bitAfterRotate = bitForward * posToPoi;
@@ -124,7 +124,7 @@ public class PlayerExt1 : MonoBehaviour
                 if (hit != null)
                 {
                     Vector3 point = new Vector3(hit.point.x, hit.point.y);// + fromPOItoPosDir * ExtraMargin;
-                    vertices.Add(point);
+                    vertices.Add(point - playerPos);
                 }
             }
         }
