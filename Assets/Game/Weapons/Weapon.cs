@@ -29,11 +29,7 @@ public class Weapon : MonoBehaviour
         {
             if (value == isActive) return;
 
-            isActive = value;
-            if (value)
-            {
-                this.Shoot();
-            }
+            this.isActive = value;
         }
     }
 
