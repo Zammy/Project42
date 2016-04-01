@@ -74,90 +74,90 @@ public class LevelExt1 : Level
     {
         base.Awake();
 
-        this.AddRoom(0, 0, TEST_ROOM_SIZE);
-
-        Point[] extraWalls = new Point[]
-        {
-            new Point ( 10, 10 ),
-            new Point (  9, 10 ),
-            new Point (  10, 9 ),
-            new Point (  10, 6 ),
-            new Point (  7, 3 ),
-            new Point (  1, 1 ),
-            new Point (  4, 3 ),
-
-        };
-        foreach (var wallPos in extraWalls)
-        {
-            this.AddTile(TileType.Wall, wallPos);
-        }
+//        this.AddRoom(0, 0, TEST_ROOM_SIZE);
+//
+//        Point[] extraWalls = new Point[]
+//        {
+//            new Point ( 10, 10 ),
+//            new Point (  9, 10 ),
+//            new Point (  10, 9 ),
+//            new Point (  10, 6 ),
+//            new Point (  7, 3 ),
+//            new Point (  1, 1 ),
+//            new Point (  4, 3 ),
+//
+//        };
+//        foreach (var wallPos in extraWalls)
+//        {
+//            this.AddTile(TileType.Wall, wallPos);
+//        }
     }
 
     public List<POI> GetPOIS()
     {
-        var walls = new List<Tile>();
-        foreach(Tile tile in this.tiles)
-        {
-            if (tile == null) continue;
-
-            if (tile.TileTipe == TileType.Wall)
-            {
-                walls.Add(tile);
-            }
-        }
-
+//        var walls = new List<Tile>();
+//        foreach(Tile tile in this.tiles)
+//        {
+//            if (tile == null) continue;
+//
+//            if (tile.TileTipe == TileType.Wall)
+//            {
+//                walls.Add(tile);
+//            }
+//        }
+//
         var allPois = new List<POI>();
-
-        foreach (var wall in walls)
-        {
-            Vector3 wallPos = wall.transform.position;
-            var pois = new List<POI>()
-            {
-                new POI( new Vector3( wallPos.x + 0.5f, wallPos.y + 0.5f, 0), POINormal.NE ),
-                new POI( new Vector3( wallPos.x + 0.5f, wallPos.y - 0.5f, 0), POINormal.SE ),
-                new POI( new Vector3( wallPos.x - 0.5f, wallPos.y - 0.5f, 0), POINormal.SW ),
-                new POI( new Vector3( wallPos.x - 0.5f, wallPos.y + 0.5f, 0), POINormal.NW ),
-            };
-
-            bool toNorth = false;
-            bool toSouth = false;
-            bool toEast = false;
-            bool toWest = false;
-
-            Tile tile = GetTileAt( (int)wallPos.x, (int)wallPos.y + 1 );
-            toNorth = (tile != null && tile.TileTipe == TileType.Wall);
-
-            tile = GetTileAt( (int)wallPos.x, (int)wallPos.y - 1 );
-            toSouth = (tile != null && tile.TileTipe == TileType.Wall);
-
-            tile = GetTileAt( (int)wallPos.x + 1, (int)wallPos.y );
-            toEast = (tile != null && tile.TileTipe == TileType.Wall);
-
-            tile = GetTileAt( (int)wallPos.x - 1, (int)wallPos.y );
-            toWest = (tile != null && tile.TileTipe == TileType.Wall);
-
-            if ((toEast && !toNorth) || (!toEast && toNorth))
-            {
-                RemovePOI(pois, POINormal.NE);
-            }
-
-            if ((toEast && !toSouth) || (!toEast && toSouth))
-            {
-                RemovePOI(pois, POINormal.SE);
-            }
-
-            if ((toSouth && !toWest) || (!toSouth && toWest))
-            {
-                RemovePOI(pois, POINormal.SW);
-            }
-
-            if ((toWest && !toNorth) || (!toWest && toNorth))
-            {
-                RemovePOI(pois, POINormal.NW);
-            }
-
-            allPois.AddRange(pois);
-        }
+//
+//        foreach (var wall in walls)
+//        {
+//            Vector3 wallPos = wall.transform.position;
+//            var pois = new List<POI>()
+//            {
+//                new POI( new Vector3( wallPos.x + 0.5f, wallPos.y + 0.5f, 0), POINormal.NE ),
+//                new POI( new Vector3( wallPos.x + 0.5f, wallPos.y - 0.5f, 0), POINormal.SE ),
+//                new POI( new Vector3( wallPos.x - 0.5f, wallPos.y - 0.5f, 0), POINormal.SW ),
+//                new POI( new Vector3( wallPos.x - 0.5f, wallPos.y + 0.5f, 0), POINormal.NW ),
+//            };
+//
+//            bool toNorth = false;
+//            bool toSouth = false;
+//            bool toEast = false;
+//            bool toWest = false;
+//
+//            Tile tile = GetTileAt( (int)wallPos.x, (int)wallPos.y + 1 );
+//            toNorth = (tile != null && tile.TileTipe == TileType.Wall);
+//
+//            tile = GetTileAt( (int)wallPos.x, (int)wallPos.y - 1 );
+//            toSouth = (tile != null && tile.TileTipe == TileType.Wall);
+//
+//            tile = GetTileAt( (int)wallPos.x + 1, (int)wallPos.y );
+//            toEast = (tile != null && tile.TileTipe == TileType.Wall);
+//
+//            tile = GetTileAt( (int)wallPos.x - 1, (int)wallPos.y );
+//            toWest = (tile != null && tile.TileTipe == TileType.Wall);
+//
+//            if ((toEast && !toNorth) || (!toEast && toNorth))
+//            {
+//                RemovePOI(pois, POINormal.NE);
+//            }
+//
+//            if ((toEast && !toSouth) || (!toEast && toSouth))
+//            {
+//                RemovePOI(pois, POINormal.SE);
+//            }
+//
+//            if ((toSouth && !toWest) || (!toSouth && toWest))
+//            {
+//                RemovePOI(pois, POINormal.SW);
+//            }
+//
+//            if ((toWest && !toNorth) || (!toWest && toNorth))
+//            {
+//                RemovePOI(pois, POINormal.NW);
+//            }
+//
+//            allPois.AddRange(pois);
+//        }
 
         return allPois;
      }

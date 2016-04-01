@@ -16,8 +16,9 @@ public class CellularAutomata : MonoBehaviour
         }
     }
 
-
     public Level Level;
+
+    public Transform CrewPos;
     
     public float DelayBetweenIterations = 2f;
 
@@ -26,38 +27,79 @@ public class CellularAutomata : MonoBehaviour
     public int Iterations = 2;
     public int RemoveRoomsWithLessThan = 10;
 
+    const int GEN_ZONE_DIST = 25;
+
+    bool generating = false;
+    TileType[,] zone = new TileType[Level.DUNG_WIDTH, Level.ZONE_SIZE];
+
 	// Use this for initialization
 	void Start () 
     {
-        Level.AddRoom(0, 0, Level.SIZE);
+        Random.seed = 1;// (int)System.DateTime.Now.Ticks;
 
-        Random.seed =  (int)System.DateTime.Now.Ticks;
-
-	    StartCoroutine(this.Generate());
+        this.GenAddNewZone(true);
 	}
 
-    void GenerateInitialWalls()
+    void Update()
     {
-        for (int x = 0; x < Level.SIZE-1; x++)
-        {
-            for (int y = 0; y < Level.SIZE-1; y++)
-            {
-                if (UnityEngine.Random.value < WallInitialChance)
-                {
-                    this.Level.AddTile(TileType.Wall,new Point(x, y));
-                }
-            }
-        }
+        int worldEdgeY = this.Level.ZonesNum * Level.ZONE_SIZE;
+        float playerY = this.CrewPos.transform.position.y;
 
+        if (worldEdgeY - playerY < GEN_ZONE_DIST &&
+            !generating)
+        {
+            StartCoroutine( GenAddNewZone() );
+        }
     }
 
-    void Iterate()
+    IEnumerator GenAddNewZone(bool isInitial = false)
+    {
+        generating = true;
+
+        yield return StartCoroutine( this.GenerateWalls(isInitial) );
+       
+        for (int i = 0; i < Iterations; i++)
+        {
+            yield return StartCoroutine( this.Iterate(isInitial) );
+        }
+
+//        yield return StartCoroutine( this.MakeSureLevelIsPassable( isInitial ) );
+
+        this.Level.AddNewZone(zone);
+
+        generating = false;
+    }
+
+    IEnumerator GenerateWalls(bool isInitial)
+    {
+        for (int x = 0; x < Level.DUNG_WIDTH; x++)
+        {
+            for (int y = 0; y < Level.ZONE_SIZE; y++)
+            {
+                if ((x == 0 || x == Level.DUNG_WIDTH-1) ||
+                    (isInitial && y == 0) ||
+                    Random.value < this.WallInitialChance)
+                {
+                    zone[x, y] = TileType.Wall;
+                }
+                else
+                {
+                    zone[x, y] = TileType.Ground;
+                }
+            }
+
+            if (!isInitial && x % 20 == 0)
+                yield return null;
+        }
+    }
+
+    IEnumerator Iterate(bool isInitial )
     {
         IList<TilePosTuple> changes = new List<TilePosTuple>();
 
-        for (int x = 1; x < Level.SIZE-1; x++)
+        for (int x = 1; x < Level.DUNG_WIDTH-1; x++)
         {
-            for (int y = 1; y < Level.SIZE-1; y++)
+            for (int y = 1; y < Level.ZONE_SIZE-1; y++)
             {
                 int walls = 0;
 
@@ -65,7 +107,7 @@ public class CellularAutomata : MonoBehaviour
                 {
                     for (int dy = -1; dy < 2; dy++)
                     {
-                        if (Level.IsTileOfTypeAt(TileType.Wall, x + dx, y + dy))
+                        if (this.IsTileOfTypeAt(TileType.Wall, x + dx, y + dy))
                             walls++;
                     }
                 }
@@ -74,135 +116,87 @@ public class CellularAutomata : MonoBehaviour
 
                 if (walls >= WallCreateNeighbours)
                 {
-                    if (Level.IsTileOfTypeAt(TileType.Ground, x, y))
+                    if (this.IsTileOfTypeAt(TileType.Ground, x, y))
                     {
                         changes.Add(new TilePosTuple(new Point(x, y), TileType.Wall));
                     }
                 }
                 else
                 {
-                    if (Level.IsTileOfTypeAt(TileType.Wall, x, y))
+                    if (this.IsTileOfTypeAt(TileType.Wall, x, y))
                     {
                         changes.Add(new TilePosTuple(new Point(x, y), TileType.Ground));
                     }
                 }
             }
+
+            if (!isInitial && x % 20 == 0)
+                yield return null;
         }
 
 
         foreach (var change in changes)
         {
-            Level.AddTile(change.TileType, change.Pos);
+            var pos = change.Pos;
+            this.zone[pos.X, pos.Y] = change.TileType;
         }
     }
 
-
-
-    void AddToRoom(List<Point> grounds, List<Point> room, Point p)
-    {
-        if (room.Contains(p))
-            return;
-
-        grounds.Remove(p);
-        room.Add(p);
-
-        var dirs = new Point[]
-        {
-            new Point(p.X, p.Y + 1),
-            new Point(p.X, p.Y - 1),
-            new Point(p.X-1, p.Y),
-            new Point(p.X+1, p.Y)
-        };
-
-        foreach (var point in dirs)
-        {
-            var tile = Level.GetTileAt(point);
-            if (tile != null && tile.TileTipe == TileType.Ground)
-            {
-                AddToRoom(grounds, room, point);
-            } 
-        }
-    }
-
-    List<List<Point>> FindRooms()
-    {
-        var rooms = new List<List<Point>>();
-//
-//        System.Func<Point, bool> isInRoom = (p) =>
+//    IEnumerator MakeSureLevelIsPassable(bool isInitial)
+//    {
+//        for (int y = 0; y < Level.ZONE_SIZE-1; y++)
 //        {
-//            foreach (var room in rooms) 
+//            int ground = 0;
+//            for (int x = 0; x < Level.DUNG_WIDTH-1; x++)
 //            {
-//                if (room.Contains(p))
+//                if (this.IsTileOfTypeAt(TileType.Ground, x, y))
 //                {
-//                    return true;
+//                    ground++;
+//                }
+//                else
+//                {
+//                    ground--;
+//                }
+//
+//                if (!isInitial && x % 20 == 0)
+//                    yield return null;
+//
+//                if (ground > 1)
+//                {
+//                    break;
 //                }
 //            }
-//            return false ; 
-//        };
 //
-        var grounds = new List<Point>();
-        for (int x = 1; x < Level.SIZE-1; x++)
-        {
-            for (int y = 1; y < Level.SIZE-1; y++)
-            {
-                Point p = new Point(x, y);
-                if (Level.IsTileOfTypeAt(TileType.Ground, p))
-                {
-                    grounds.Add(p);
-                }
-            }
-        }
+//            if (ground > 1)
+//            {
+//                continue;
+//            }
+//
+//            Debug.Log("Had to clear on " + y.ToString());
+////
+////            for (int i = 0; i < Random.Range(1, 4); i++) 
+////            {
+////                int x = Random.Range(0, Level.DUNG_WIDTH-1);
+////                this.zone[x, y] = TileType.Ground;
+////            }
+//        }
+//
+//    }
 
-        while(grounds.Count > 0)
-        {
-            var room = new List<Point>();
-            AddToRoom(grounds, room, grounds[0]);
-            rooms.Add(room);
-        }
-
-        return rooms;
-    }
-
-    IEnumerator Generate()
+    bool IsTileOfTypeAt(TileType type, int x, int y)
     {
-        this.GenerateInitialWalls();
+        if (x < 0) 
+            return false;
+        if (x >= Level.DUNG_WIDTH) 
+            return false;
+        if (y >= Level.ZONE_SIZE) 
+            return false;
 
-        if (DelayBetweenIterations > 0f)
+        if (y < 0)
         {
-            yield return new WaitForSeconds(DelayBetweenIterations);
+            return Level.IsTileOfTypeAt(type, x, y);
         }
-
-        for (int i = 0; i < Iterations; i++)
-        {
-            Iterate();
-
-            if (DelayBetweenIterations > 0f)
-            {
-                yield return new WaitForSeconds(DelayBetweenIterations);
-            }        
-        }
-
-        var rooms = FindRooms();
-
-        if (DelayBetweenIterations > 0f)
-        {
-            yield return new WaitForSeconds(DelayBetweenIterations);
-        }
-       
-        for (int i = rooms.Count - 1; i >= 0; i--)
-        {
-            var room = rooms[i];
-            if (room.Count < RemoveRoomsWithLessThan)
-            {
-                foreach (var p in room)
-                {
-                    Level.AddTile(TileType.Wall, p);
-                }
-                rooms.RemoveAt(i);
-            }
-        }
-
-        Debug.Log("Rooms " + rooms.Count);
+        return this.zone[x, y] == type;
 
     }
 }
