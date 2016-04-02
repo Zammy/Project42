@@ -10,7 +10,7 @@ public class Glue : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-	    this.Crew.LoadCrew( new CrewType[] { CrewType.Assualt, CrewType.Marine, CrewType.Medic } );
+        this.Crew.LoadCrew( new CrewType[] { CrewType.Assault, CrewType.Medic, CrewType.Medic } );
 	}
 	
 

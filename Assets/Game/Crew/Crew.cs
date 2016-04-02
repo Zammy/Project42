@@ -7,8 +7,8 @@ public class Crew : MonoBehaviour
     public GameObject CrewMemberPrefab;
     public float TempSpeed;
 
-    const float HORZ_CREW_POS = 0.557f;
-    const float VERT_CREW_POS = 0.318f;
+    const float HORZ_CREW_POS = 0.25f;
+    const float VERT_CREW_POS = 0.25f;
 
     CrewMember[] crew;
 
@@ -98,6 +98,8 @@ public class Crew : MonoBehaviour
         move.Normalize();
         move = move * (Time.fixedDeltaTime * TempSpeed);
         this.transform.position += move;
+
+        Camera.main.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, -10);
     }
 
     void LookAt()
@@ -106,9 +108,11 @@ public class Crew : MonoBehaviour
         Vector3 cursorWorldPos = Camera.main.ScreenToWorldPoint(cursorScreenPos);
         cursorWorldPos.z = 0;
 
+        this.transform.xLookAt(cursorWorldPos);
+
         foreach (var crewMember in crew)
         {
-            crewMember.LookAtCursor(cursorWorldPos);
+            crewMember.PointWeaponAtCursor(cursorWorldPos);
         }
     }
 
