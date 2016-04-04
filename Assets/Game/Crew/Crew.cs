@@ -5,11 +5,12 @@ using System.Collections.Generic;
 public class Crew : MonoBehaviour 
 {
     public GameObject CrewMemberPrefab;
+    public GameObject LOSMeshPrefab;
     public float TempSpeed;
+    public LevelExt Level;
 
     const float HORZ_CREW_POS = 0.25f;
     const float VERT_CREW_POS = 0.25f;
-
     CrewMember[] crew;
 
     public void LoadCrew(CrewType[] crewTypes)
@@ -47,6 +48,7 @@ public class Crew : MonoBehaviour
             var crewMember = InstantiateCrewMember(pos);
             crewMember.SetCrewType(type);
             crewMember.Weapon.IsFriendly = true;
+
             this.crew[i] = crewMember;
         }
     }
@@ -59,7 +61,25 @@ public class Crew : MonoBehaviour
         crewMemberGo.transform.SetParent( this.transform );
         crewMemberGo.transform.localScale = Vector3.one;
 
-        return crewMemberGo.GetComponent<CrewMember>();
+        var losMeshGo = (GameObject) Instantiate(LOSMeshPrefab, pos, Quaternion.identity);
+        losMeshGo.transform.SetParent( Camera.main.transform );
+//        losMeshGo.transform.localScale = Vector3.one;
+
+        crewMemberGo.GetComponent<LineOfSightDrawer>().LOS = losMeshGo.transform;
+
+        var member = crewMemberGo.GetComponent<CrewMember>();
+        return member;
+    }
+
+    void GenLineOfSight()
+    {
+        var pois = this.Level.GetPOIS();
+        foreach (var member in crew)
+        {
+            var losDrawer = member.GetComponent<LineOfSightDrawer>();
+
+            losDrawer.GenerateLOSMesh(pois);
+        }
     }
 
     void Movement()
@@ -132,5 +152,10 @@ public class Crew : MonoBehaviour
         this.Movement();
         this.LookAt();
         this.FireWeapons();
+    }
+
+    void LateUpdate()
+    {
+        this.GenLineOfSight();
     }
 }

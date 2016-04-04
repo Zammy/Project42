@@ -37,21 +37,14 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (this.IsFriendly && collider.tag == "Crew")
+        if (collider.tag == "Wall") //TODO: add mobs
         {
-            return;
+            //explode
+            Instantiate(ExplodePrefab, this.transform.position, Quaternion.identity);
+
+            //TODO: deal damage
+
+            Destroy(this.gameObject);
         }
-
-        if (collider.tag == "Projectile")
-        {
-            return;
-        }
-
-        //explode
-        Instantiate(ExplodePrefab, this.transform.position, Quaternion.identity);
-
-        //TODO: deal damage
-
-        Destroy(this.gameObject);
     }
 }

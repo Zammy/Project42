@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditor;
 using System.Collections.Generic;
 
 
-public class PlayerExt1 : MonoBehaviour 
+public class LineOfSightDrawer : MonoBehaviour 
 {
     private class POIComparer : IComparer<POI>
     {   
@@ -34,47 +33,27 @@ public class PlayerExt1 : MonoBehaviour
         #endregion
     }
 
-    public LevelExt1 Level;
-    public Transform LOS;
+    public Transform LOS { get; set;}
 
-    public GameObject DebugPointPrefab;
-
-    List<POI> pois;
     List<Vector3> vertices = new List<Vector3>();
     List<int> triangles = new List<int>();
 
     const float GOES_THROUGH = 0.7071f;
     const float IGNORE = -0.7071f;
 
-
-    void Start()
+    void FixedUpdate()
     {
-        var meshFilter = this.LOS.GetComponent<MeshFilter>();
-        var m = new Mesh();
-        meshFilter.mesh = m;
-    }
-
-    void Update()
-    {
-        GenerateLOSMesh();
-    }
-
-    void DrawHelpPointAt(int i, Vector3 at, Color color)
-    {
-        GameObject go;
-        go = (GameObject)Instantiate(DebugPointPrefab);
-        go.GetComponent<SpriteRenderer>().color = color;
-        go.transform.position = at;
+        this.LOS.position = new Vector3(this.transform.position.x, this.transform.position.y, -1f);
     }
 
 	// Use this for initialization
-	void GenerateLOSMesh ()
+	public void GenerateLOSMesh (List<POI> pois)
     {
-        float rayLength = Camera.main.orthographicSize * 2 * Camera.main.aspect + 100;
+        int mask = LayerMask.GetMask(new string[] { "SightBlock" } );
+
+        float rayLength = /*Camera.main.orthographicSize * 2 * Camera.main.aspect + */ 100f;
         Quaternion bitBack = Quaternion.AngleAxis(-0.1f, Vector3.forward);
         Quaternion bitForward = Quaternion.AngleAxis(0.1f, Vector3.forward);
-
-        this.pois = this.Level.GetPOIS();
 
         Vector3 playerPos = this.transform.position;
         vertices.Clear();
@@ -91,7 +70,7 @@ public class PlayerExt1 : MonoBehaviour
             float dot = Vector3.Dot(fromPOItoPosDir, poi.GetNormal());
             if (dot > GOES_THROUGH)
             {
-                RaycastHit2D hit = Physics2D.Raycast(playerPos, -fromPOItoPos, rayLength);
+                RaycastHit2D hit = Physics2D.Raycast(playerPos, -fromPOItoPos, rayLength, mask);
                 if (hit != null)
                 {
                     Vector3 point = new Vector3(hit.point.x, hit.point.y);// + fromPOItoPosDir * ExtraMargin;
@@ -104,14 +83,14 @@ public class PlayerExt1 : MonoBehaviour
 
                 Vector3 bitBeforeRotated = bitBack * posToPoi;
 
-                RaycastHit2D hit = Physics2D.Raycast(playerPos, bitBeforeRotated, rayLength);
+                RaycastHit2D hit = Physics2D.Raycast(playerPos, bitBeforeRotated, rayLength, mask);
                 if (hit != null)
                 {
                     Vector3 point = new Vector3(hit.point.x, hit.point.y);// + fromPOItoPosDir * ExtraMargin;
                     vertices.Add(point- playerPos);
                 }
 
-                hit = Physics2D.Raycast(playerPos, posToPoi, rayLength);
+                hit = Physics2D.Raycast(playerPos, posToPoi, rayLength, mask);
                 if (hit != null)
                 {
                     Vector3 point = new Vector3(hit.point.x, hit.point.y);// + fromPOItoPosDir * ExtraMargin;
@@ -120,7 +99,7 @@ public class PlayerExt1 : MonoBehaviour
 
                 Vector3 bitAfterRotate = bitForward * posToPoi;
 
-                hit = Physics2D.Raycast(playerPos, bitAfterRotate, rayLength);
+                hit = Physics2D.Raycast(playerPos, bitAfterRotate, rayLength, mask);
                 if (hit != null)
                 {
                     Vector3 point = new Vector3(hit.point.x, hit.point.y);// + fromPOItoPosDir * ExtraMargin;

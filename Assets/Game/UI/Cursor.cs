@@ -12,7 +12,7 @@ public class Cursor : MonoBehaviour
     {
         Vector3 cursorScreenPos = Input.mousePosition;
         Vector3 cursorWorldPos = Camera.main.ScreenToWorldPoint(cursorScreenPos);
-        cursorWorldPos.z = 0;
+        cursorWorldPos.z = -9;
 
         this.transform.position = cursorWorldPos;
 	}
