@@ -29,12 +29,16 @@ public class CellularAutomata : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
+	}
+
+    public void GenerateDungeon()
+    {
         Level.AddRoom(0, 0, Level.SIZE);
 
         Random.seed =  (int)System.DateTime.Now.Ticks;
 
-	    StartCoroutine(this.Generate());
-	}
+        StartCoroutine(this.Generate());
+    }
 
     void GenerateInitialWalls()
     {
@@ -127,19 +131,6 @@ public class CellularAutomata : MonoBehaviour
     List<List<Point>> FindRooms()
     {
         var rooms = new List<List<Point>>();
-//
-//        System.Func<Point, bool> isInRoom = (p) =>
-//        {
-//            foreach (var room in rooms) 
-//            {
-//                if (room.Contains(p))
-//                {
-//                    return true;
-//                }
-//            }
-//            return false ; 
-//        };
-//
         var grounds = new List<Point>();
         for (int x = 1; x < Level.SIZE-1; x++)
         {

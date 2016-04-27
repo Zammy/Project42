@@ -6,13 +6,25 @@ public class Glue : MonoBehaviour
     //Set through Unity
     public Crew Crew;
     public LevelExt Level;
+    public CellularAutomata CelAut;
+
+    public Transform PremadeLevel;
     //
 
 	// Use this for initialization
-	void Start () 
+	void Awake () 
     {
-        this.Crew.LoadCrew( new CrewType[] { CrewType.Assault/*, CrewType.Marine , CrewType.Medic */} );
-	}
+        if (PremadeLevel.gameObject.activeSelf && PremadeLevel.childCount > 0)
+        {
+            this.Level.GetTilesFrom(PremadeLevel);
+        }
+        else
+        {
+            this.CelAut.GenerateDungeon();
+        }
+
+        this.Crew.LoadCrew( new CrewType[] { CrewType.Assault /*, CrewType.Marine , CrewType.Medic*/ } );
+    }
 	
 
 }

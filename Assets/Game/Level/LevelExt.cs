@@ -7,7 +7,8 @@ public enum POINormal
     NE,
     NW,
     SE,
-    SW
+    SW,
+    EdgeSight
 }
 
 public class POI //point of interest
@@ -45,7 +46,7 @@ public class POI //point of interest
             case POINormal.SW:
                 return sw;
             default:
-                throw new UnityException("This should not happen!");
+                return Vector3.zero;
         }
     }
 
@@ -73,7 +74,6 @@ public class LevelExt : Level
     public BoxCollider2D RightSightStopper;
     public BoxCollider2D LeftSightStopper;
 
-    public GameObject DebugPoint;
 
     List<POI> pointsOfInterest = new List<POI>();
 
@@ -82,10 +82,12 @@ public class LevelExt : Level
         base.Awake();
     }
 
+    #if LOS_DEBUG
+    public GameObject DebugPoint;
 
     int debugIndex = 0;
     List<GameObject> debugPoints = new List<GameObject>();
-    void AddDebugPoint(Vector3 pos)
+    public void AddDebugPoint(Vector3 pos)
     {
         GameObject pointGo;
         if (debugIndex >= debugPoints.Count )
@@ -102,15 +104,27 @@ public class LevelExt : Level
         pointGo.SetActive(true);
         debugIndex++;
     }
+    #endif
+
+    public void GetTilesFrom(Transform parent)
+    {
+        foreach (Transform tileTrns in parent)
+        {
+            var pos = tileTrns.position;
+            this.tiles[ (int)pos.x, (int) pos.y ] = tileTrns.gameObject.GetComponent<Tile>();
+        }
+    }
 
     public List<POI> GetPOIS()
     {
+        #if LOS_DEBUG
         debugIndex = 0;
 
         foreach (var point in debugPoints)
         {
             point.gameObject.SetActive(false);
         }
+        #endif
 
         pointsOfInterest.Clear();
 
@@ -147,18 +161,15 @@ public class LevelExt : Level
         foreach (var wall in walls)
         {
             Vector3 wallPos = wall.transform.position;
-            var pois = new List<POI>()
-            {
-                new POI( new Vector3( wallPos.x + 0.5f, wallPos.y + 0.5f, 0), POINormal.NE ),
-                new POI( new Vector3( wallPos.x + 0.5f, wallPos.y - 0.5f, 0), POINormal.SE ),
-                new POI( new Vector3( wallPos.x - 0.5f, wallPos.y - 0.5f, 0), POINormal.SW ),
-                new POI( new Vector3( wallPos.x - 0.5f, wallPos.y + 0.5f, 0), POINormal.NW ),
-            };
-
+            var pois = new List<POI>();
             bool toNorth = false;
             bool toSouth = false;
             bool toEast = false;
             bool toWest = false;
+            bool toNorthEast = false;
+            bool toNorthWest = false;
+            bool toSouthWest = false;
+            bool toSouthEast = false;
 
             Tile tile = GetTileAt( (int)wallPos.x, (int)wallPos.y + 1 );
             toNorth = (tile != null && tile.TileTipe == TileType.Wall);
@@ -172,41 +183,76 @@ public class LevelExt : Level
             tile = GetTileAt( (int)wallPos.x - 1, (int)wallPos.y );
             toWest = (tile != null && tile.TileTipe == TileType.Wall);
 
-            if ((toEast && !toNorth) || (!toEast && toNorth))
+            tile = GetTileAt( (int)wallPos.x + 1, (int)wallPos.y + 1 );
+            toNorthEast = (tile != null && tile.TileTipe == TileType.Wall);
+
+            tile = GetTileAt( (int)wallPos.x - 1, (int)wallPos.y + 1 );
+            toNorthWest = (tile != null && tile.TileTipe == TileType.Wall);
+
+            tile = GetTileAt( (int)wallPos.x + 1, (int)wallPos.y - 1 );
+            toSouthEast = (tile != null && tile.TileTipe == TileType.Wall);
+
+            tile = GetTileAt( (int)wallPos.x - 1, (int)wallPos.y - 1 );
+            toSouthWest = (tile != null && tile.TileTipe == TileType.Wall);
+
+            if (!toNorthEast && 
+                ((toEast && toNorth) || (!toEast && !toNorth)))
             {
-                RemovePOI(pois, POINormal.NE);
+                pois.Add(new POI( new Vector3( wallPos.x + 0.5f, wallPos.y + 0.5f, 0), POINormal.NE ));
+            }
+            if (toNorthEast && !toNorth && !toEast)
+            {
+                pois.Add(new POI( new Vector3( wallPos.x + 0.5f, wallPos.y + 0.5f, 0), POINormal.NW ));
+                pois.Add(new POI( new Vector3( wallPos.x + 0.5f, wallPos.y + 0.5f, 0), POINormal.SE ));
             }
 
-            if ((toEast && !toSouth) || (!toEast && toSouth))
+            if (!toNorthWest &&
+                ((toWest && toNorth) || (!toWest && !toNorth)))
             {
-                RemovePOI(pois, POINormal.SE);
+                pois.Add(new POI( new Vector3( wallPos.x - 0.5f, wallPos.y + 0.5f, 0), POINormal.NW ));
+            }
+            if (toNorthWest && !toNorth && !toWest )
+            {
+                pois.Add(new POI( new Vector3( wallPos.x - 0.5f, wallPos.y + 0.5f, 0), POINormal.NE ));
+                pois.Add(new POI( new Vector3( wallPos.x - 0.5f, wallPos.y + 0.5f, 0), POINormal.SW ));
             }
 
-            if ((toSouth && !toWest) || (!toSouth && toWest))
+            if (!toSouthEast &&
+                (toSouth && toEast) || (!toSouth && !toEast))
             {
-                RemovePOI(pois, POINormal.SW);
+                pois.Add(new POI( new Vector3( wallPos.x + 0.5f, wallPos.y - 0.5f, 0), POINormal.SE));
+            }
+            if (toSouthEast && !toSouth && !toEast)
+            {
+                pois.Add(new POI( new Vector3( wallPos.x - 0.5f, wallPos.y - 0.5f, 0), POINormal.NE ));
+                pois.Add(new POI( new Vector3( wallPos.x - 0.5f, wallPos.y - 0.5f, 0), POINormal.SW ));
             }
 
-            if ((toWest && !toNorth) || (!toWest && toNorth))
+
+            if (!toSouthWest &&
+                (toSouth && toWest) || (!toSouth && !toWest))
             {
-                RemovePOI(pois, POINormal.NW);
+                pois.Add(new POI( new Vector3( wallPos.x - 0.5f, wallPos.y - 0.5f, 0), POINormal.SW ));
             }
+            if (toSouthWest && !toSouth && !toWest)
+            {
+                pois.Add(new POI( new Vector3( wallPos.x - 0.5f, wallPos.y - 0.5f, 0), POINormal.NW ));
+                pois.Add(new POI( new Vector3( wallPos.x - 0.5f, wallPos.y - 0.5f, 0), POINormal.SE ));
+            }
+
 
             var wallCollider = wall.GetComponent<BoxCollider2D>();
-
             if (TopSightStopper.bounds.Intersects(wallCollider.bounds))
             {
                 Vector3 pointPos = wall.transform.position;
                 if (!toEast)
                 {
                     var pos = new Vector3(pointPos.x + 0.5f, TopSightStopper.transform.position.y, 0);
-//                    AddDebugPoint(pos);
                     pois.Add(new POI(pos, POINormal.SE));
                 }
                 if (!toWest)
                 {
                     var pos = new Vector3(pointPos.x - 0.5f, TopSightStopper.transform.position.y, 0);
-//                    AddDebugPoint(pos);
                     pois.Add(new POI(pos, POINormal.SW));
                 }
             }
@@ -217,13 +263,11 @@ public class LevelExt : Level
                 if (!toEast)
                 {
                     var pos = new Vector3(pointPos.x + 0.5f, BottomSightStopper.transform.position.y, 0);
-//                    AddDebugPoint(pos);
                     pois.Add(new POI(pos, POINormal.NE));
                 }
                 if (!toWest)
                 {
                     var pos = new Vector3(pointPos.x - 0.5f, BottomSightStopper.transform.position.y, 0);
-//                    AddDebugPoint(pos);
                     pois.Add(new POI(pos, POINormal.NW));
                 }
             }
@@ -234,13 +278,11 @@ public class LevelExt : Level
                 if (!toNorth)
                 {
                     var pos = new Vector3(RightSightStopper.transform.position.x, wall.transform.position.y + 0.5f, 0);
-//                    AddDebugPoint(pos);
                     pois.Add(new POI(pos, POINormal.NW));
                 }
                 if (!toSouth)
                 {
                     var pos = new Vector3(RightSightStopper.transform.position.x, wall.transform.position.y - 0.5f, 0);
-//                    AddDebugPoint(pos);
                     pois.Add(new POI(pos, POINormal.SW));
                 }
             }
@@ -251,19 +293,24 @@ public class LevelExt : Level
                 if (!toNorth)
                 {
                     var pos = new Vector3(LeftSightStopper.transform.position.x, wall.transform.position.y + 0.5f, 0);
-//                    AddDebugPoint(pos);
                     pois.Add(new POI(pos, POINormal.NE));
                 }
                 if (!toSouth)
                 {
                     var pos = new Vector3(LeftSightStopper.transform.position.x, wall.transform.position.y - 0.5f, 0);
-//                    AddDebugPoint(pos);
                     pois.Add(new POI(pos, POINormal.SE));
                 }
             }
 
             pointsOfInterest.AddRange(pois);
         }
+
+        #if LOS_DEBUG
+        foreach (var p in pointsOfInterest)
+        {
+            AddDebugPoint(p.Pos);
+        }
+        #endif
 
         return pointsOfInterest;
      }
