@@ -4,13 +4,11 @@ using System.Collections.Generic;
 
 public class CrewMember : MonoBehaviour 
 {
-    //Set through Unity
-    public GameObject PistolPrefab;
-    public GameObject AssaultRilfePrefab;
-    public GameObject ShotgunPrefab;
-    //
-
-    Dictionary<CrewType, GameObject> crewTypeToWeapPrefab;
+    public CharacterInfo CharInfo 
+    {
+        get;
+        private set;
+    }
 
     public Weapon Weapon
     {
@@ -18,19 +16,11 @@ public class CrewMember : MonoBehaviour
         set;
     }
 
-    void Awake()
+    public void SetCharacterInfo(CharacterInfo charInfo)
     {
-        crewTypeToWeapPrefab = new Dictionary<CrewType, GameObject>()
-        {
-            { CrewType.Marine, AssaultRilfePrefab },
-            { CrewType.Assault, ShotgunPrefab},
-            { CrewType.Medic, PistolPrefab }
-        };
-    }
+        this.CharInfo = GameObject.Instantiate(charInfo) as CharacterInfo;
 
-	public void SetCrewType(CrewType type)
-    {
-        GameObject weaponPrefab = crewTypeToWeapPrefab[type];
+        GameObject weaponPrefab = this.CharInfo.Weapon;
 
         var weaponGo = (GameObject) Instantiate(weaponPrefab, this.transform.position, Quaternion.identity);
         weaponGo.transform.SetParent(this.transform);

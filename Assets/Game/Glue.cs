@@ -9,6 +9,8 @@ public class Glue : MonoBehaviour
     public CellularAutomata CelAut;
 
     public Transform PremadeLevel;
+
+    public CharacterInfo[] Characters;
     //
 
 	// Use this for initialization
@@ -23,7 +25,7 @@ public class Glue : MonoBehaviour
             this.CelAut.GenerateDungeon();
         }
 
-        this.Crew.LoadCrew( new CrewType[] { CrewType.Assault /*, CrewType.Marine , CrewType.Medic*/ } );
+        this.Crew.LoadCrew(  Characters );
     }
 	
 

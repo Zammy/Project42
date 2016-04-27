@@ -5,27 +5,27 @@ using System.Collections.Generic;
 public class Crew : MonoBehaviour 
 {
     public GameObject CrewMemberPrefab;
+
     public GameObject LOSMeshPrefab;
-    public float TempSpeed;
     public LevelExt Level;
 
     const float HORZ_CREW_POS = 0.25f;
     const float VERT_CREW_POS = 0.25f;
     CrewMember[] crew;
 
-    public void LoadCrew(CrewType[] crewTypes)
+    public void LoadCrew(CharacterInfo[] characters)
     {
         var crewPoses = new List<Vector3>();
-        if (crewTypes.Length == 1)
+        if (characters.Length == 1)
         {
             crewPoses.Add(Vector3.zero);
         }
-        else if (crewTypes.Length == 2)
+        else if (characters.Length == 2)
         {
             crewPoses.Add(new Vector3(-HORZ_CREW_POS, 0));
             crewPoses.Add(new Vector3(+HORZ_CREW_POS, 0));
         }
-        else if (crewTypes.Length == 3)
+        else if (characters.Length == 3)
         {
             crewPoses.Add(new Vector3(-HORZ_CREW_POS, VERT_CREW_POS));
             crewPoses.Add(new Vector3(+HORZ_CREW_POS, VERT_CREW_POS));
@@ -39,18 +39,17 @@ public class Crew : MonoBehaviour
             crewPoses.Add(new Vector3(+HORZ_CREW_POS, -VERT_CREW_POS));
         }
 
-        this.crew = new CrewMember[crewTypes.Length];
-
-        for (int i = 0; i < crewTypes.Length; i++)
+        this.crew = new CrewMember[characters.Length];
+        for (int i = 0; i < characters.Length; i++)
         {
             Vector3 pos = crewPoses[i];
-            CrewType type = crewTypes[i] ;
             var crewMember = InstantiateCrewMember(pos);
-            crewMember.SetCrewType(type);
+            crewMember.SetCharacterInfo(characters[i]);
             crewMember.Weapon.IsFriendly = true;
 
             this.crew[i] = crewMember;
         }
+
     }
 
     CrewMember InstantiateCrewMember(Vector3 localPos)
@@ -71,19 +70,20 @@ public class Crew : MonoBehaviour
         return member;
     }
 
-    void GenLineOfSight()
-    {
-        var pois = this.Level.GetPOIS();
-        foreach (var member in crew)
-        {
-            var losDrawer = member.GetComponent<LineOfSightDrawer>();
-
-            losDrawer.GenerateLOSMesh(pois);
-        }
-    }
-
     void Movement()
     {
+        float lowestSpeed = float.MaxValue;
+        foreach (var crewMember in crew)
+        {
+            float speed = crewMember.CharInfo.Speed;
+            if (crewMember.CharInfo.Speed < lowestSpeed)
+            {
+                lowestSpeed = speed;
+            }
+        }
+        this.GetComponent<CharacterMovement>().Speed = lowestSpeed;
+
+
         float horz = 0f;
         float vert = 0f;
         //        float horz = Input.GetAxis("Horizontal");
@@ -106,18 +106,20 @@ public class Crew : MonoBehaviour
         {
             vert = -1f;
         }
-        Vector3 move = new Vector3();
+        Vector3 dir = new Vector3();
         if (!Mathf.Approximately(horz, 0f))
         {
-            move.x = horz;
+            dir.x = horz;
         }
         if (!Mathf.Approximately(vert, 0f))
         {
-            move.y = vert;
+            dir.y = vert;
         }
-        move.Normalize();
-        move = move * (Time.fixedDeltaTime * TempSpeed);
-        this.transform.position += move;
+        dir.Normalize();
+
+        Debug.Log("Direction " + dir.ToString());
+
+        this.GetComponent<CharacterMovement>().Direction = dir;
 
         Camera.main.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, -10);
     }
@@ -156,6 +158,17 @@ public class Crew : MonoBehaviour
 
     void LateUpdate()
     {
-        this.GenLineOfSight();
+//        this.GenLineOfSight();
+    }
+
+    void GenLineOfSight()
+    {
+        var pois = this.Level.GetPOIS();
+        foreach (var member in crew)
+        {
+            var losDrawer = member.GetComponent<LineOfSightDrawer>();
+
+            losDrawer.GenerateLOSMesh(pois);
+        }
     }
 }
