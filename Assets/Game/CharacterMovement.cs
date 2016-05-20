@@ -13,7 +13,7 @@ public class CharacterMovement : MonoBehaviour
         set;
     }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (Direction.sqrMagnitude < 0.5f)
             return;

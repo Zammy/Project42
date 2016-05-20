@@ -117,11 +117,7 @@ public class Crew : MonoBehaviour
         }
         dir.Normalize();
 
-        Debug.Log("Direction " + dir.ToString());
-
         this.GetComponent<CharacterMovement>().Direction = dir;
-
-        Camera.main.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, -10);
     }
 
     void LookAt()
