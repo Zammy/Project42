@@ -33,8 +33,9 @@ public class AvoidWalls : AIBehavior
 
             wallsAround[i].DebugHighlight = true;
 
-            magnitude = (Range - diff.magnitude) / diff.magnitude;
-            diff = diff.normalized * magnitude * this.Strength;
+            float finalMagnitude = Mathf.Pow(Range - diff.magnitude, 4);
+
+            diff = diff.normalized * finalMagnitude * this.Strength;
             danger.Add(diff);
         }
 
