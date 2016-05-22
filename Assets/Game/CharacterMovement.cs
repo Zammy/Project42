@@ -7,7 +7,7 @@ public class CharacterMovement : MonoBehaviour
     public float Speed;
     //
 
-    public Vector2 Direction
+    public Vector2 MovementDirection
     {
         get;
         set;
@@ -15,10 +15,10 @@ public class CharacterMovement : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        if (Direction.sqrMagnitude < 0.5f)
+        if (MovementDirection.sqrMagnitude < 0.5f)
             return;
 
-        var move = new Vector3(this.Direction.x, this.Direction.y) * (this.Speed * Time.fixedDeltaTime);
-        this.transform.position += move;
+        var move = new Vector3(this.MovementDirection.x, this.MovementDirection.y) * (this.Speed * Time.fixedDeltaTime);
+        transform.position += move;
     }
 }

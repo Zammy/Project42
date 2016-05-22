@@ -117,7 +117,7 @@ public class Crew : MonoBehaviour
         }
         dir.Normalize();
 
-        this.GetComponent<CharacterMovement>().Direction = dir;
+        this.GetComponent<CharacterMovement>().MovementDirection = dir;
     }
 
     void LookAt()

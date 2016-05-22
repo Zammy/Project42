@@ -1,37 +1,75 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CreatureMovement : CharacterMovement 
 {
+    //public float AngularSpeed = 360f;
+
     AIBehavior[] behaviors;
 
-    
+    List<Vector2[]> interestMaps = new List<Vector2[]>();
+    List<Vector2[]> dangerMaps = new List<Vector2[]>();
+
 	void Start () 
     {
         this.behaviors = this.GetComponents<AIBehavior>();
-	}
+    }
 
     protected override void FixedUpdate()
     {
-        Vector2 dir = Vector2.zero;
+        this.interestMaps.Clear();
+        this.dangerMaps.Clear();
+
         foreach (var beh in behaviors)
         {
             if (beh.isActiveAndEnabled)
             {
-                dir += beh.CalculateDirection();
+                var interest = beh.GetInterest();
+                interestMaps.Add(interest);
+
+                var danger = beh.GetDanger();
+                dangerMaps.Add(danger);
             }
         }
 
-        if (dir.sqrMagnitude > 0.05f)
+        Vector2 newDirection = Vector2.zero;
+        for (int i = 0; i < interestMaps.Count; i++)
         {
-            this.transform.xLookAt(this.transform.position + new Vector3(dir.x, dir.y));
+            var interestMap = interestMaps[i];
+            for (int y = 0; y < interestMap.Length; y++)
+            {
+                newDirection += interestMap[y];
+            }
+        }
 
-            dir.Normalize();
-            this.Direction = dir;
+        if (newDirection != Vector2.zero)
+        {
+            for (int i = 0; i < dangerMaps.Count; i++)
+            {
+                var dangerMap = dangerMaps[i];
+                for (int y = 0; y < dangerMap.Length; y++)
+                {
+                    newDirection += dangerMap[y];
+                }
+            }
+        }
+
+        newDirection.Normalize();
+
+        if (newDirection.sqrMagnitude > 0.5f)
+        {
+            this.MovementDirection = newDirection;
+            this.transform.xLookAt(this.transform.position + newDirection.xToVector3());
+
+            //float angle = transform.up.xAngleSigned(MovementDirection, transform.forward);
+            //float perFrame = Time.fixedDeltaTime * AngularSpeed;
+            //float clampedAngle = Mathf.Clamp(angle, -perFrame, perFrame);
+            //transform.Rotate(transform.forward, clampedAngle);
         }
         else
         {
-            this.Direction = Vector2.zero;
+            this.MovementDirection = Vector2.zero;
         }
 
         base.FixedUpdate();

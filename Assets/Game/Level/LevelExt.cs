@@ -106,15 +106,6 @@ public class LevelExt : Level
     }
     #endif
 
-    public void GetTilesFrom(Transform parent)
-    {
-        foreach (Transform tileTrns in parent)
-        {
-            var pos = tileTrns.position;
-            this.tiles[ (int)pos.x, (int) pos.y ] = tileTrns.gameObject.GetComponent<Tile>();
-        }
-    }
-
     public List<POI> GetPOIS()
     {
         #if LOS_DEBUG
