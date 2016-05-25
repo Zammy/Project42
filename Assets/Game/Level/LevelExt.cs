@@ -233,9 +233,9 @@ public class LevelExt : Level
 
 
             var wallCollider = wall.GetComponent<BoxCollider2D>();
+            Vector3 pointPos = wall.transform.position;
             if (TopSightStopper.bounds.Intersects(wallCollider.bounds))
             {
-                Vector3 pointPos = wall.transform.position;
                 if (!toEast)
                 {
                     var pos = new Vector3(pointPos.x + 0.5f, TopSightStopper.transform.position.y, 0);
@@ -250,7 +250,6 @@ public class LevelExt : Level
             
             if (BottomSightStopper.bounds.Intersects(wallCollider.bounds))
             {
-                Vector3 pointPos = wall.transform.position;
                 if (!toEast)
                 {
                     var pos = new Vector3(pointPos.x + 0.5f, BottomSightStopper.transform.position.y, 0);
@@ -265,30 +264,28 @@ public class LevelExt : Level
 
             if (RightSightStopper.bounds.Intersects(wallCollider.bounds))
             {
-                Vector3 pointPos = wall.transform.position;
                 if (!toNorth)
                 {
-                    var pos = new Vector3(RightSightStopper.transform.position.x, wall.transform.position.y + 0.5f, 0);
+                    var pos = new Vector3(RightSightStopper.transform.position.x, pointPos.y + 0.5f, 0);
                     pois.Add(new POI(pos, POINormal.NW));
                 }
                 if (!toSouth)
                 {
-                    var pos = new Vector3(RightSightStopper.transform.position.x, wall.transform.position.y - 0.5f, 0);
+                    var pos = new Vector3(RightSightStopper.transform.position.x, pointPos.y - 0.5f, 0);
                     pois.Add(new POI(pos, POINormal.SW));
                 }
             }
 
             if (LeftSightStopper.bounds.Intersects(wallCollider.bounds))
             {
-                Vector3 pointPos = wall.transform.position;
                 if (!toNorth)
                 {
-                    var pos = new Vector3(LeftSightStopper.transform.position.x, wall.transform.position.y + 0.5f, 0);
+                    var pos = new Vector3(LeftSightStopper.transform.position.x, pointPos.y + 0.5f, 0);
                     pois.Add(new POI(pos, POINormal.NE));
                 }
                 if (!toSouth)
                 {
-                    var pos = new Vector3(LeftSightStopper.transform.position.x, wall.transform.position.y - 0.5f, 0);
+                    var pos = new Vector3(LeftSightStopper.transform.position.x, pointPos.y - 0.5f, 0);
                     pois.Add(new POI(pos, POINormal.SE));
                 }
             }

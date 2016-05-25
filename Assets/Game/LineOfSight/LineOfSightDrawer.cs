@@ -103,7 +103,7 @@ public class LineOfSightDrawer : MonoBehaviour
         var rotation = Quaternion.AngleAxis(FOV/2, -Vector3.forward);
         Vector3 dir = rotation * this.transform.up;
         hit = Physics2D.Raycast(playerPos, dir, rayLength, mask);
-        if (hit != null)
+        if (hit.collider != null)
         {
             Vector3 point = new Vector3(hit.point.x, hit.point.y);
             pois.Add(new POI(point, POINormal.EdgeSight));
@@ -112,7 +112,7 @@ public class LineOfSightDrawer : MonoBehaviour
         rotation = Quaternion.AngleAxis(-FOV/2, -Vector3.forward);
         dir = rotation * this.transform.up;
         hit = Physics2D.Raycast(playerPos, dir, rayLength, mask);
-        if (hit != null)
+        if (hit.collider != null)
         {
             Vector3 point = new Vector3(hit.point.x, hit.point.y);
             pois.Add(new POI(point, POINormal.EdgeSight));
@@ -148,7 +148,7 @@ public class LineOfSightDrawer : MonoBehaviour
             if (dot > GOES_THROUGH)
             {
                 hit = Physics2D.Raycast(playerPos, posToPoi, rayLength, mask);
-                if (hit != null)
+                if (hit.collider != null)
                 {
                     Vector3 point = new Vector3(hit.point.x, hit.point.y);
                     vertices.Add(point - playerPos);
@@ -159,14 +159,14 @@ public class LineOfSightDrawer : MonoBehaviour
                 Vector3 bitBeforeRotated = bitBack * posToPoi;
 
                 hit = Physics2D.Raycast(playerPos, bitBeforeRotated, rayLength, mask);
-                if (hit != null)
+                if (hit.collider != null)
                 {
                     Vector3 point = new Vector3(hit.point.x, hit.point.y);
                     vertices.Add(point- playerPos);
                 }
 
                 hit = Physics2D.Raycast(playerPos, posToPoi, rayLength, mask);
-                if (hit != null)
+                if (hit.collider != null)
                 {
                     Vector3 point = new Vector3(hit.point.x, hit.point.y);
                     vertices.Add(point- playerPos);
@@ -175,7 +175,7 @@ public class LineOfSightDrawer : MonoBehaviour
                 Vector3 bitAfterRotate = bitForward * posToPoi;
 
                 hit = Physics2D.Raycast(playerPos, bitAfterRotate, rayLength, mask);
-                if (hit != null)
+                if (hit.collider != null)
                 {
                     Vector3 point = new Vector3(hit.point.x, hit.point.y);
                     vertices.Add(point - playerPos);
