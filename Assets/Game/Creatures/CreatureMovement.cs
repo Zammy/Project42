@@ -6,6 +6,8 @@ public class CreatureMovement : CharacterMovement
 {
     //public float AngularSpeed = 360f;
 
+    public Animator Animator;
+
     AIBehavior[] behaviors;
 
     List<Vector2[]> interestMaps = new List<Vector2[]>();
@@ -66,10 +68,14 @@ public class CreatureMovement : CharacterMovement
             //float perFrame = Time.fixedDeltaTime * AngularSpeed;
             //float clampedAngle = Mathf.Clamp(angle, -perFrame, perFrame);
             //transform.Rotate(transform.forward, clampedAngle);
+
+            this.Animator.SetBool("Moving", true);
         }
         else
         {
             this.MovementDirection = Vector2.zero;
+
+            this.Animator.SetBool("Moving", false);
         }
 
         base.FixedUpdate();

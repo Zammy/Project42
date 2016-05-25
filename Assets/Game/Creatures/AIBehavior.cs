@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class AIBehavior : MonoBehaviour 
+public abstract class AIBehavior : MonoBehaviour
 {
     public static Vector2[] Empty = new Vector2[0];
 
