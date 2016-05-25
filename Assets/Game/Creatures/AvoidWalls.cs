@@ -5,24 +5,28 @@ using System.Collections.Generic;
 
 public class AvoidWalls : AIBehavior
 {
-    public Level Level;
-    public int Range = 5;
+    public int Range = 2;
 
-    void Start() { }
+    Level level;
 
-    List<Tile> previousWallsAround = null;
+    void Start()
+    {
+        level = Level.Instance;
+    }
+
+    //List<Tile> previousWallsAround = null;
 
     public override Vector2[] GetDanger()
     {
-        if (previousWallsAround != null)
-        {
-            foreach (var item in previousWallsAround)
-            {
-                item.DebugHighlight = false;
-            }
-        }
+        //if (previousWallsAround != null)
+        //{
+        //    foreach (var item in previousWallsAround)
+        //    {
+        //        item.DebugHighlight = false;
+        //    }
+        //}
 
-        List<Tile> wallsAround = Level.GetImpassableAround(this.transform.position, Range);
+        List<Tile> wallsAround = level.GetImpassableAround(this.transform.position, Range);
         var danger = new List<Vector2>();
         for (int i = 0; i < wallsAround.Count; i++)
         {
@@ -31,7 +35,7 @@ public class AvoidWalls : AIBehavior
             if (Range < magnitude)
                 continue;
 
-            wallsAround[i].DebugHighlight = true;
+            //wallsAround[i].DebugHighlight = true;
 
             float finalMagnitude = Mathf.Pow(Range - diff.magnitude, 4);
 
@@ -39,7 +43,7 @@ public class AvoidWalls : AIBehavior
             danger.Add(diff);
         }
 
-        this.previousWallsAround = wallsAround;
+        //this.previousWallsAround = wallsAround;
 
         return danger.ToArray();
     }

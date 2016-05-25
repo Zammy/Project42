@@ -3,7 +3,7 @@ using System.Collections;
 
 public class AIBehaviorTests : MonoBehaviour 
 {
-    public Seek Seek;
+    public Seek[] Seeks;
 
 	// Use this for initialization
 	void Start () {
@@ -19,7 +19,10 @@ public class AIBehaviorTests : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Seek.Goal = cursorWorldPos;
+            foreach (var seek in Seeks)
+            {
+                seek.Goal = new Vector2(cursorWorldPos.x + Random.Range(-0.5f, +0.5f), cursorWorldPos.y + Random.Range(-0.5f, +0.5f));
+            }
         }
 	}
 }

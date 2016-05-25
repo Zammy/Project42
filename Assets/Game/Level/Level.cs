@@ -3,25 +3,35 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class Level : MonoBehaviour
+public class Level : SingletonBehavior<Level>
 {
     public GameObject WallPrefab;
     public GameObject GroundPrefab;
 
     public Transform LevelBase;
+    public Transform CreaturesBase;
 
     public int SIZE = 50;
 
     protected Tile[,] tiles;
 
+    protected List<GameObject> creatures = new List<GameObject>();
+
     // Use this for initialization
-    protected virtual void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         this.tiles = new Tile[SIZE, SIZE];
+        foreach (Transform creature in CreaturesBase)
+        {
+            creatures.Add(creature.gameObject);
+        }
     }
 
-    protected virtual void Start()
+    void Start()
     {
+
         if (this.transform.childCount > 0)
         {
             this.GetTilesFrom(this.transform);
@@ -87,7 +97,6 @@ public class Level : MonoBehaviour
         this.tiles[pos.X, pos.Y] = InstantiateTile(new Vector3(pos.X, pos.Y, 0), prefab);
     }
 
-
     public Tile GetTileAt(int x, int y)
     {
         try
@@ -146,6 +155,9 @@ public class Level : MonoBehaviour
                     continue;
 
                 Tile tile = this.GetTileAt(x, y);
+                if (tile == null)
+                    continue;
+
                 if (tile.TileTipe == TileType.Wall)
                 {
                     tiles.Add(tile);
@@ -154,6 +166,22 @@ public class Level : MonoBehaviour
         }
 
         return tiles;
+    }
+
+    public List<GameObject> GetCreaturesAround(Vector3 position, int searchRange)
+    {
+        var creaturesAround = new List<GameObject>();
+        int sqredRng = searchRange * searchRange;
+        for (int i = 0; i < creatures.Count; i++)
+        {
+            var creature = creatures[i];
+            if ((creature.transform.position - position).sqrMagnitude < sqredRng)
+            {
+                creaturesAround.Add(creature);
+            }
+        }
+
+        return creaturesAround;
     }
 
     protected Tile InstantiateTile(Vector3 pos, GameObject prefab)
