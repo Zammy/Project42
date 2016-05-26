@@ -37,10 +37,14 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Wall") //TODO: add mobs
+        if (collider.tag == "Wall")
         {
-            //explode
-            Instantiate(ExplodePrefab, this.transform.position, Quaternion.identity);
+            if (ExplodePrefab != null)
+            {
+                //explode
+                Instantiate(ExplodePrefab, this.transform.position, Quaternion.identity);
+            }
+            
 
             //TODO: deal damage
 

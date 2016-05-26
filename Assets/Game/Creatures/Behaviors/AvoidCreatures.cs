@@ -11,7 +11,7 @@ public class AvoidCreatures : AIBehavior
     List<Vector2> dangers = new List<Vector2>();
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         level = Level.Instance;
     }
@@ -19,12 +19,12 @@ public class AvoidCreatures : AIBehavior
     public override Vector2[] GetDanger()
     {
         dangers.Clear();
-        List<GameObject> creaturesAround = level.GetCreaturesAround(this.transform.position, Range);
+        List<GameObject> creaturesAround = level.GetCreaturesAround(CreatureTransform.position, Range);
         for (int i = 0; i < creaturesAround.Count; i++)
         {
             var creature = creaturesAround[i];
 
-            var diff = this.transform.position - creature.transform.position;
+            var diff = CreatureTransform.position - creature.transform.position;
             float finalMagnitude = Mathf.Pow(Range - diff.magnitude, 1.5f);
             diff = diff.normalized * finalMagnitude * this.Strength;
 

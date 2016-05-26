@@ -9,4 +9,12 @@ public abstract class AIBehavior : MonoBehaviour
     public abstract Vector2[] GetDanger();
 
     public float Strength = 1f;
+
+    protected Transform CreatureTransform
+    {
+        get
+        {
+            return this.transform.parent.transform;
+        }
+    }
 }

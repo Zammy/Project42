@@ -1,7 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class AvoidWalls : AIBehavior
 {
@@ -9,7 +7,7 @@ public class AvoidWalls : AIBehavior
 
     Level level;
 
-    void Start()
+    void Awake()
     {
         level = Level.Instance;
     }
@@ -26,11 +24,11 @@ public class AvoidWalls : AIBehavior
         //    }
         //}
 
-        List<Tile> wallsAround = level.GetImpassableAround(this.transform.position, Range);
+        List<Tile> wallsAround = level.GetImpassableAround(CreatureTransform.position, Range);
         var danger = new List<Vector2>();
         for (int i = 0; i < wallsAround.Count; i++)
         {
-            Vector3 diff = this.transform.position - wallsAround[i].transform.position;
+            Vector3 diff = CreatureTransform.position - wallsAround[i].transform.position;
             float magnitude = diff.magnitude;
             if (Range < magnitude)
                 continue;

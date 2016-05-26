@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Crew : MonoBehaviour 
+public class Crew : SingletonBehavior<Crew> 
 {
     public GameObject CrewMemberPrefab;
 
@@ -147,6 +147,8 @@ public class Crew : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (crew == null) return;
+
         this.Movement();
         this.LookAt();
         this.FireWeapons();

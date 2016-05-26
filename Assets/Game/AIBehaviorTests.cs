@@ -21,6 +21,7 @@ public class AIBehaviorTests : MonoBehaviour
         {
             foreach (var seek in Seeks)
             {
+                if (seek == null) continue;
                 seek.Goal = new Vector2(cursorWorldPos.x + Random.Range(-0.5f, +0.5f), cursorWorldPos.y + Random.Range(-0.5f, +0.5f));
             }
         }

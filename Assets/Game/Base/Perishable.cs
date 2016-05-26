@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Explosion : MonoBehaviour 
+public class Perishable : MonoBehaviour 
 {
-	// Update is called once per frame
 	void Update () 
     {
 	    AnimatorStateInfo animatorState = this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);

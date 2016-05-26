@@ -43,7 +43,7 @@ public class Seek : AIBehavior
             return Vector2.zero;
         }
 
-        Vector3 diff = this.Goal - this.transform.position;
+        Vector3 diff = this.Goal - CreatureTransform.position;
         if (diff.sqrMagnitude < 0.05f)
         {
             Goal = Vector3.zero;

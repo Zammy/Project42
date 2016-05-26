@@ -14,7 +14,7 @@ public class Cohesion : AIBehavior
 
         for (int i = 0; i < OtherCreatures.Length; i++)
         {
-            var danger = OtherCreatures[i].transform.position - this.transform.position;
+            var danger = OtherCreatures[i].transform.position - CreatureTransform.position;
             danger *= this.Strength;
             dangers.Add(danger);
         }

@@ -1,26 +1,35 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections;
-using System;
+using UnityEngine;
 
-public class Attack : AIState
+public abstract class Attack : AIState
 {
     public Weapon Weapon;
     public Animator Animator;
 
-    public override void OnEnter()
+    public override void OnEnter(AIState previousState)
     {
-        throw new NotImplementedException();
+        base.OnEnter(previousState);
+
+        this.Animator.SetTrigger("Attack");
     }
 
-    public override void OnExit()
+    public override void OnExit(AIState nextState)
     {
-        throw new NotImplementedException();
+        base.OnExit(nextState);
     }
 
-    void FixedUpdate()
+    public override void StateUpdate(AIStateManager mng)
     {
         AnimatorStateInfo info = Animator.GetCurrentAnimatorStateInfo(0);
 
-        this.Weapon.IsActive = info.IsName("Attack");
+        bool isAttacking = info.IsName("Attack");
+        if (!isAttacking && this.Weapon.IsActive && info.IsName("Default"))
+        {
+            this.OnAttackFinished(mng);
+        }
+        this.Weapon.IsActive = isAttacking;
     }
+
+    protected abstract void OnAttackFinished(AIStateManager mng);
 }

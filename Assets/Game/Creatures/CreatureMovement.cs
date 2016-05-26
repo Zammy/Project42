@@ -7,6 +7,7 @@ public class CreatureMovement : CharacterMovement
     //public float AngularSpeed = 360f;
 
     public Animator Animator;
+    public Transform BehaviorsBase;
 
     AIBehavior[] behaviors;
 
@@ -15,7 +16,7 @@ public class CreatureMovement : CharacterMovement
 
 	void Start () 
     {
-        this.behaviors = this.GetComponents<AIBehavior>();
+        this.behaviors = BehaviorsBase.GetComponents<AIBehavior>();
     }
 
     protected override void FixedUpdate()
