@@ -5,10 +5,12 @@ public class Cursor : MonoBehaviour
 {
     void Start()
     {
+#if !UNITY_EDITOR
         UnityEngine.Cursor.visible = false;
+#endif
     }
-	// Update is called once per frame
-	void Update () 
+
+    void Update () 
     {
         Vector3 cursorScreenPos = Input.mousePosition;
         Vector3 cursorWorldPos = Camera.main.ScreenToWorldPoint(cursorScreenPos);

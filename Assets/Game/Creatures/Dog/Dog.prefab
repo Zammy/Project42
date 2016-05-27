@@ -60,6 +60,7 @@ GameObject:
   - 114: {fileID: 11409658}
   - 114: {fileID: 11408230}
   - 114: {fileID: 11420166}
+  - 114: {fileID: 11472692}
   m_Layer: 2
   m_Name: States
   m_TagString: Untagged
@@ -192,9 +193,9 @@ GameObject:
   - 61: {fileID: 6112452}
   - 114: {fileID: 11484334}
   - 114: {fileID: 11475682}
-  - 50: {fileID: 5038648}
   - 95: {fileID: 9548770}
   - 114: {fileID: 11440108}
+  - 50: {fileID: 5040114}
   m_Layer: 2
   m_Name: Dog
   m_TagString: Untagged
@@ -336,7 +337,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 183374}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.65, y: 0.84, z: 0}
+  m_LocalPosition: {x: 12, y: 15.79, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 438598}
@@ -357,7 +358,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 417148}
   m_RootOrder: 0
---- !u!50 &5038648
+--- !u!50 &5040114
 Rigidbody2D:
   serializedVersion: 2
   m_ObjectHideFlags: 1
@@ -494,6 +495,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StatesBase: {fileID: 413592}
+  CurrentState: 
 --- !u!114 &11443244
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -550,6 +552,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Strength: 1
   Goal: {x: 0, y: 0, z: 0}
+--- !u!114 &11472692
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 127622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 299da06b25564354aa6fb7d96992ba9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Behaviors: []
+  Priority: 100
+  ShouldBeVisible: 1
+  Range: 10
 --- !u!114 &11475682
 MonoBehaviour:
   m_ObjectHideFlags: 1

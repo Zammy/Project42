@@ -6,8 +6,7 @@ public class Crew : SingletonBehavior<Crew>
 {
     public GameObject CrewMemberPrefab;
 
-    public GameObject LOSMeshPrefab;
-    public LevelExt Level;
+    //public GameObject LOSMeshPrefab;
 
     const float HORZ_CREW_POS = 0.25f;
     const float VERT_CREW_POS = 0.25f;
@@ -60,11 +59,11 @@ public class Crew : SingletonBehavior<Crew>
         crewMemberGo.transform.SetParent( this.transform );
         crewMemberGo.transform.localScale = Vector3.one;
 
-        var losMeshGo = (GameObject) Instantiate(LOSMeshPrefab, pos, Quaternion.identity);
-        losMeshGo.transform.SetParent( Camera.main.transform );
+        //var losMeshGo = (GameObject) Instantiate(LOSMeshPrefab, pos, Quaternion.identity);
+        //losMeshGo.transform.SetParent( Camera.main.transform );
 //        losMeshGo.transform.localScale = Vector3.one;
 
-        crewMemberGo.GetComponent<LineOfSightDrawer>().LOS = losMeshGo.transform;
+        //crewMemberGo.GetComponent<LineOfSightDrawer>().LOS = losMeshGo.transform;
 
         var member = crewMemberGo.GetComponent<CrewMember>();
         return member;
@@ -154,19 +153,19 @@ public class Crew : SingletonBehavior<Crew>
         this.FireWeapons();
     }
 
-    void LateUpdate()
-    {
-//        this.GenLineOfSight();
-    }
+    //    void LateUpdate()
+    //    {
+    //        this.GenLineOfSight();
+    //    }
 
-    void GenLineOfSight()
-    {
-        var pois = this.Level.GetPOIS();
-        foreach (var member in crew)
-        {
-            var losDrawer = member.GetComponent<LineOfSightDrawer>();
+    //void GenLineOfSight()
+    //{
+    //    var pois = this.Level.GetPOIS();
+    //    foreach (var member in crew)
+    //    {
+    //        var losDrawer = member.GetComponent<LineOfSightDrawer>();
 
-            losDrawer.GenerateLOSMesh(pois);
-        }
-    }
+    //        losDrawer.GenerateLOSMesh(pois);
+    //    }
+    //}
 }

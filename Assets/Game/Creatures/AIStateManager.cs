@@ -18,25 +18,7 @@ public class AIStateManager : MonoBehaviour
 
     void Start()
     {
-        int highestPriority = int.MinValue;
-        int startingState = -1;
-        for (int i = 0; i < allStates.Length; i++)
-        {
-            int priority = allStates[i].Priority;
-            if (highestPriority < priority)
-            {
-                highestPriority = priority;
-                startingState = i;
-            }
-        }
-
-        if (startingState == -1)
-        {
-            throw new UnityException("Could not decide on starting state");
-        }
-
-        this.activeStateIndex = startingState;
-        allStates[activeStateIndex].OnEnter(null);
+        ActivateStateWithHighestPriorty();
     }
 
     public void ActivateState<T>() where T : AIState
@@ -56,6 +38,29 @@ public class AIStateManager : MonoBehaviour
         }
 
         this.ActivateState(newStateIndex);
+    }
+
+    public void ActivateStateWithHighestPriorty()
+    {
+        int highestPriority = int.MinValue;
+        int startingState = -1;
+        for (int i = 0; i < allStates.Length; i++)
+        {
+            int priority = allStates[i].Priority;
+            if (highestPriority < priority)
+            {
+                highestPriority = priority;
+                startingState = i;
+            }
+        }
+
+        if (startingState == -1)
+        {
+            throw new UnityException("Could not decide on starting state");
+        }
+
+        this.activeStateIndex = startingState;
+        allStates[activeStateIndex].OnEnter(null);
     }
 
     void ActivateState(int newStateIndex)
