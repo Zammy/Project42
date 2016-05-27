@@ -22,4 +22,9 @@ public class DogSeekCrew : SeekCrew
     {
         mng.ActivateState<DogAttack>();
     }
+
+    protected override void OnNotMoving(AIStateManager mng)
+    {
+        mng.ActivateState<DogBark>();
+    }
 }

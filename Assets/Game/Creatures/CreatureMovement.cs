@@ -58,10 +58,10 @@ public class CreatureMovement : CharacterMovement
             }
         }
 
-        newDirection.Normalize();
-        
-        if (newDirection.sqrMagnitude > 0.25f)
+        if (newDirection.sqrMagnitude > 0.15f)
         {
+            newDirection.Normalize();
+
             this.MovementDirection = newDirection;
             this.transform.xLookAt(this.transform.position + newDirection.xToVector3());
 

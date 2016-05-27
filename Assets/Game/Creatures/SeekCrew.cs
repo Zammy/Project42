@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public abstract class SeekCrew : AIState
+public abstract class SeekCrew : AIMovingState
 {
     //public GameObject DebugExplosion;
 
@@ -39,6 +39,8 @@ public abstract class SeekCrew : AIState
 
     public override void StateUpdate(AIStateManager mng)
     {
+        base.StateUpdate(mng);
+
         if (this.path.Count == 0)
             CalculatePathIfNeeded();
 

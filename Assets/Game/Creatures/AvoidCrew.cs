@@ -3,7 +3,7 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 
-public abstract class AvoidCrew : AIState
+public abstract class AvoidCrew : AIMovingState
 {
     public float Range;
 
@@ -23,6 +23,8 @@ public abstract class AvoidCrew : AIState
 
     public override void StateUpdate(AIStateManager mng)
     {
+        base.StateUpdate(mng);
+
         Vector2 crewPos = Crew.Instance.transform.position.xToVector2();
         avoid.Goal = crewPos;
 
@@ -30,6 +32,11 @@ public abstract class AvoidCrew : AIState
         {
             this.OnCrewAvoided(mng);
         }
+    }
+
+    protected override void OnNotMoving(AIStateManager mng)
+    {
+        this.OnCrewAvoided(mng);
     }
 
     protected abstract void OnCrewAvoided(AIStateManager mng);

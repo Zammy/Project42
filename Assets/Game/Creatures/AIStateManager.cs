@@ -6,6 +6,8 @@ public class AIStateManager : MonoBehaviour
 {
     public Transform StatesBase;
 
+    public string CurrentState;
+
     AIState[] allStates;
     int activeStateIndex;
 
@@ -62,6 +64,8 @@ public class AIStateManager : MonoBehaviour
         int prevStateIndex = activeStateIndex;
         activeStateIndex = newStateIndex;
         allStates[activeStateIndex].OnEnter(allStates[prevStateIndex]);
+
+        this.CurrentState = allStates[activeStateIndex].GetType().Name;
     }
 
     void FixedUpdate()
