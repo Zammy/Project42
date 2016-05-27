@@ -17,7 +17,6 @@ public class Level : SingletonBehavior<Level>
 
     protected List<GameObject> creatures = new List<GameObject>();
 
-    // Use this for initialization
     protected override void Awake()
     {
         base.Awake();
@@ -27,10 +26,6 @@ public class Level : SingletonBehavior<Level>
         {
             creatures.Add(creature.gameObject);
         }
-    }
-
-    void Start()
-    {
 
         if (this.transform.childCount > 0)
         {
@@ -128,13 +123,28 @@ public class Level : SingletonBehavior<Level>
         return IsTileOfTypeAt(type, p.X, p.Y);
     }
 
-    public void GetTilesFrom(Transform parent)
+    public void GetTilesFrom(Transform t)
     {
-        foreach (Transform tileTrns in parent)
+        foreach (Transform tileTrns in t)
         {
             var pos = tileTrns.position;
             this.tiles[(int)pos.x, (int)pos.y] = tileTrns.gameObject.GetComponent<Tile>();
         }
+    }
+
+    public bool IsPassable(Point p)
+    {
+        var tile = GetTileAt(p);
+        if (tile == null)
+            return false;
+
+        return tile.TileTipe != TileType.Wall;
+    }
+
+    public bool IsPassable(Vector3 pos)
+    {
+        Point p = pos.xToPoint();
+        return this.IsPassable(p);
     }
 
     public List<Tile> GetImpassableAround(Vector3 position, int searchRange)

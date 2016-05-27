@@ -10,7 +10,7 @@ public abstract class AIBehavior : MonoBehaviour
 
     public float Strength = 1f;
 
-    protected Transform CreatureTransform
+    protected Transform creatureTransform
     {
         get
         {

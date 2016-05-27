@@ -126,6 +126,7 @@ GameObject:
   - 114: {fileID: 11400794}
   - 114: {fileID: 11446748}
   - 114: {fileID: 11438614}
+  - 114: {fileID: 11445228}
   m_Layer: 2
   m_Name: Behaviors
   m_TagString: Untagged
@@ -335,7 +336,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 183374}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.76, y: -3.39, z: 0}
+  m_LocalPosition: {x: -4.65, y: 0.84, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 438598}
@@ -434,7 +435,7 @@ MonoBehaviour:
   - {fileID: 11446748}
   Priority: 1
   Range: 1
-  AngleVariance: 90
+  AngleVariance: 45
 --- !u!114 &11409658
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -508,6 +509,21 @@ MonoBehaviour:
   Priority: 0
   Weapon: {fileID: 11486596}
   Animator: {fileID: 9548770}
+--- !u!114 &11445228
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170550}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef2a893e46e73fc4f84e695108b81990, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Strength: 0.35
+  OtherCreatures:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &11446748
 MonoBehaviour:
   m_ObjectHideFlags: 1

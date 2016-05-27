@@ -10,21 +10,20 @@ public class AvoidCreatures : AIBehavior
     Level level;
     List<Vector2> dangers = new List<Vector2>();
 
-    // Use this for initialization
-    void Awake()
-    {
-        level = Level.Instance;
-    }
+    void Start() { level = Level.Instance; }
 
     public override Vector2[] GetDanger()
     {
+        if (level == null)
+            return AIBehavior.Empty;
+
         dangers.Clear();
-        List<GameObject> creaturesAround = level.GetCreaturesAround(CreatureTransform.position, Range);
+        List<GameObject> creaturesAround = level.GetCreaturesAround(creatureTransform.position, Range);
         for (int i = 0; i < creaturesAround.Count; i++)
         {
             var creature = creaturesAround[i];
 
-            var diff = CreatureTransform.position - creature.transform.position;
+            var diff = creatureTransform.position - creature.transform.position;
             float finalMagnitude = Mathf.Pow(Range - diff.magnitude, 1.5f);
             diff = diff.normalized * finalMagnitude * this.Strength;
 

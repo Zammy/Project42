@@ -7,10 +7,7 @@ public class AvoidWalls : AIBehavior
 
     Level level;
 
-    void Awake()
-    {
-        level = Level.Instance;
-    }
+    void Start() { level = Level.Instance; }
 
     //List<Tile> previousWallsAround = null;
 
@@ -24,11 +21,14 @@ public class AvoidWalls : AIBehavior
         //    }
         //}
 
-        List<Tile> wallsAround = level.GetImpassableAround(CreatureTransform.position, Range);
+        if (level == null)
+            return AIBehavior.Empty;
+
+        List<Tile> wallsAround = level.GetImpassableAround(creatureTransform.position, Range);
         var danger = new List<Vector2>();
         for (int i = 0; i < wallsAround.Count; i++)
         {
-            Vector3 diff = CreatureTransform.position - wallsAround[i].transform.position;
+            Vector3 diff = creatureTransform.position - wallsAround[i].transform.position;
             float magnitude = diff.magnitude;
             if (Range < magnitude)
                 continue;

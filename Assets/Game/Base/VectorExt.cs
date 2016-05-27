@@ -9,9 +9,19 @@ public static class VectorExt
         return new Vector2(vec3.x, vec3.y);
     }
 
+    public static Point xToPoint(this Vector2 vec)
+    {
+        return new Point(Mathf.RoundToInt(vec.x), Mathf.RoundToInt(vec.y));
+    }
+
     public static Vector3 xToVector3(this Vector2 vec2)
     {
         return new Vector3(vec2.x, vec2.y, 0);
+    }
+
+    public static Point xToPoint(this Vector3 vec)
+    {
+        return new Point(Mathf.RoundToInt(vec.x), Mathf.RoundToInt(vec.y));
     }
 
     public static float xAngleSigned(this Vector3 v1, Vector3 v2, Vector3 rotationAxis)
