@@ -61,6 +61,7 @@ GameObject:
   - 114: {fileID: 11408230}
   - 114: {fileID: 11420166}
   - 114: {fileID: 11472692}
+  - 114: {fileID: 11444386}
   m_Layer: 2
   m_Name: States
   m_TagString: Untagged
@@ -191,14 +192,14 @@ GameObject:
   m_Component:
   - 4: {fileID: 477668}
   - 61: {fileID: 6112452}
-  - 114: {fileID: 11484334}
   - 114: {fileID: 11475682}
   - 95: {fileID: 9548770}
   - 114: {fileID: 11440108}
   - 50: {fileID: 5040114}
+  - 114: {fileID: 11463664}
   m_Layer: 2
   m_Name: Dog
-  m_TagString: Untagged
+  m_TagString: Creature
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -337,7 +338,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 183374}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12, y: 15.79, z: 0}
+  m_LocalPosition: {x: 7.39, y: 4.28, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 438598}
@@ -511,6 +512,21 @@ MonoBehaviour:
   Priority: 0
   Weapon: {fileID: 11486596}
   Animator: {fileID: 9548770}
+--- !u!114 &11444386
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 127622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d04375c398147e945a3fea41f5c405f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Behaviors: []
+  Priority: 0
+  Animator: {fileID: 9548770}
+  CharacterHealth: {fileID: 11463664}
 --- !u!114 &11445228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -539,6 +555,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Strength: 1
   Range: 2
+--- !u!114 &11463664
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 386f5aab7d95f4098a752da108a4e256, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 5
+  SpriteToFlash: {fileID: 21217890}
 --- !u!114 &11465896
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -566,7 +595,7 @@ MonoBehaviour:
   Behaviors: []
   Priority: 100
   ShouldBeVisible: 1
-  Range: 10
+  Range: 5
 --- !u!114 &11475682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -581,18 +610,6 @@ MonoBehaviour:
   Speed: 4
   Animator: {fileID: 9548770}
   BehaviorsBase: {fileID: 438598}
---- !u!114 &11484334
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 183374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 386f5aab7d95f4098a752da108a4e256, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Health: 4
 --- !u!114 &11486596
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -606,9 +623,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ProjPrefab: {fileID: 187226, guid: 9e67a172c19f9564ab11fba3cbc1d148, type: 2}
   Nuzzle: {fileID: 421034}
-  Damage: 10
+  Damage: 2
   RateOfFire: 3
   Accuracy: 0
+  IsFriendly: 0
 --- !u!212 &21217890
 SpriteRenderer:
   m_ObjectHideFlags: 1

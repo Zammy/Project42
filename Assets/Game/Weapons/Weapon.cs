@@ -10,13 +10,8 @@ public class Weapon : MonoBehaviour
     public int Damage;
     public float RateOfFire;
     public float Accuracy; //lower is better
+    public bool IsFriendly;
     //
-
-    public bool IsFriendly
-    {
-        get;
-        set;
-    }
 
     private bool isActive = false;
     public bool IsActive

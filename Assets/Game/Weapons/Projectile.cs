@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Projectile : MonoBehaviour 
 {
@@ -7,6 +8,7 @@ public class Projectile : MonoBehaviour
     public GameObject ExplodePrefab;
     public float Speed;
     public float DistanceLife;
+    public bool IsPenetrating = false;
     //
 
     public bool IsFriendly
@@ -19,6 +21,13 @@ public class Projectile : MonoBehaviour
     {
         get;
         set;
+    }
+
+    List<GameObject> targetsHit = new List<GameObject>();
+
+    void OnDestroy()
+    {
+        targetsHit.Clear();
     }
 	
 	// Update is called once per frame
@@ -37,18 +46,44 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Wall")
+        CharacterHealth charHealth = null;
+        if (this.IsFriendly && collider.tag == "Creature")
+        {
+            charHealth = collider.GetComponent<CharacterHealth>();
+        }
+
+        if (!this.IsFriendly && collider.tag == "Player")
+        {
+            charHealth = collider.GetComponent<CharacterHealth>();
+        }
+
+
+        if (charHealth != null)
+        {
+            if (charHealth.Health <= 0)
+                return;
+
+            if (this.IsPenetrating)
+            {
+                if (!this.targetsHit.Contains(charHealth.gameObject))
+                {
+                    targetsHit.Add(charHealth.gameObject);
+                    charHealth.DealDamage(this.Damage);
+                }
+            }
+            else
+            {
+                charHealth.DealDamage(this.Damage);
+            }
+        }
+
+        if (collider.tag == "Wall" || (this.IsFriendly && collider.tag == "Creature") || (!this.IsFriendly && collider.tag == "Crew"))
         {
             if (ExplodePrefab != null)
-            {
-                //explode
                 Instantiate(ExplodePrefab, this.transform.position, Quaternion.identity);
-            }
-            
 
-            //TODO: deal damage
-
-            Destroy(this.gameObject);
+            if (!this.IsPenetrating)
+                Destroy(this.gameObject);
         }
     }
 }

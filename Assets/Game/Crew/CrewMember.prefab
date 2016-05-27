@@ -28,9 +28,10 @@ GameObject:
   - 114: {fileID: 11496844}
   - 58: {fileID: 5863680}
   - 114: {fileID: 11450232}
+  - 114: {fileID: 11495000}
   m_Layer: 0
   m_Name: CrewMember
-  m_TagString: Crew
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -135,7 +136,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.11586285
+  m_Radius: 0.1530059
 --- !u!114 &11450232
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -148,6 +149,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FOV: 110
+--- !u!114 &11495000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 127368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 386f5aab7d95f4098a752da108a4e256, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 0
+  SpriteToFlash: {fileID: 21240630}
 --- !u!114 &11496844
 MonoBehaviour:
   m_ObjectHideFlags: 1

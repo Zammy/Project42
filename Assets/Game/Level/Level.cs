@@ -194,6 +194,11 @@ public class Level : SingletonBehavior<Level>
         return creaturesAround;
     }
 
+    public void RemoveCreature(GameObject creature)
+    {
+        this.creatures.Remove(creature);
+    }
+
     protected Tile InstantiateTile(Vector3 pos, GameObject prefab)
     {
         var tileGo = (GameObject)Instantiate(prefab, pos, Quaternion.identity);

@@ -164,6 +164,7 @@ MonoBehaviour:
   ExplodePrefab: {fileID: 0}
   Speed: 2
   DistanceLife: 2
+  IsPenetrating: 1
 --- !u!212 &21264800
 SpriteRenderer:
   m_ObjectHideFlags: 1

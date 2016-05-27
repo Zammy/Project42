@@ -21,6 +21,22 @@ public class AIStateManager : MonoBehaviour
         ActivateStateWithHighestPriorty();
     }
 
+    void Update()
+    {
+        for (int i = 0; i < this.allStates.Length; i++)
+        {
+            var globalState = allStates[i] as AIGlobalState;
+            if (globalState != null
+                && globalState.ShouldActivate()
+                && allStates[activeStateIndex] != globalState)
+            {
+                this.ActivateState(i);
+            }
+        }
+
+        allStates[activeStateIndex].StateUpdate(this);
+    }
+
     public void ActivateState<T>() where T : AIState
     {
         int newStateIndex = -1;
@@ -73,8 +89,4 @@ public class AIStateManager : MonoBehaviour
         this.CurrentState = allStates[activeStateIndex].GetType().Name;
     }
 
-    void FixedUpdate()
-    {
-        allStates[activeStateIndex].StateUpdate(this);
-    }
 }

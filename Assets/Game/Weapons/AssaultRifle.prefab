@@ -100,7 +100,8 @@ MonoBehaviour:
   Nuzzle: {fileID: 481452}
   Damage: 1
   RateOfFire: 0.15
-  Accuracy: 3
+  Accuracy: 8
+  IsFriendly: 0
 --- !u!212 &21206130
 SpriteRenderer:
   m_ObjectHideFlags: 1

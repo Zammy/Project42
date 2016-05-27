@@ -27,6 +27,8 @@ public class CrewMember : MonoBehaviour
         weaponGo.transform.localScale = Vector3.one;
 
         this.Weapon = weaponGo.GetComponent<Weapon>();
+
+        this.GetComponent<CharacterHealth>().Health = charInfo.HP;
     }
 
     public void PointWeaponAtCursor(Vector3 cursorPos)
