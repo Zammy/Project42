@@ -566,7 +566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 386f5aab7d95f4098a752da108a4e256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 5
+  Health: 10
   SpriteToFlash: {fileID: 21217890}
 --- !u!114 &11465896
 MonoBehaviour:

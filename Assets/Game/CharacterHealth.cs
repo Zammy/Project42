@@ -26,6 +26,8 @@ public class CharacterHealth : MonoBehaviour
         {
             this.RaiseOnCharacterDied();
         }
+
+        InGameUI.Instance.ShowDamageLabel(transform.position, this.Health);
     }
 
     void RaiseOnCharacterDied()
