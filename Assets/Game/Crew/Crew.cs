@@ -10,52 +10,62 @@ public class Crew : SingletonBehavior<Crew>
 
     const float HORZ_CREW_POS = 0.25f;
     const float VERT_CREW_POS = 0.25f;
-    CrewMember[] crew;
+    CrewMember[] crewMembers;
+
+    List<CrewMember> CrewMembers
+    {
+        get
+        {
+            var crew = new List<CrewMember>(crewMembers.Length);
+            foreach (var m in crewMembers) 
+            {
+                if (m.IsAlive)
+                {
+                    crew.Add(m);
+                }
+            }
+            return crew;
+        }
+    }
+
 
     public void LoadCrew(CharacterInfo[] characters)
     {
-        var crewPoses = new List<Vector3>();
-        if (characters.Length == 1)
-        {
-            crewPoses.Add(Vector3.zero);
-        }
-        else if (characters.Length == 2)
-        {
-            crewPoses.Add(new Vector3(-HORZ_CREW_POS, 0));
-            crewPoses.Add(new Vector3(+HORZ_CREW_POS, 0));
-        }
-        else if (characters.Length == 3)
-        {
-            crewPoses.Add(new Vector3(-HORZ_CREW_POS, VERT_CREW_POS));
-            crewPoses.Add(new Vector3(+HORZ_CREW_POS, VERT_CREW_POS));
-            crewPoses.Add(new Vector3(0, -VERT_CREW_POS));
-        }
-        else
-        {
-            crewPoses.Add(new Vector3(-HORZ_CREW_POS, VERT_CREW_POS));
-            crewPoses.Add(new Vector3(+HORZ_CREW_POS, VERT_CREW_POS));
-            crewPoses.Add(new Vector3(-HORZ_CREW_POS, -VERT_CREW_POS));
-            crewPoses.Add(new Vector3(+HORZ_CREW_POS, -VERT_CREW_POS));
-        }
-
-        this.crew = new CrewMember[characters.Length];
+        this.crewMembers = new CrewMember[characters.Length];
         for (int i = 0; i < characters.Length; i++)
         {
-            Vector3 pos = crewPoses[i];
-            var crewMember = InstantiateCrewMember(pos);
+            var crewMember = InstantiateCrewMember();
             crewMember.SetCharacterInfo(characters[i]);
             crewMember.Weapon.IsFriendly = true;
 
-            this.crew[i] = crewMember;
+            this.crewMembers[i] = crewMember;
         }
 
+        UpdateCrewPositions();
     }
 
-    CrewMember InstantiateCrewMember(Vector3 localPos)
+    void OnDestroy()
     {
-        Vector3 pos = this.transform.position + localPos ;
+        foreach (var crew in crewMembers)
+        {
+            crew.CharHealth.CharacterDied -= OnCrewMemberDied;
+        }
+    }
 
-        var crewMemberGo = (GameObject) Instantiate(CrewMemberPrefab, pos, Quaternion.identity);
+    void FixedUpdate()
+    {
+        if (crewMembers == null) 
+            return;
+
+        this.Movement();
+        this.LookAt();
+        this.FireWeapons();
+    }
+
+    CrewMember InstantiateCrewMember()
+    {
+
+        var crewMemberGo = (GameObject) Instantiate(CrewMemberPrefab);
         crewMemberGo.transform.SetParent( this.transform );
         crewMemberGo.transform.localScale = Vector3.one;
 
@@ -66,13 +76,14 @@ public class Crew : SingletonBehavior<Crew>
         //crewMemberGo.GetComponent<LineOfSightDrawer>().LOS = losMeshGo.transform;
 
         var member = crewMemberGo.GetComponent<CrewMember>();
+        member.CharHealth.CharacterDied += OnCrewMemberDied;
         return member;
     }
 
     void Movement()
     {
         float lowestSpeed = float.MaxValue;
-        foreach (var crewMember in crew)
+        foreach (var crewMember in crewMembers)
         {
             float speed = crewMember.CharInfo.Speed;
             if (crewMember.CharInfo.Speed < lowestSpeed)
@@ -127,7 +138,7 @@ public class Crew : SingletonBehavior<Crew>
 
         this.transform.xLookAt(cursorWorldPos);
 
-        foreach (var crewMember in crew)
+        foreach (var crewMember in crewMembers)
         {
             crewMember.PointWeaponAtCursor(cursorWorldPos);
         }
@@ -135,23 +146,68 @@ public class Crew : SingletonBehavior<Crew>
 
     void FireWeapons()
     {
+        var crew = this.CrewMembers;
         bool fire1 = Mathf.Approximately(Input.GetAxis("Fire1"), 1f);
         bool fire2 = Mathf.Approximately(Input.GetAxis("Fire2"), 1f);
-        this.crew[0].Weapon.IsActive = fire1;
-        if (this.crew.Length > 1)
+        crew[0].Weapon.IsActive = fire1;
+        if (crew.Count > 1)
         {
-            this.crew[1].Weapon.IsActive = fire2;
+            crew[1].Weapon.IsActive = fire2;
         }
     }
 
-    void FixedUpdate()
+    void OnCrewMemberDied(GameObject character)
     {
-        if (crew == null) return;
-
-        this.Movement();
-        this.LookAt();
-        this.FireWeapons();
+        character.SetActive(false);
+        if (this.CrewMembers.Count == 0)
+        {
+            this.gameObject.SetActive(false);
+            InGameUI.Instance.CrewKilled();
+        }
+        UpdateCrewPositions();
     }
+
+    void UpdateCrewPositions()
+    {
+        var crew = this.CrewMembers;
+        int crewCount = crew.Count;
+
+        Vector3 worldPos = this.transform.position;
+        switch (crewCount)
+        {
+            case 1:
+            {
+                crew[0].transform.position = worldPos;
+                break;
+            }
+            case 2:
+            {
+                
+                crew[0].transform.position = worldPos + new Vector3(-HORZ_CREW_POS, 0);
+                crew[1].transform.position = worldPos + new Vector3(+HORZ_CREW_POS, 0);
+                break;
+            }
+            case 3:
+            {
+                crew[0].transform.position = worldPos + new Vector3(-HORZ_CREW_POS, VERT_CREW_POS);
+                crew[1].transform.position = worldPos + new Vector3(+HORZ_CREW_POS, VERT_CREW_POS);
+                crew[2].transform.position = worldPos + new Vector3(0, -VERT_CREW_POS);
+                break;
+            }
+            case 4:
+            {
+                crew[0].transform.position = worldPos + new Vector3(-HORZ_CREW_POS, VERT_CREW_POS);
+                crew[1].transform.position = worldPos + new Vector3(+HORZ_CREW_POS, VERT_CREW_POS);
+                crew[2].transform.position = worldPos + new Vector3(-HORZ_CREW_POS, -VERT_CREW_POS);
+                crew[3].transform.position = worldPos + new Vector3(+HORZ_CREW_POS, -VERT_CREW_POS);
+                break;
+            }
+            default:
+                break;
+        }
+
+    }
+
 
     //    void LateUpdate()
     //    {

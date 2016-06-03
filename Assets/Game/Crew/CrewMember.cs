@@ -16,6 +16,22 @@ public class CrewMember : MonoBehaviour
         set;
     }
 
+    public CharacterHealth CharHealth
+    {
+        get
+        {
+            return this.GetComponent<CharacterHealth>();
+        }
+    }
+
+    public bool IsAlive
+    {
+        get
+        {
+            return CharHealth.Health > 0;
+        }
+    }
+
     public void SetCharacterInfo(CharacterInfo charInfo)
     {
         this.CharInfo = GameObject.Instantiate(charInfo) as CharacterInfo;
@@ -28,7 +44,7 @@ public class CrewMember : MonoBehaviour
 
         this.Weapon = weaponGo.GetComponent<Weapon>();
 
-        this.GetComponent<CharacterHealth>().Health = charInfo.HP;
+        this.CharHealth.Health = charInfo.HP;
     }
 
     public void PointWeaponAtCursor(Vector3 cursorPos)
