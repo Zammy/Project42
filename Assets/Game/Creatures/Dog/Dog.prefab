@@ -496,7 +496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StatesBase: {fileID: 413592}
-  CurrentState: 
+  info_CurrentState: 
 --- !u!114 &11443244
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -594,8 +594,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Behaviors: []
   Priority: 100
-  ShouldBeVisible: 1
+  ShouldBeVisible: 0
   Range: 5
+  ActivateCreaturesAround: 5
 --- !u!114 &11475682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -607,7 +608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c0facb126a494bd4a4742f35f8be4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 4
+  Speed: 6
   Animator: {fileID: 9548770}
   BehaviorsBase: {fileID: 438598}
 --- !u!114 &11486596
@@ -623,7 +624,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ProjPrefab: {fileID: 187226, guid: 9e67a172c19f9564ab11fba3cbc1d148, type: 2}
   Nuzzle: {fileID: 421034}
-  Damage: 222
+  Damage: 2
   RateOfFire: 3
   Accuracy: 0
   IsFriendly: 0

@@ -21,23 +21,23 @@ public abstract class AvoidCrew : AIMovingState
         base.OnExit(nextState);
     }
 
-    public override void StateUpdate(AIStateManager mng)
+    public override void StateUpdate()
     {
-        base.StateUpdate(mng);
+        base.StateUpdate();
 
         Vector2 crewPos = Crew.Instance.transform.position.xToVector2();
         avoid.Goal = crewPos;
 
         if ((crewPos - this.creatureTransform.position.xToVector2()).magnitude > Range)
         {
-            this.OnCrewAvoided(mng);
+            this.OnCrewAvoided();
         }
     }
 
-    protected override void OnNotMoving(AIStateManager mng)
+    protected override void OnNotMoving()
     {
-        this.OnCrewAvoided(mng);
+        this.OnCrewAvoided();
     }
 
-    protected abstract void OnCrewAvoided(AIStateManager mng);
+    protected abstract void OnCrewAvoided();
 }

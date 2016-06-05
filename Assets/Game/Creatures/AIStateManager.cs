@@ -6,10 +6,20 @@ public class AIStateManager : MonoBehaviour
 {
     public Transform StatesBase;
 
-    public string CurrentState;
+    public string info_CurrentState;
+
+    public AIState ActiveState
+    {
+        get
+        {
+            return allStates[activeStateIndex];
+        }
+    }
+
 
     AIState[] allStates;
     int activeStateIndex;
+
 
     void Awake()
     {
@@ -34,7 +44,7 @@ public class AIStateManager : MonoBehaviour
             }
         }
 
-        allStates[activeStateIndex].StateUpdate(this);
+        allStates[activeStateIndex].StateUpdate();
     }
 
     public void ActivateState<T>() where T : AIState
@@ -79,6 +89,26 @@ public class AIStateManager : MonoBehaviour
         allStates[activeStateIndex].OnEnter(null);
     }
 
+    public T GetState<T>() where T : AIState
+    {
+        int stateIndex = -1;
+        for (int i = 0; i < allStates.Length; i++)
+        {
+            if (allStates[i].GetType() == typeof(T))
+            {
+                stateIndex = i;
+            }
+        }
+
+        if (stateIndex == -1)
+        {
+            throw new UnityException("Could not find state of type " + typeof(T));
+        }
+
+        return allStates[stateIndex] as T;
+    }
+
+
     void ActivateState(int newStateIndex)
     {
         allStates[activeStateIndex].OnExit(allStates[newStateIndex]);
@@ -86,7 +116,7 @@ public class AIStateManager : MonoBehaviour
         activeStateIndex = newStateIndex;
         allStates[activeStateIndex].OnEnter(allStates[prevStateIndex]);
 
-        this.CurrentState = allStates[activeStateIndex].GetType().Name;
+        this.info_CurrentState = allStates[activeStateIndex].GetType().Name;
     }
 
 }

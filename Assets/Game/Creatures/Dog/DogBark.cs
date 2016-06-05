@@ -19,9 +19,8 @@ public class DogBark : AIState
         creatureTransform.transform.xLookAt(Crew.Instance.transform.position);
     }
 
-    public override void StateUpdate(AIStateManager mng)
+    public override void StateUpdate()
     {
-
         AnimatorStateInfo info = Animator.GetCurrentAnimatorStateInfo(0);
 
         bool isBarking = info.IsName("Bark");
@@ -34,7 +33,7 @@ public class DogBark : AIState
 
         if (!isBarking && info.IsName("Default") && hasBarked)
         {
-            mng.ActivateState<DogSeekCrew>();
+            StateManager.ActivateState<DogSeekCrew>();
         }
     }
 }

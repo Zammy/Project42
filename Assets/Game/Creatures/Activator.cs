@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Activator : AIState
 {
     public bool ShouldBeVisible = false;
     public float Range = 10f;
+    public float ActivateCreaturesAround = 0f;
 
     public override void OnEnter(AIState previousState)
     {
@@ -18,7 +20,8 @@ public class Activator : AIState
         base.OnExit(nextState);
     }
 
-    public override void StateUpdate(AIStateManager mng)
+
+    public override void StateUpdate()
     {
         Vector3 fromCreatureToCrew = Crew.Instance.transform.position - creatureTransform.position;
         float distance = fromCreatureToCrew.magnitude;
@@ -29,12 +32,36 @@ public class Activator : AIState
                 RaycastHit2D hit = Physics2D.Raycast(creatureTransform.position, fromCreatureToCrew);
                 if (hit.collider != null && hit.collider.tag == "Crew")
                 {
-                    mng.ActivateStateWithHighestPriorty();
+                    Activate();
                 }
             }
             else
             {
-                mng.ActivateStateWithHighestPriorty();
+                Activate();
+            }
+        }
+    }
+
+    public void RemoteActivate()
+    {
+        if (this.StateManager.ActiveState == this)
+        {
+            this.Activate();
+        }
+    }
+
+    void Activate()
+    {
+        this.StateManager.ActivateStateWithHighestPriorty();
+        List<GameObject> creaturesAround = Level.Instance.GetCreaturesAround(this.creatureTransform, ActivateCreaturesAround);
+        for (int i = 0; i < creaturesAround.Count; i++)
+        {
+            var creature = creaturesAround[i];
+            var aiStateManager = creature.GetComponent<AIStateManager>();
+            if (aiStateManager.ActiveState.GetType() == typeof(Activator) )
+            {
+                var activator = aiStateManager.GetState<Activator>();
+                activator.RemoteActivate();
             }
         }
     }

@@ -18,7 +18,7 @@ public class AvoidCreatures : AIBehavior
             return AIBehavior.Empty;
 
         dangers.Clear();
-        List<GameObject> creaturesAround = level.GetCreaturesAround(creatureTransform.position, Range);
+        List<GameObject> creaturesAround = level.GetCreaturesAround(creatureTransform, Range);
         for (int i = 0; i < creaturesAround.Count; i++)
         {
             var creature = creaturesAround[i];

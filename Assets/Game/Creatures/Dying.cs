@@ -23,7 +23,7 @@ public class Dying : AIGlobalState
         return animatorInfo.IsName("Die") && !animatorInfo.IsName("Died");
     }
 
-    public override void StateUpdate(AIStateManager mng)
+    public override void StateUpdate()
     {
         var animatorInfo = Animator.GetCurrentAnimatorStateInfo(0);
         if (animatorInfo.IsName("Died"))
@@ -36,5 +36,6 @@ public class Dying : AIGlobalState
     private void OnCharacterDied(GameObject _)
     {
         this.Animator.SetTrigger("Die");
+        Level.Instance.RemoveCreature(this.creatureObject);
     }
 }

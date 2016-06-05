@@ -15,7 +15,7 @@ public abstract class AIMovingState : AIState
         samplePos = creatureTransform.position;
     }
 
-    public override void StateUpdate(AIStateManager mng)
+    public override void StateUpdate()
     {
         if (++frameCounter % FRAME_SAMPLE_RATE == 0)
         {
@@ -23,11 +23,11 @@ public abstract class AIMovingState : AIState
             float sqrDist = (currentPos - samplePos).sqrMagnitude;
             if (sqrDist < FRAME_MIN_DISTANCE * FRAME_SAMPLE_RATE)
             {
-                this.OnNotMoving(mng);
+                this.OnNotMoving();
             }
             this.samplePos = currentPos;
         }
     }
 
-    protected abstract void OnNotMoving(AIStateManager mng);
+    protected abstract void OnNotMoving();
 }

@@ -4,8 +4,8 @@ using System;
 
 public class DogAvoidCrew : AvoidCrew
 {
-    protected override void OnCrewAvoided(AIStateManager mng)
+    protected override void OnCrewAvoided()
     {
-        mng.ActivateState<DogBark>();
+        StateManager.ActivateState<DogBark>();
     }
 }

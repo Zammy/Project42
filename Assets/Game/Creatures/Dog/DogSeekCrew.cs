@@ -18,13 +18,13 @@ public class DogSeekCrew : SeekCrew
         return diff;
     }
 
-    protected override void OnCrewSought(AIStateManager mng)
+    protected override void OnCrewSought()
     {
-        mng.ActivateState<DogAttack>();
+        StateManager.ActivateState<DogAttack>();
     }
 
-    protected override void OnNotMoving(AIStateManager mng)
+    protected override void OnNotMoving()
     {
-        mng.ActivateState<DogBark>();
+        StateManager.ActivateState<DogBark>();
     }
 }

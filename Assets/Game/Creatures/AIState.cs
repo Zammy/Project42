@@ -3,8 +3,15 @@
 public abstract class AIState : MonoBehaviour
 {
     public AIBehavior[] Behaviors;
-
     public int Priority;
+
+    protected AIStateManager StateManager
+    {
+        get
+        {
+            return creatureObject.GetComponent<AIStateManager>();
+        }
+    }
 
     public virtual void OnEnter(AIState previousState)
     {
@@ -23,13 +30,21 @@ public abstract class AIState : MonoBehaviour
         }
     }
 
-    public abstract void StateUpdate(AIStateManager mng);
+    public abstract void StateUpdate();
 
     protected Transform creatureTransform
     {
         get
         {
             return this.transform.parent.transform;
+        }
+    }
+
+    protected GameObject creatureObject
+    {
+        get
+        {
+            return this.transform.parent.gameObject;
         }
     }
 }

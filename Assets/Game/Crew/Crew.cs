@@ -44,7 +44,7 @@ public class Crew : SingletonBehavior<Crew>
         UpdateCrewPositions();
     }
 
-    void OnDestroy()
+    protected override void OnDestroy()
     {
         foreach (var crew in crewMembers)
         {

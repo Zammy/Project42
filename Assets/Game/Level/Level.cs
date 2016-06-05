@@ -178,14 +178,15 @@ public class Level : SingletonBehavior<Level>
         return tiles;
     }
 
-    public List<GameObject> GetCreaturesAround(Vector3 position, int searchRange)
+    public List<GameObject> GetCreaturesAround(Transform trans, float searchRange)
     {
         var creaturesAround = new List<GameObject>();
-        int sqredRng = searchRange * searchRange;
+        float sqredRng = searchRange * searchRange;
         for (int i = 0; i < creatures.Count; i++)
         {
             var creature = creatures[i];
-            if ((creature.transform.position - position).sqrMagnitude < sqredRng)
+            if (creature != trans.gameObject &&
+                 (creature.transform.position - trans.position).sqrMagnitude < sqredRng)
             {
                 creaturesAround.Add(creature);
             }

@@ -9,11 +9,6 @@ public class CharacterHealth : MonoBehaviour
 
     public event Action<GameObject> CharacterDied;
 
-    void OnDestroy()
-    {
-        Level.Instance.RemoveCreature(this.gameObject);
-    }
-
     public void DealDamage(int damage)
     {
         DOTween.Sequence()

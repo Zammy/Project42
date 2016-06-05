@@ -19,17 +19,17 @@ public abstract class Attack : AIState
         base.OnExit(nextState);
     }
 
-    public override void StateUpdate(AIStateManager mng)
+    public override void StateUpdate()
     {
         AnimatorStateInfo info = Animator.GetCurrentAnimatorStateInfo(0);
 
         bool isAttacking = info.IsName("Attack");
         if (!isAttacking && this.Weapon.IsActive && info.IsName("Default"))
         {
-            this.OnAttackFinished(mng);
+            this.OnAttackFinished();
         }
         this.Weapon.IsActive = isAttacking;
     }
 
-    protected abstract void OnAttackFinished(AIStateManager mng);
+    protected abstract void OnAttackFinished();
 }

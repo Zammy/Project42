@@ -11,8 +11,8 @@ public class DogAttack : Attack
         creatureTransform.transform.xLookAt(Crew.Instance.transform.position);
     }
 
-    protected override void OnAttackFinished(AIStateManager mng)
+    protected override void OnAttackFinished()
     {
-        mng.ActivateState<DogAvoidCrew>();
+        StateManager.ActivateState<DogAvoidCrew>();
     }
 }

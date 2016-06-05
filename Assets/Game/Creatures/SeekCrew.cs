@@ -37,9 +37,9 @@ public abstract class SeekCrew : AIMovingState
         base.OnExit(nextState);
     }
 
-    public override void StateUpdate(AIStateManager mng)
+    public override void StateUpdate()
     {
-        base.StateUpdate(mng);
+        base.StateUpdate();
 
         if (this.path.Count == 0)
             CalculatePathIfNeeded();
@@ -66,7 +66,7 @@ public abstract class SeekCrew : AIMovingState
             float sqrDisToGoal = (creatureTransform.transform.position.xToVector2() - goal).sqrMagnitude;
             if (sqrDisToGoal < 0.25f)
             {
-                this.OnCrewSought(mng);
+                this.OnCrewSought();
             }
         }
     }
@@ -78,7 +78,7 @@ public abstract class SeekCrew : AIMovingState
         return diffFromCrew;
     }
 
-    protected abstract void OnCrewSought(AIStateManager mng);
+    protected abstract void OnCrewSought();
 
     private void CalculatePathIfNeeded()
     {
