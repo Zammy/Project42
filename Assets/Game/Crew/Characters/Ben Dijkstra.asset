@@ -15,6 +15,6 @@ MonoBehaviour:
   Speed: 3
   Accuracy: 0
   HP: 6
-  Weapon: {fileID: 157728, guid: abe56305e343b46cfa5d6d328f283b08, type: 2}
+  Weapon: {fileID: 152544, guid: 0f45d89b17fbc413f9c6ebd1ff834410, type: 2}
   ActiveSkill: {fileID: 0}
   PassiveSkill: {fileID: 0}

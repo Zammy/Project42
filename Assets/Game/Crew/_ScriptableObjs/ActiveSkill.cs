@@ -4,7 +4,9 @@ using System.Collections;
 public enum ActiveSkillType
 {
     AOESlowdown,
-    Blink
+    Blink,
+    Shield,
+    FakeTarget
 }
 
 [CreateAssetMenuAttribute(fileName="ActiveSkill", menuName="Character/ActiveSkill")]
