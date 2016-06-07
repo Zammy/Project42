@@ -14,7 +14,7 @@ public class Weapon : MonoBehaviour
     //
 
     private bool isActive = false;
-    public bool IsActive
+    public virtual bool IsActive
     {
         get
         {
@@ -22,27 +22,15 @@ public class Weapon : MonoBehaviour
         }
         set
         {
-            if (value == isActive) return;
-
+            if (value == isActive) 
+                return;
             this.isActive = value;
         }
     }
 
-    public float NuzzleOffset
-    {
-        get;
-        private set;
-    }
-
-
     private float shootTime;
 
-    void Awake()
-    {
-        this.NuzzleOffset = this.Nuzzle.transform.localPosition.x;
-    }
-
-    void FixedUpdate()
+    protected virtual void Update()
     {
         if (this.IsActive)
         {
