@@ -1,13 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using System;
 
 public class Level : SingletonBehavior<Level>
 {
-    public GameObject WallPrefab;
-    public GameObject GroundPrefab;
-
     public Transform LevelBase;
     public Transform CreaturesBase;
 
@@ -22,74 +17,18 @@ public class Level : SingletonBehavior<Level>
         base.Awake();
 
         this.tiles = new Tile[SIZE, SIZE];
-        foreach (Transform creature in CreaturesBase)
+        if (CreaturesBase != null)
         {
-            creatures.Add(creature.gameObject);
+            foreach (Transform creature in CreaturesBase)
+            {
+                creatures.Add(creature.gameObject);
+            }
         }
 
         if (this.transform.childCount > 0)
         {
             this.GetTilesFrom(this.transform);
         }
-    }
-
-    public void AddRoom(int addX, int addY, int size)
-    {
-        for (int x = 0; x < size; x++)
-        {
-            for (int y = 0; y < size; y++)
-            {
-                Vector3 pos = new Vector3(addX + x, addX + y, 0);
-                GameObject prefab = GroundPrefab;
-                if (x == 0 || x == size - 1)
-                {
-                    prefab = WallPrefab;
-                }
-
-                if (y == 0 || y == size - 1)
-                {
-                    prefab = WallPrefab;
-                }
-
-                tiles[x + addX, y + addY] = InstantiateTile(pos, prefab);
-            }
-        }
-    }
-
-    public void RemoveTileAt(Point pos)
-    {
-        try
-        {
-            var tile = this.tiles[pos.X, pos.Y];
-            if (tile != null)
-            {
-                Destroy(tile.gameObject);
-            }
-        }
-        catch
-        { }
-    }
-
-    public void AddTile(TileType type, Point pos)
-    {
-        RemoveTileAt(pos);
-        GameObject prefab;
-        switch (type)
-        {
-            case TileType.Ground:
-                {
-                    prefab = GroundPrefab;
-                    break;
-                }
-            case TileType.Wall:
-                {
-                    prefab = WallPrefab;
-                    break;
-                }
-            default:
-                throw new UnityException("This should not happen!");
-        }
-        this.tiles[pos.X, pos.Y] = InstantiateTile(new Vector3(pos.X, pos.Y, 0), prefab);
     }
 
     public Tile GetTileAt(int x, int y)
