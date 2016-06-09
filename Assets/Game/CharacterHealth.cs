@@ -12,9 +12,12 @@ public class CharacterHealth : MonoBehaviour
 
     public void DealDamage(int damage)
     {
-        DOTween.Sequence()
-            .Append(this.SpriteToFlash.DOColor(Color.red, .15f))
-            .Append(this.SpriteToFlash.DOColor(Color.white, .15f));
+        if (this.SpriteToFlash != null)
+        {
+            DOTween.Sequence()
+                .Append(this.SpriteToFlash.DOColor(Color.red, .15f))
+                .Append(this.SpriteToFlash.DOColor(Color.white, .15f));
+        }
 
         this.Health -= damage;
         this.RaiseOnDealtDamage(damage);

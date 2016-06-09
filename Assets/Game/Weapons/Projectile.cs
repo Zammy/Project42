@@ -57,6 +57,10 @@ public class Projectile : MonoBehaviour
             charHealth = collider.GetComponent<CharacterHealth>();
         }
 
+        if (collider.tag == "Wall")
+        {
+            charHealth = collider.GetComponent<CharacterHealth>();
+        }
 
         if (charHealth != null)
         {

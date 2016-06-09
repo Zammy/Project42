@@ -3,8 +3,9 @@ using UnityEngine;
 
 public abstract class AIMovingState : AIState
 {
+    public int FramesIdle = 30;
+
     const float FRAME_MIN_DISTANCE = 0.01f;
-    const int FRAME_SAMPLE_RATE = 15;
     int frameCounter = 0;
     Vector2 samplePos;
 
@@ -17,11 +18,11 @@ public abstract class AIMovingState : AIState
 
     public override void StateUpdate()
     {
-        if (++frameCounter % FRAME_SAMPLE_RATE == 0)
+        if (++frameCounter % FramesIdle == 0)
         {
             Vector2 currentPos = CreatureTransform.position.xToVector2();
             float sqrDist = (currentPos - samplePos).sqrMagnitude;
-            if (sqrDist < FRAME_MIN_DISTANCE * FRAME_SAMPLE_RATE)
+            if (sqrDist < FRAME_MIN_DISTANCE * FramesIdle)
             {
                 this.OnNotMoving();
             }

@@ -54,6 +54,16 @@ public class Level : SingletonBehavior<Level>
         this.creatures.Remove(creature);
     }
 
+    public void RemoveObject(LevelObj o)
+    {
+        objects.Remove(o);
+    }
+
+    public List<GameObject> GetObstaclesAround(Vector3 pos, float distance)
+    {
+        return GetObjectAround(LevelObjType.Obastacle, pos, distance);
+    }
+
     protected override void Awake()
     {
         base.Awake();
@@ -74,6 +84,26 @@ public class Level : SingletonBehavior<Level>
         {
             this.GetObjectsFrom(this.transform);
         }
+    }
+
+    List<GameObject> GetObjectAround(LevelObjType type, Vector3 pos, float distance)
+    {
+        var foundList = new List<GameObject>();
+
+        float sqrDist = distance * distance;
+
+        foreach (var lgo in objects)
+        {
+            if (lgo.Type == type)
+            {
+                if ((lgo.transform.position - pos).sqrMagnitude < distance)
+                {
+                    foundList.Add(lgo.gameObject);
+                }
+            }
+        }
+
+        return foundList;
     }
 
     void GetObjectsFrom(Transform t)

@@ -10,6 +10,6 @@ public class PunkerAttack : Attack
 
     protected override void OnAttackFinished()
     {
-        StateManager.ActivateState<PunkerNewPos>();
+        StateManager.ActivateState<PunkerHideBehindObstacle>();
     }
 }
