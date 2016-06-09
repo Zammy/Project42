@@ -7,6 +7,7 @@ public class CharacterHealth : MonoBehaviour
     public int Health;
     public SpriteRenderer SpriteToFlash;
 
+    public event Action<int> DealtDamage;
     public event Action<GameObject> CharacterDied;
 
     public void DealDamage(int damage)
@@ -16,6 +17,7 @@ public class CharacterHealth : MonoBehaviour
             .Append(this.SpriteToFlash.DOColor(Color.white, .15f));
 
         this.Health -= damage;
+        this.RaiseOnDealtDamage(damage);
 
         if (this.Health <= 0)
         {
@@ -30,6 +32,14 @@ public class CharacterHealth : MonoBehaviour
         if (this.CharacterDied != null)
         {
             this.CharacterDied(this.gameObject);
+        }
+    }
+
+    void RaiseOnDealtDamage(int dmg)
+    {
+        if (this.DealtDamage != null)
+        {
+            this.DealtDamage(dmg);
         }
     }
 }

@@ -5,9 +5,9 @@ public class AvoidWalls : AIBehavior
 {
     public int Range = 2;
 
-    Level level;
+    //Level level;
 
-    void Start() { level = Level.Instance; }
+    //void Start() { level = Level.Instance; }
 
     //List<Tile> previousWallsAround = null;
 
@@ -25,7 +25,7 @@ public class AvoidWalls : AIBehavior
         //    return AIBehavior.Empty;
 
         //List<LevelObj> wallsAround = level.GetImpassableAround(creatureTransform.position, Range);
-        var danger = new List<Vector2>();
+        //var danger = new List<Vector2>();
         //for (int i = 0; i < wallsAround.Count; i++)
         //{
         //    Vector3 diff = creatureTransform.position - wallsAround[i].transform.position;
@@ -43,7 +43,10 @@ public class AvoidWalls : AIBehavior
 
         ////this.previousWallsAround = wallsAround;
 
-        return danger.ToArray();
+        //return danger.ToArray();
+
+        return AIBehavior.Empty;
+
     }
 
     public override Vector2[] GetInterest()

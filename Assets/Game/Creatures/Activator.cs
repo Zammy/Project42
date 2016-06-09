@@ -7,17 +7,24 @@ public class Activator : AIState
     public float Range = 10f;
     public float ActivateCreaturesAround = 0f;
 
+    CharacterHealth characterHealth;
+
     public override void OnEnter(AIState previousState)
     {
         base.OnEnter(previousState);
         this.Priority = 0;
+
+        characterHealth = CreatureObject.GetComponent<CharacterHealth>();
+
+        characterHealth.DealtDamage += OnDealtDamage;
     }
 
     public override void OnExit(AIState nextState)
     {
         base.OnExit(nextState);
-    }
 
+        characterHealth.DealtDamage -= OnDealtDamage;
+    }
 
     public override void StateUpdate()
     {
@@ -48,6 +55,11 @@ public class Activator : AIState
         }
     }
 
+    private void OnDealtDamage(int dmg)
+    {
+        Activate();
+    }
+
     void Activate()
     {
         this.StateManager.ActivateStateWithHighestPriorty();
@@ -59,7 +71,7 @@ public class Activator : AIState
                 continue;
 
             var aiStateManager = creature.GetComponent<AIStateManager>();
-            if ( aiStateManager.ActiveState.GetType() == typeof(Activator) )
+            if (aiStateManager.ActiveState.GetType() == typeof(Activator))
             {
                 var activator = aiStateManager.GetState<Activator>();
                 activator.RemoteActivate();

@@ -77,7 +77,7 @@ public class Projectile : MonoBehaviour
             }
         }
 
-        if (collider.tag == "Wall" || (this.IsFriendly && collider.tag == "Creature") || (!this.IsFriendly && collider.tag == "Crew"))
+        if (collider.tag == "Wall" || (this.IsFriendly && collider.tag == "Creature") || (!this.IsFriendly && collider.tag == "Player"))
         {
             if (ExplodePrefab != null)
                 Instantiate(ExplodePrefab, this.transform.position, Quaternion.identity);

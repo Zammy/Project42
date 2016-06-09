@@ -17,6 +17,8 @@ public abstract class Attack : AIState
     public override void OnExit(AIState nextState)
     {
         base.OnExit(nextState);
+
+        this.Weapon.IsActive = false;
     }
 
     public override void StateUpdate()
