@@ -28,7 +28,7 @@ public abstract class AvoidCrew : AIMovingState
         Vector2 crewPos = Crew.Instance.transform.position.xToVector2();
         avoid.Goal = crewPos;
 
-        if ((crewPos - this.creatureTransform.position.xToVector2()).magnitude > Range)
+        if ((crewPos - this.CreatureTransform.position.xToVector2()).magnitude > Range)
         {
             this.OnCrewAvoided();
         }

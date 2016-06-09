@@ -75,8 +75,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CrewMemberPrefab: {fileID: 127368, guid: 54664e840a8ee4aa7b5dc4c1f9a5bc12, type: 2}
-  LOSMeshPrefab: {fileID: 118826, guid: 02ef0199ce9e5449dbe7e40cbb38424a, type: 2}
-  Level: {fileID: 0}
 --- !u!114 &11457920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -100,6 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53f74153a29d4810b34a8c060c5976a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Z: -12
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

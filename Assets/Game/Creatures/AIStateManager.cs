@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class AIStateManager : MonoBehaviour
 {
@@ -16,14 +17,12 @@ public class AIStateManager : MonoBehaviour
         }
     }
 
-
     AIState[] allStates;
     int activeStateIndex;
 
-
     void Awake()
     {
-        this.allStates = StatesBase.GetComponents<AIState>();
+        this.allStates = StatesBase.GetComponentsInChildren<AIState>();
     }
 
     void Start()

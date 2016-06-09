@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -48,7 +46,7 @@ public abstract class SeekCrew : AIMovingState
         {
             seek.Goal = path[0].ToVector2();
 
-            float sqrDisToGoal = (creatureTransform.transform.position.xToVector2() - path[0].ToVector2()).sqrMagnitude;
+            float sqrDisToGoal = (CreatureTransform.transform.position.xToVector2() - path[0].ToVector2()).sqrMagnitude;
             if (sqrDisToGoal < 0.25f)
             {
                 path.RemoveAt(0);
@@ -63,7 +61,7 @@ public abstract class SeekCrew : AIMovingState
 
             seek.Goal = goal;
 
-            float sqrDisToGoal = (creatureTransform.transform.position.xToVector2() - goal).sqrMagnitude;
+            float sqrDisToGoal = (CreatureTransform.transform.position.xToVector2() - goal).sqrMagnitude;
             if (sqrDisToGoal < 0.25f)
             {
                 this.OnCrewSought();
@@ -74,7 +72,7 @@ public abstract class SeekCrew : AIMovingState
     protected virtual Vector2 RandomDiffFromCrew()
     {
         Vector2 crewPos = Crew.Instance.transform.position.xToVector2();
-        var diffFromCrew = (creatureTransform.position.xToVector2() - crewPos).normalized * Range;
+        var diffFromCrew = (CreatureTransform.position.xToVector2() - crewPos).normalized * Range;
         return diffFromCrew;
     }
 
@@ -82,7 +80,7 @@ public abstract class SeekCrew : AIMovingState
 
     private void CalculatePathIfNeeded()
     {
-        Vector2 creaturePos = creatureTransform.position.xToVector2();
+        Vector2 creaturePos = CreatureTransform.position.xToVector2();
         Vector2 crewPos = Crew.Instance.transform.position.xToVector2();
         Vector2 diff = crewPos - creaturePos;
         RaycastHit2D hit = Physics2D.Raycast(creaturePos, diff, diff.magnitude);
@@ -100,7 +98,7 @@ public abstract class SeekCrew : AIMovingState
                     RaycastHit2D hitPoint = Physics2D.Raycast(prevPoint, diffPoint, diffPoint.magnitude);
                     if (hitPoint.collider == null)
                     {
-                        path.RemoveRange(pointsLeft, i);
+                        path.RemoveRange(pointsLeft, i - pointsLeft);
                         break;
                     }
                 }

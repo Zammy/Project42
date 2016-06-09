@@ -62,7 +62,7 @@ public class Avoid : AIBehavior
             return Vector2.zero;
         }
 
-        Vector3 diff = creatureTransform.position - this.Goal;
+        Vector3 diff = CreatureTransform.position - this.Goal;
         if (diff.sqrMagnitude < 0.05f)
         {
             Goal = Vector3.zero;

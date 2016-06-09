@@ -83,7 +83,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c027a1774a414839a28980de56180b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TileTipe: 0
+  Type: 0
+  Collider: {fileID: 6122496}
 --- !u!212 &21295970
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -21,27 +21,27 @@ public class AvoidWalls : AIBehavior
         //    }
         //}
 
-        if (level == null)
-            return AIBehavior.Empty;
+        //if (level == null)
+        //    return AIBehavior.Empty;
 
-        List<Tile> wallsAround = level.GetImpassableAround(creatureTransform.position, Range);
+        //List<LevelObj> wallsAround = level.GetImpassableAround(creatureTransform.position, Range);
         var danger = new List<Vector2>();
-        for (int i = 0; i < wallsAround.Count; i++)
-        {
-            Vector3 diff = creatureTransform.position - wallsAround[i].transform.position;
-            float magnitude = diff.magnitude;
-            if (Range < magnitude)
-                continue;
+        //for (int i = 0; i < wallsAround.Count; i++)
+        //{
+        //    Vector3 diff = creatureTransform.position - wallsAround[i].transform.position;
+        //    float magnitude = diff.magnitude;
+        //    if (Range < magnitude)
+        //        continue;
 
-            //wallsAround[i].DebugHighlight = true;
+        //    //wallsAround[i].DebugHighlight = true;
 
-            float finalMagnitude = Mathf.Pow(Range - diff.magnitude, 4);
+        //    float finalMagnitude = Mathf.Pow(Range - diff.magnitude, 4);
 
-            diff = diff.normalized * finalMagnitude * this.Strength;
-            danger.Add(diff);
-        }
+        //    diff = diff.normalized * finalMagnitude * this.Strength;
+        //    danger.Add(diff);
+        //}
 
-        //this.previousWallsAround = wallsAround;
+        ////this.previousWallsAround = wallsAround;
 
         return danger.ToArray();
     }

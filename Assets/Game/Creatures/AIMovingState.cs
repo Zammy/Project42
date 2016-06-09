@@ -12,14 +12,14 @@ public abstract class AIMovingState : AIState
     {
         base.OnEnter(previousState);
 
-        samplePos = creatureTransform.position;
+        samplePos = CreatureTransform.position;
     }
 
     public override void StateUpdate()
     {
         if (++frameCounter % FRAME_SAMPLE_RATE == 0)
         {
-            Vector2 currentPos = creatureTransform.position.xToVector2();
+            Vector2 currentPos = CreatureTransform.position.xToVector2();
             float sqrDist = (currentPos - samplePos).sqrMagnitude;
             if (sqrDist < FRAME_MIN_DISTANCE * FRAME_SAMPLE_RATE)
             {

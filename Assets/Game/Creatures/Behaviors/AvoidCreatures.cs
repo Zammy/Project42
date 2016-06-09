@@ -18,12 +18,12 @@ public class AvoidCreatures : AIBehavior
             return AIBehavior.Empty;
 
         dangers.Clear();
-        List<GameObject> creaturesAround = level.GetCreaturesAround(creatureTransform, Range);
+        List<GameObject> creaturesAround = level.GetCreaturesAround(CreatureTransform, Range);
         for (int i = 0; i < creaturesAround.Count; i++)
         {
             var creature = creaturesAround[i];
 
-            var diff = creatureTransform.position - creature.transform.position;
+            var diff = CreatureTransform.position - creature.transform.position;
             float finalMagnitude = Mathf.Pow(Range - diff.magnitude, 1.5f);
             diff = diff.normalized * finalMagnitude * this.Strength;
 

@@ -8,7 +8,7 @@ public class DogAttack : Attack
     {
         base.OnEnter(previousState);
 
-        creatureTransform.transform.xLookAt(Crew.Instance.transform.position);
+        CreatureTransform.transform.xLookAt(Crew.Instance.transform.position);
     }
 
     protected override void OnAttackFinished()

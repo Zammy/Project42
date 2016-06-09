@@ -29,13 +29,13 @@ public class Dying : AIGlobalState
         if (animatorInfo.IsName("Died"))
         {
             //TODO died triggers
-            Destroy(creatureTransform.gameObject);
+            Destroy(CreatureTransform.gameObject);
         }
     }
 
     private void OnCharacterDied(GameObject _)
     {
         this.Animator.SetTrigger("Die");
-        Level.Instance.RemoveCreature(this.creatureObject);
+        Level.Instance.RemoveCreature(this.CreatureObject);
     }
 }

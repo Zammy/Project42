@@ -16,7 +16,7 @@ public class CreatureMovement : CharacterMovement
 
 	void Start () 
     {
-        this.behaviors = BehaviorsBase.GetComponents<AIBehavior>();
+        this.behaviors = BehaviorsBase.GetComponentsInChildren<AIBehavior>();
     }
 
     protected override void FixedUpdate()

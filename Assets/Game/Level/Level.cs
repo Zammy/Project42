@@ -6,115 +6,30 @@ public class Level : SingletonBehavior<Level>
     public Transform LevelBase;
     public Transform CreaturesBase;
 
-    public int SIZE = 50;
+    List<LevelObj> objects;
+    List<GameObject> creatures;
 
-    protected Tile[,] tiles;
-
-    protected List<GameObject> creatures = new List<GameObject>();
-
-    protected override void Awake()
-    {
-        base.Awake();
-
-        this.tiles = new Tile[SIZE, SIZE];
-        if (CreaturesBase != null)
-        {
-            foreach (Transform creature in CreaturesBase)
-            {
-                creatures.Add(creature.gameObject);
-            }
-        }
-
-        if (this.transform.childCount > 0)
-        {
-            this.GetTilesFrom(this.transform);
-        }
-    }
-
-    public Tile GetTileAt(int x, int y)
-    {
-        try
-        {
-            return tiles[x, y];
-        }
-        catch
-        {
-            return null;
-        }
-    }
-
-    public Tile GetTileAt(Point p)
-    {
-        return GetTileAt(p.X, p.Y);
-    }
-
-    public bool IsTileOfTypeAt(TileType type, int x, int y)
-    {
-        var tile = GetTileAt(x, y);
-        if (tile == null)
-            return false;
-
-        return tile.TileTipe == type;
-    }
-
-    public bool IsTileOfTypeAt(TileType type, Point p)
-    {
-        return IsTileOfTypeAt(type, p.X, p.Y);
-    }
-
-    public void GetTilesFrom(Transform t)
-    {
-        foreach (Transform tileTrns in t)
-        {
-            var pos = tileTrns.position;
-            this.tiles[(int)pos.x, (int)pos.y] = tileTrns.gameObject.GetComponent<Tile>();
-        }
-    }
+    List<List<bool>> impassable;
 
     public bool IsPassable(Point p)
     {
-        var tile = GetTileAt(p);
-        if (tile == null)
-            return false;
+        if (impassable[p.X] == null)
+        {
+            return true;
+        }
 
-        return tile.TileTipe != TileType.Wall;
+        if (impassable[p.X].Count <= p.Y)
+        {
+            return true;
+        }
+
+        return !impassable[p.X][p.Y];
     }
 
     public bool IsPassable(Vector3 pos)
     {
         Point p = pos.xToPoint();
         return this.IsPassable(p);
-    }
-
-    public List<Tile> GetImpassableAround(Vector3 position, int searchRange)
-    {
-        List<Tile> tiles = new List<Tile>();
-
-        int intX = Mathf.RoundToInt(position.x);
-        int intY = Mathf.RoundToInt(position.y);
-
-        for (int x = intX - searchRange; x < intX + searchRange; x++)
-        {
-            if (x < 0 || x >= this.SIZE)
-                continue;
-
-            for (int y = intY - searchRange; y < intY + searchRange; y++)
-            {
-                if (y < 0 || y >= this.SIZE)
-                    continue;
-
-                Tile tile = this.GetTileAt(x, y);
-                if (tile == null)
-                    continue;
-
-                if (tile.TileTipe == TileType.Wall)
-                {
-                    tiles.Add(tile);
-                }
-            }
-        }
-
-        return tiles;
     }
 
     public List<GameObject> GetCreaturesAround(Transform trans, float searchRange)
@@ -139,11 +54,58 @@ public class Level : SingletonBehavior<Level>
         this.creatures.Remove(creature);
     }
 
-    protected Tile InstantiateTile(Vector3 pos, GameObject prefab)
+    protected override void Awake()
     {
-        var tileGo = (GameObject)Instantiate(prefab, pos, Quaternion.identity);
-        tileGo.transform.SetParent(LevelBase);
-        tileGo.transform.localScale = Vector3.one;
-        return tileGo.GetComponent<Tile>();
+        base.Awake();
+
+        this.objects = new List<LevelObj>();
+        this.creatures = new List<GameObject>();
+        this.impassable = new List<List<bool>>();
+
+        if (CreaturesBase != null)
+        {
+            foreach (Transform creature in CreaturesBase)
+            {
+                creatures.Add(creature.gameObject);
+            }
+        }
+
+        if (this.transform.childCount > 0)
+        {
+            this.GetObjectsFrom(this.transform);
+        }
+    }
+
+    void GetObjectsFrom(Transform t)
+    {
+        foreach (Transform tileTrns in t)
+        {
+            var obj = tileTrns.gameObject.GetComponent<LevelObj>();
+            var collider = obj.Collider;
+            if (collider != null)
+            {
+                this.objects.Add(obj);
+
+                var bounds = collider.bounds;
+                for (int x = (int)(bounds.center.x - bounds.extents.x + 0.5f); x <= bounds.center.x + bounds.extents.x - 0.5f; x++)
+                {
+                    for (int y = (int)(bounds.center.y - bounds.extents.y + 0.5f); y <= bounds.center.y + bounds.extents.y - 0.5f; y++)
+                    {
+                        SetImpassable(x, y);
+                    }
+                }
+            }
+        }
+    }
+
+    void SetImpassable(int x, int y)
+    {
+        impassable.xAddUpTo(x);
+        if (impassable[x] == null)
+        {
+            impassable[x] = new List<bool>(y);
+        }
+        impassable[x].xAddUpTo(y);
+        impassable[x][y] = true;
     }
 }

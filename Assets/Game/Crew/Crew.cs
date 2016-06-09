@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public class Crew : SingletonBehavior<Crew> 
@@ -132,9 +131,7 @@ public class Crew : SingletonBehavior<Crew>
 
     void LookAt()
     {
-        Vector3 cursorScreenPos = Input.mousePosition;
-        Vector3 cursorWorldPos = Camera.main.ScreenToWorldPoint(cursorScreenPos);
-        cursorWorldPos.z = 0;
+        Vector3 cursorWorldPos = Cursor.CursorPosition;
 
         this.transform.xLookAt(cursorWorldPos);
 
