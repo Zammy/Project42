@@ -59,6 +59,7 @@ public class Crew : SingletonBehavior<Crew>
         this.Movement();
         this.LookAt();
         this.FireWeapons();
+        this.ActivateSkills();
     }
 
     CrewMember InstantiateCrewMember()
@@ -205,6 +206,18 @@ public class Crew : SingletonBehavior<Crew>
 
     }
 
+    void ActivateSkills()
+    {
+        var crewMembers = this.CrewMembers;
+        //int keyCode = 49; //Alpha1
+        for (int i = 0, keyCode = 49; i < crewMembers.Count; i++, keyCode++)
+        {
+            if (Input.GetKeyDown((KeyCode)keyCode))
+            {
+                crewMembers[i].ActivateSkill();
+            }
+        }
+    }
 
     //    void LateUpdate()
     //    {

@@ -3,8 +3,8 @@ using System.Collections;
 
 public enum ActiveSkillType
 {
-    AOESlowdown,
     Blink,
+    AOESlowdown,
     Shield,
     FakeTarget
 }
@@ -15,5 +15,6 @@ public class ActiveSkill : ScriptableObject
     public string Name;
     public ActiveSkillType Type;
     public int Recharges;
-    public float CastSpeed;
+    public float Value1;
+    public float Value2;
 }
