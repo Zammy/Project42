@@ -10,21 +10,21 @@ public class Level : SingletonBehavior<Level>
     List<LevelObj> objects;
     List<GameObject> creatures;
 
-    List<List<bool>> impassable;
+    List<List<bool>> impassableMap;
 
     public bool IsPassable(Point p)
     {
-        if (impassable[p.X] == null)
+        if (impassableMap[p.X] == null)
         {
             return true;
         }
 
-        if (impassable[p.X].Count <= p.Y)
+        if (impassableMap[p.X].Count <= p.Y)
         {
             return true;
         }
 
-        return !impassable[p.X][p.Y];
+        return !impassableMap[p.X][p.Y];
     }
 
     public bool IsPassable(Vector3 pos)
@@ -58,6 +58,8 @@ public class Level : SingletonBehavior<Level>
     public void RemoveObject(LevelObj o)
     {
         objects.Remove(o);
+
+        AddImpassability(o.Collider, false);
     }
 
     public List<GameObject> GetObstaclesAround(Vector3 pos, float distance)
@@ -77,7 +79,7 @@ public class Level : SingletonBehavior<Level>
 
         this.objects = new List<LevelObj>();
         this.creatures = new List<GameObject>();
-        this.impassable = new List<List<bool>>();
+        this.impassableMap = new List<List<bool>>();
 
         if (CreaturesBase != null)
         {
@@ -123,26 +125,31 @@ public class Level : SingletonBehavior<Level>
             {
                 this.objects.Add(obj);
 
-                var bounds = collider.bounds;
-                for (int x = (int)(bounds.center.x - bounds.extents.x + 0.5f); x <= bounds.center.x + bounds.extents.x - 0.5f; x++)
-                {
-                    for (int y = (int)(bounds.center.y - bounds.extents.y + 0.5f); y <= bounds.center.y + bounds.extents.y - 0.5f; y++)
-                    {
-                        SetImpassable(x, y);
-                    }
-                }
+                AddImpassability(collider);
             }
         }
     }
 
-    void SetImpassable(int x, int y)
+    private void AddImpassability(BoxCollider2D collider, bool impassable = true)
     {
-        impassable.xAddUpTo(x);
-        if (impassable[x] == null)
+        var bounds = collider.bounds;
+        for (int x = (int)(bounds.center.x - bounds.extents.x + 0.5f); x <= bounds.center.x + bounds.extents.x - 0.5f; x++)
         {
-            impassable[x] = new List<bool>(y);
+            for (int y = (int)(bounds.center.y - bounds.extents.y + 0.5f); y <= bounds.center.y + bounds.extents.y - 0.5f; y++)
+            {
+                SetImpassability(x, y, impassable);
+            }
         }
-        impassable[x].xAddUpTo(y);
-        impassable[x][y] = true;
+    }
+
+    void SetImpassability(int x, int y, bool impassable)
+    {
+        impassableMap.xAddUpTo(x);
+        if (impassableMap[x] == null)
+        {
+            impassableMap[x] = new List<bool>(y);
+        }
+        impassableMap[x].xAddUpTo(y);
+        impassableMap[x][y] = impassable;
     }
 }
