@@ -26,7 +26,7 @@ public abstract class SeekCrew : AIMovingState
     private void CalculateDiffFromCrew()
     {
         this.diffFromCrew = RandomDiffFromCrew();
-        //var explosionGo = (GameObject)Instantiate(DebugExplosion, Crew.Instance.transform.position + diffFromCrew.xToVector3(), Quaternion.identity);
+        //var explosionGo = (GameObject)Instantiate(DebugExplosion, this.CrewPos + diffFromCrew.xToVector3(), Quaternion.identity);
         //explosionGo.transform.parent = Crew.Instance.transform;
     }
 
@@ -56,7 +56,7 @@ public abstract class SeekCrew : AIMovingState
         }
         else
         {
-            Vector2 crewPos = Crew.Instance.transform.position.xToVector2();
+            Vector2 crewPos = this.CrewPos.xToVector2();
             Vector2 goal = diffFromCrew + crewPos;
 
             seek.Goal = goal;
@@ -71,7 +71,7 @@ public abstract class SeekCrew : AIMovingState
 
     protected virtual Vector2 RandomDiffFromCrew()
     {
-        Vector2 crewPos = Crew.Instance.transform.position.xToVector2();
+        Vector2 crewPos = this.CrewPos.xToVector2();
         var diffFromCrew = (CreatureTransform.position.xToVector2() - crewPos).normalized * Range;
         return diffFromCrew;
     }
@@ -81,7 +81,7 @@ public abstract class SeekCrew : AIMovingState
     private void CalculatePathIfNeeded()
     {
         Vector2 creaturePos = CreatureTransform.position.xToVector2();
-        Vector2 crewPos = Crew.Instance.transform.position.xToVector2();
+        Vector2 crewPos = this.CrewPos.xToVector2();
         Vector2 diff = crewPos - creaturePos;
         RaycastHit2D hit = Physics2D.Raycast(creaturePos, diff, diff.magnitude);
         if (hit.collider != null && hit.collider.tag != "Crew")

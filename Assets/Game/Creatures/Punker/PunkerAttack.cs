@@ -5,7 +5,7 @@ public class PunkerAttack : Attack
     {
         base.OnEnter(previousState);
 
-        CreatureTransform.transform.xLookAt(Crew.Instance.transform.position);
+        CreatureTransform.transform.xLookAt(this.CrewPos);
     }
 
     protected override void OnAttackFinished()

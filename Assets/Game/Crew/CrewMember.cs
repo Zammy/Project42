@@ -7,6 +7,7 @@ public class CrewMember : MonoBehaviour
     public GameObject BlinkInPrefab;
     public GameObject BlinkOutPrefab;
     public GameObject ShieldPrefab;
+    public GameObject FakeTargetPrefab;
 
     public CharacterInfo CharInfo { get; private set; }
     public Weapon Weapon { get; private set; }
@@ -68,6 +69,7 @@ public class CrewMember : MonoBehaviour
                 this.Shield();
                 break;
             case ActiveSkillType.FakeTarget:
+                this.FakeTarget();
                 break;
             default:
                 break;
@@ -121,10 +123,10 @@ public class CrewMember : MonoBehaviour
             member.CharHealth.IsShielded = true;
         }
 
-        StartCoroutine(RemoveShieldAfter(shieldGo, duration));
+        StartCoroutine(RemoveShieldAfter(duration));
     }
 
-    IEnumerator RemoveShieldAfter(GameObject shield, float sec)
+    IEnumerator RemoveShieldAfter(float sec)
     {
         yield return new WaitForSeconds(sec);
 
@@ -132,5 +134,25 @@ public class CrewMember : MonoBehaviour
         {
             member.CharHealth.IsShielded = false;
         }
+    }
+
+    void FakeTarget()
+    {
+        var fakeTargetGo = (GameObject) Instantiate(FakeTargetPrefab, Cursor.CursorPosition, Quaternion.identity);
+        float duration = CharInfo.ActiveSkill.Value1;
+        
+        if (Crew.Instance.FakeTargetPos == null)
+            Crew.Instance.FakeTargetPos = new Vector3();
+
+        Crew.Instance.FakeTargetPos = Cursor.CursorPosition;
+
+        StartCoroutine(RemoveFakeTarget(duration));
+    }
+
+    IEnumerator RemoveFakeTarget(float sec)
+    {
+        yield return new WaitForSeconds(sec);
+
+        Crew.Instance.FakeTargetPos = null;
     }
 }

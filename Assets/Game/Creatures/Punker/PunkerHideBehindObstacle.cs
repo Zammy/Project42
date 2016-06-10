@@ -24,7 +24,7 @@ public class PunkerHideBehindObstacle : AIMovingState
         {
             var obstacle = obstacles[UnityEngine.Random.Range(0, obstacles.Count)];
 
-            Vector3 toCrew = Crew.Instance.transform.position - obstacle.transform.position;
+            Vector3 toCrew = this.CrewPos - obstacle.transform.position;
             var behindObstacle = toCrew.normalized * 1.5f;
 
             seek.Goal = obstacle.transform.position - behindObstacle;

@@ -28,14 +28,15 @@ public class Activator : AIState
 
     public override void StateUpdate()
     {
-        Vector3 fromCreatureToCrew = Crew.Instance.transform.position - CreatureTransform.position;
+        Vector3 fromCreatureToCrew = this.CrewPos - CreatureTransform.position;
         float distance = fromCreatureToCrew.magnitude;
         if (distance < Range)
         {
             if (ShouldBeVisible)
             {
                 RaycastHit2D hit = Physics2D.Raycast(CreatureTransform.position, fromCreatureToCrew);
-                if (hit.collider != null && hit.collider.tag == "Crew")
+                if (hit.collider != null 
+                    && (hit.collider.tag == "Crew" || hit.collider.tag == "Player"))
                 {
                     Activate();
                 }

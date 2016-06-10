@@ -7,6 +7,8 @@ public class Crew : SingletonBehavior<Crew>
 
     //public GameObject LOSMeshPrefab;
 
+    public Vector3? FakeTargetPos { get; set; }
+
     const float HORZ_CREW_POS = 0.25f;
     const float VERT_CREW_POS = 0.25f;
     CrewMember[] crewMembers;
@@ -40,6 +42,17 @@ public class Crew : SingletonBehavior<Crew>
         }
 
         UpdateCrewPositions();
+    }
+
+    public Vector3 GetPos(Vector3 creaturePos)
+    {
+        if (this.FakeTargetPos != null 
+                && ((creaturePos - this.FakeTargetPos.Value).sqrMagnitude < (creaturePos - this.transform.position).sqrMagnitude))
+        {
+            return this.FakeTargetPos.Value;
+        }
+
+        return this.transform.position;
     }
 
     protected override void OnDestroy()

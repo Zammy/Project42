@@ -16,7 +16,7 @@ public class DogBark : AIState
         hasBarked = false;
         Animator.SetTrigger("Bark");
 
-        CreatureTransform.transform.xLookAt(Crew.Instance.transform.position);
+        CreatureTransform.transform.xLookAt(this.CrewPos);
     }
 
     public override void StateUpdate()

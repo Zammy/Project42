@@ -17,7 +17,7 @@ public class PunkerNewPos : AIMovingState
         seek = this.Behaviors.OfType<Seek>().First();
 
         Vector3 creaturePos = CreatureTransform.position;
-        Vector3 toCrew = (Crew.Instance.transform.position - creaturePos).normalized;
+        Vector3 toCrew = (this.CrewPos - creaturePos).normalized;
 
         RaycastHit2D hit;
         Vector3 goal = Vector3.zero;
@@ -54,7 +54,7 @@ public class PunkerNewPos : AIMovingState
     {
         base.StateUpdate();
 
-        float sqrDisToGoal = (Crew.Instance.transform.position - CreatureTransform.position).sqrMagnitude;
+        float sqrDisToGoal = (this.CrewPos - CreatureTransform.position).sqrMagnitude;
         if (sqrDisToGoal < 0.25f)
         {
             StateManager.ActivateState<PunkerAttack>();

@@ -11,7 +11,7 @@ public class DogSeekCrew : SeekCrew
         {
             diff = Quaternion.AngleAxis(UnityEngine.Random.Range(-AngleVariance, AngleVariance), Vector3.forward) * diff;
         }
-        while (!Level.Instance.IsPassable(Crew.Instance.transform.position.xToVector2() + diff));
+        while (!Level.Instance.IsPassable(this.CrewPos.xToVector2() + diff));
 
         return diff;
     }

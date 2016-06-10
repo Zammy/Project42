@@ -23,6 +23,14 @@ public abstract class AIState : MonoBehaviour
         }
     }
 
+    protected Vector3 CrewPos
+    {
+        get
+        {
+            return Crew.Instance.GetPos(CreatureTransform.position);
+        }
+    }
+
     public virtual void OnEnter(AIState previousState)
     {
         //Debug.LogFormat("OnEnter {0}", GetType().Name);
