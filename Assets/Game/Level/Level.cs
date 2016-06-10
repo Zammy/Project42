@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Level : SingletonBehavior<Level>
 {
@@ -61,7 +62,13 @@ public class Level : SingletonBehavior<Level>
 
     public List<GameObject> GetObstaclesAround(Vector3 pos, float distance)
     {
-        return GetObjectAround(LevelObjType.Obastacle, pos, distance);
+        return GetObjectsAround(LevelObjType.Obastacle, pos, distance)
+             .Select<LevelObj, GameObject>(o => o.gameObject).ToList();
+    }
+
+    public List<LevelObj> GetObjectsWithDangerAround(Vector3 pos, float distance)
+    {
+        return GetObjectsAround(LevelObjType.All, pos, distance);
     }
 
     protected override void Awake()
@@ -86,19 +93,19 @@ public class Level : SingletonBehavior<Level>
         }
     }
 
-    List<GameObject> GetObjectAround(LevelObjType type, Vector3 pos, float distance)
+    List<LevelObj> GetObjectsAround(LevelObjType type, Vector3 pos, float distance)
     {
-        var foundList = new List<GameObject>();
+        var foundList = new List<LevelObj>();
 
         float sqrDist = distance * distance;
 
         foreach (var lgo in objects)
         {
-            if (lgo.Type == type)
+            if (lgo.Type == type || type == LevelObjType.All)
             {
-                if ((lgo.transform.position - pos).sqrMagnitude < distance)
+                if ((lgo.transform.position - pos).sqrMagnitude < sqrDist)
                 {
-                    foundList.Add(lgo.gameObject);
+                    foundList.Add(lgo);
                 }
             }
         }

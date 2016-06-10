@@ -19,25 +19,33 @@ public class PunkerNewPos : AIMovingState
         Vector3 creaturePos = CreatureTransform.position;
         Vector3 toCrew = (Crew.Instance.transform.position - creaturePos).normalized;
 
-        float angle = 90f;
-        bool left = UnityEngine.Random.Range(0, 2) == 0;
-        if (left)
+        RaycastHit2D hit;
+        Vector3 goal = Vector3.zero;
+        float aroundAngle = AroundAngle;
+        for (int i = 0; i < 25; i++)
         {
-            angle = -angle;
-        }
+            float angle = 90f;
+            bool left = UnityEngine.Random.Range(0, 2) == 0;
+            if (left)
+            {
+                angle = -angle;
+            }
 
-        var rotation = Quaternion.Euler(0, 0, UnityEngine.Random.Range(angle - AroundAngle, angle + AroundAngle));
-        Vector3 dir = rotation * toCrew;
+            var rotation = Quaternion.Euler(0, 0, UnityEngine.Random.Range(angle - aroundAngle, angle + aroundAngle));
+            Vector3 dir = rotation * toCrew;
 
-        RaycastHit2D hit = Physics2D.Raycast(creaturePos.xToVector2(), dir.xToVector2(), AroundDistance);
-        if (hit.collider != null)
-        {
-            seek.Goal = hit.point.xToVector3();
+            float distance = UnityEngine.Random.Range(1f, AroundDistance);
+            hit = Physics2D.Raycast(creaturePos.xToVector2(), dir.xToVector2(), distance);
+            if (hit.collider == null)
+            { 
+                goal = creaturePos + (dir * distance);
+                break;
+            }
+
+            aroundAngle += 1f;
         }
-        else
-        {
-            seek.Goal = creaturePos + (dir * AroundDistance);
-        }
+ 
+        seek.Goal = goal;
 
         var explosionGo = (GameObject)Instantiate(DebugExplosion, seek.Goal, Quaternion.identity);
     }

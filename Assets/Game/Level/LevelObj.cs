@@ -5,7 +5,8 @@ public enum LevelObjType
     Wall,
     Ground,
     Building,
-    Obastacle
+    Obastacle,
+    All
 }
 
 public class LevelObj : MonoBehaviour 

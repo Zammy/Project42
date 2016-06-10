@@ -6,7 +6,17 @@ public class Seek : AIBehavior
 {
     public Vector3 Goal = Vector3.zero;
 
+    Vector2[] interestContext = new Vector2[5];
+
     void Start() { }
+
+    //void Update()
+    //{
+    //    foreach (var vec in interestContext)
+    //    {
+    //        Debug.DrawRay(CreatureTransform.position, vec.xToVector3(), Color.green, vec.magnitude);
+    //    }
+    //}
 
     public override Vector2[] GetDanger()
     {
@@ -21,7 +31,6 @@ public class Seek : AIBehavior
             return AIBehavior.Empty;
         }
 
-        var interestContext = new Vector2[5];
         interestContext[0] = goalDirection;
         interestContext[1] = Quaternion.Euler(0, 0, -45f) * interestContext[0] ;
         interestContext[2] = Quaternion.Euler(0, 0, 45f) * interestContext[0];

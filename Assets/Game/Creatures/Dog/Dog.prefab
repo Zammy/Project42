@@ -206,6 +206,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &166826
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 464564}
+  - 114: {fileID: 11471128}
+  m_Layer: 2
+  m_Name: AvoidWalls
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &170550
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,6 +486,7 @@ Transform:
   - {fileID: 413472}
   - {fileID: 421902}
   - {fileID: 486154}
+  - {fileID: 464564}
   m_Father: {fileID: 477668}
   m_RootOrder: 0
 --- !u!4 &439790
@@ -484,6 +501,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 413592}
   m_RootOrder: 4
+--- !u!4 &464564
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166826}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 438598}
+  m_RootOrder: 3
 --- !u!4 &465746
 Transform:
   m_ObjectHideFlags: 1
@@ -761,7 +790,9 @@ MonoBehaviour:
   Behaviors:
   - {fileID: 11417834}
   - {fileID: 11431012}
+  - {fileID: 11471128}
   Priority: 1
+  FramesIdle: 30
   Range: 1
   AngleVariance: 45
 --- !u!114 &11457100
@@ -793,6 +824,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 10
   SpriteToFlash: {fileID: 21217890}
+--- !u!114 &11471128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166826}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49116ed4df031fc4e92410287e86da08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CreatureTransform: {fileID: 477668}
+  Strength: 0.5
+  Range: 2
 --- !u!114 &11475682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -855,7 +900,9 @@ MonoBehaviour:
   Behaviors:
   - {fileID: 11400322}
   - {fileID: 11431012}
+  - {fileID: 11471128}
   Priority: 0
+  FramesIdle: 30
   Range: 5
 --- !u!212 &21217890
 SpriteRenderer:

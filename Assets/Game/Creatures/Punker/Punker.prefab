@@ -141,6 +141,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &120180
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 422156}
+  - 114: {fileID: 11445250}
+  m_Layer: 2
+  m_Name: AvoidWalls
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &125032
 GameObject:
   m_ObjectHideFlags: 1
@@ -324,7 +340,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 178804}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.041825, y: 8.167239, z: 0}
+  m_LocalPosition: {x: 3.93, y: 3.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 455696}
@@ -369,6 +385,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 424900}
   m_RootOrder: 1
+--- !u!4 &422156
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120180}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 455696}
+  m_RootOrder: 3
 --- !u!4 &424900
 Transform:
   m_ObjectHideFlags: 1
@@ -420,6 +448,7 @@ Transform:
   - {fileID: 495380}
   - {fileID: 435258}
   - {fileID: 489110}
+  - {fileID: 422156}
   m_Father: {fileID: 402936}
   m_RootOrder: 0
 --- !u!4 &458128
@@ -684,6 +713,20 @@ MonoBehaviour:
   ShouldBeVisible: 1
   Range: 8
   ActivateCreaturesAround: 3
+--- !u!114 &11445250
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49116ed4df031fc4e92410287e86da08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CreatureTransform: {fileID: 402936}
+  Strength: 0.5
+  Range: 2
 --- !u!114 &11457912
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -3,50 +3,40 @@ using UnityEngine;
 
 public class AvoidWalls : AIBehavior
 {
-    public int Range = 2;
+    public float Range = 2;
 
-    //Level level;
+    List<Vector2> dangerVectors = new List<Vector2>();
 
-    //void Start() { level = Level.Instance; }
+    void Start() { }
 
-    //List<Tile> previousWallsAround = null;
+    void Update()
+    {
+        foreach (var vec in dangerVectors)
+        {
+            Debug.DrawRay(CreatureTransform.position, vec.xToVector3(), Color.red, vec.magnitude);
+        }
+    }
 
     public override Vector2[] GetDanger()
     {
-        //if (previousWallsAround != null)
-        //{
-        //    foreach (var item in previousWallsAround)
-        //    {
-        //        item.DebugHighlight = false;
-        //    }
-        //}
+        Vector3 selfPos = this.CreatureTransform.position;
+        Vector2 selfPos2d = selfPos.xToVector2();
 
-        //if (level == null)
-        //    return AIBehavior.Empty;
+        dangerVectors.Clear();
 
-        //List<LevelObj> wallsAround = level.GetImpassableAround(creatureTransform.position, Range);
-        //var danger = new List<Vector2>();
-        //for (int i = 0; i < wallsAround.Count; i++)
-        //{
-        //    Vector3 diff = creatureTransform.position - wallsAround[i].transform.position;
-        //    float magnitude = diff.magnitude;
-        //    if (Range < magnitude)
-        //        continue;
+        List<LevelObj> wallsAround = Level.Instance.GetObjectsWithDangerAround(selfPos, Range);
+        for (int i = 0; i < wallsAround.Count; i++)
+        {
+            //SteerDanger steerDanger = wallsAround[i].transform.position
+            Vector3 diff = selfPos - wallsAround[i].transform.position;
+            float distance = diff.magnitude;
 
-        //    //wallsAround[i].DebugHighlight = true;
+            Vector2 dangerVec = diff * Mathf.Pow(Range - distance, 4) * Strength;
 
-        //    float finalMagnitude = Mathf.Pow(Range - diff.magnitude, 4);
+            dangerVectors.Add(dangerVec);
+        }
 
-        //    diff = diff.normalized * finalMagnitude * this.Strength;
-        //    danger.Add(diff);
-        //}
-
-        ////this.previousWallsAround = wallsAround;
-
-        //return danger.ToArray();
-
-        return AIBehavior.Empty;
-
+        return dangerVectors.ToArray();
     }
 
     public override Vector2[] GetInterest()
