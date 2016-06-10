@@ -72,12 +72,12 @@ public class Projectile : MonoBehaviour
                 if (!this.targetsHit.Contains(charHealth.gameObject))
                 {
                     targetsHit.Add(charHealth.gameObject);
-                    charHealth.DealDamage(this.Damage);
+                    charHealth.DealDamage(this.Damage, this.transform.up);
                 }
             }
             else
             {
-                charHealth.DealDamage(this.Damage);
+                charHealth.DealDamage(this.Damage, this.transform.up);
             }
         }
 

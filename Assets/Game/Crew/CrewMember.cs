@@ -4,8 +4,9 @@ using System.Collections.Generic;
 
 public class CrewMember : MonoBehaviour
 {
-    public GameObject BlinkIn;
-    public GameObject BlinkOut;
+    public GameObject BlinkInPrefab;
+    public GameObject BlinkOutPrefab;
+    public GameObject ShieldPrefab;
 
     public CharacterInfo CharInfo { get; private set; }
     public Weapon Weapon { get; private set; }
@@ -64,6 +65,7 @@ public class CrewMember : MonoBehaviour
             case ActiveSkillType.AOESlowdown:
                 break;
             case ActiveSkillType.Shield:
+                this.Shield();
                 break;
             case ActiveSkillType.FakeTarget:
                 break;
@@ -84,7 +86,7 @@ public class CrewMember : MonoBehaviour
 
     void Blink()
     {
-        Instantiate(BlinkIn, transform.position, Quaternion.identity);
+        Instantiate(BlinkInPrefab, transform.position, Quaternion.identity);
 
         var blinkTo = Cursor.CursorPosition;
 
@@ -101,6 +103,34 @@ public class CrewMember : MonoBehaviour
 
         Crew.Instance.transform.position = blinkTo;
 
-        Instantiate(BlinkOut, blinkTo, Quaternion.identity);
+        Instantiate(BlinkOutPrefab, blinkTo, Quaternion.identity);
+    }
+
+    void Shield()
+    {
+        var shieldGo = (GameObject) Instantiate(ShieldPrefab, transform.position, Quaternion.identity);
+        shieldGo.transform.SetParent(Crew.Instance.transform);
+        shieldGo.transform.localScale = Vector3.one;
+        shieldGo.transform.localPosition = Vector3.zero;
+        shieldGo.transform.rotation = Quaternion.Euler(0, 0, -90) * Crew.Instance.transform.localRotation;
+
+        float duration = CharInfo.ActiveSkill.Value1;
+
+        foreach (var member in Crew.Instance.CrewMembers)
+        {
+            member.CharHealth.IsShielded = true;
+        }
+
+        StartCoroutine(RemoveShieldAfter(shieldGo, duration));
+    }
+
+    IEnumerator RemoveShieldAfter(GameObject shield, float sec)
+    {
+        yield return new WaitForSeconds(sec);
+
+        foreach (var member in Crew.Instance.CrewMembers)
+        {
+            member.CharHealth.IsShielded = false;
+        }
     }
 }

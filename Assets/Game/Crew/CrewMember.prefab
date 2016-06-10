@@ -165,8 +165,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f55d978c9e927410db0adc31c6c1daba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlinkIn: {fileID: 104584, guid: f9b05508acbd41742916b8d397b311b4, type: 2}
-  BlinkOut: {fileID: 182214, guid: 02176d40dc40f004a879969bf7741810, type: 2}
+  BlinkInPrefab: {fileID: 104584, guid: f9b05508acbd41742916b8d397b311b4, type: 2}
+  BlinkOutPrefab: {fileID: 182214, guid: 02176d40dc40f004a879969bf7741810, type: 2}
+  ShieldPrefab: {fileID: 134494, guid: e59fa9f9a21b03e44903221b4e98d817, type: 2}
 --- !u!212 &21240630
 SpriteRenderer:
   m_ObjectHideFlags: 1

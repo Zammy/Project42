@@ -16,5 +16,4 @@ public class ActiveSkill : ScriptableObject
     public ActiveSkillType Type;
     public int Recharges;
     public float Value1;
-    public float Value2;
 }

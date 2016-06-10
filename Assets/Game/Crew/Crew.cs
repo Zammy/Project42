@@ -11,7 +11,7 @@ public class Crew : SingletonBehavior<Crew>
     const float VERT_CREW_POS = 0.25f;
     CrewMember[] crewMembers;
 
-    List<CrewMember> CrewMembers
+    public List<CrewMember> CrewMembers
     {
         get
         {
@@ -26,7 +26,6 @@ public class Crew : SingletonBehavior<Crew>
             return crew;
         }
     }
-
 
     public void LoadCrew(CharacterInfo[] characters)
     {

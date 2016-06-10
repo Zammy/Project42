@@ -10,13 +10,29 @@ public class CharacterHealth : MonoBehaviour
     public event Action<int> DealtDamage;
     public event Action<GameObject> CharacterDied;
 
-    public void DealDamage(int damage)
+    public bool IsShielded { get; set; }
+
+    public void DealDamage(int damage, Vector2 projectileDir)
     {
+        float dot = Vector2.Dot(projectileDir, this.transform.up.xToVector2());
+        bool shielded = IsShielded && dot < 0;
+
         if (this.SpriteToFlash != null)
         {
+            var flashColor = Color.red;
+            if (shielded)
+            {
+                flashColor = Color.blue;
+            }
+
             DOTween.Sequence()
-                .Append(this.SpriteToFlash.DOColor(Color.red, .15f))
+                .Append(this.SpriteToFlash.DOColor(flashColor, .15f))
                 .Append(this.SpriteToFlash.DOColor(Color.white, .15f));
+        }
+
+        if (shielded)
+        {
+            return;
         }
 
         this.Health -= damage;
