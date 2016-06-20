@@ -64,7 +64,8 @@ public class Activator : AIState
     void Activate()
     {
         this.StateManager.ActivateStateWithHighestPriorty();
-        List<GameObject> creaturesAround = Level.Instance.GetCreaturesAround(this.CreatureTransform, ActivateCreaturesAround);
+//        List<GameObject> creaturesAround = Level.Instance.GetCreaturesAround(this.CreatureTransform, ActivateCreaturesAround);
+        var creaturesAround = new List<GameObject>();
         for (int i = 0; i < creaturesAround.Count; i++)
         {
             var creature = creaturesAround[i];

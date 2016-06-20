@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Attack : AIState
 {
-    public Weapon Weapon;
+//    public Weapon Weapon;
     public Animator Animator;
 
     public override void OnEnter(AIState previousState)
@@ -18,7 +18,7 @@ public abstract class Attack : AIState
     {
         base.OnExit(nextState);
 
-        this.Weapon.IsActive = false;
+//        this.Weapon.IsActive = false;
     }
 
     public override void StateUpdate()
@@ -26,11 +26,11 @@ public abstract class Attack : AIState
         AnimatorStateInfo info = Animator.GetCurrentAnimatorStateInfo(0);
 
         bool isAttacking = info.IsName("Attack");
-        if (!isAttacking && this.Weapon.IsActive && info.IsName("Default"))
-        {
-            this.OnAttackFinished();
-        }
-        this.Weapon.IsActive = isAttacking;
+//        if (!isAttacking && this.Weapon.IsActive && info.IsName("Default"))
+//        {
+//            this.OnAttackFinished();
+//        }
+//        this.Weapon.IsActive = isAttacking;
     }
 
     protected abstract void OnAttackFinished();

@@ -36,6 +36,6 @@ public class Dying : AIGlobalState
     private void OnCharacterDied(GameObject _)
     {
         this.Animator.SetTrigger("Die");
-        Level.Instance.RemoveCreature(this.CreatureObject);
+//        Level.Instance.RemoveCreature(this.CreatureObject);
     }
 }

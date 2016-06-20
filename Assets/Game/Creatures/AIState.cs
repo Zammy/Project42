@@ -27,7 +27,7 @@ public abstract class AIState : MonoBehaviour
     {
         get
         {
-            return Crew.Instance.GetPos(CreatureTransform.position);
+            return Vector3.zero; //return Crew.Instance.GetPos(CreatureTransform.position);
         }
     }
 
