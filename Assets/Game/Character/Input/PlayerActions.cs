@@ -5,6 +5,9 @@ using InControl;
 public class PlayerActions : PlayerActionSet
 {
     public PlayerAction Skill1;
+    public PlayerAction Skill2;
+    public PlayerAction Skill3;
+    public PlayerAction Skill4;
 
     public PlayerAction MoveUp;
     public PlayerAction MoveDown;
@@ -22,6 +25,9 @@ public class PlayerActions : PlayerActionSet
     public PlayerActions()
     {
         Skill1 = CreatePlayerAction("Skill1");
+        Skill2 = CreatePlayerAction("Skill2");
+        Skill3 = CreatePlayerAction("Skill3");
+        Skill4 = CreatePlayerAction("Skill4");
 
         MoveUp = CreatePlayerAction("Move Up");
         MoveDown = CreatePlayerAction("Move Down");
@@ -43,6 +49,10 @@ public class PlayerActions : PlayerActionSet
         var playerActions = new PlayerActions();
 
         playerActions.Skill1.AddDefaultBinding(InputControlType.Action1);
+        playerActions.Skill2.AddDefaultBinding(InputControlType.Action2);
+        playerActions.Skill3.AddDefaultBinding(InputControlType.Action3);
+        playerActions.Skill4.AddDefaultBinding(InputControlType.Action4);
+
         //playerActions.Fire.AddDefaultBinding(Mouse.LeftButton);
 
         //playerActions.Jump.AddDefaultBinding(Key.W);

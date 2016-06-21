@@ -25,10 +25,26 @@ GameObject:
   - 4: {fileID: 441154}
   - 114: {fileID: 11430754}
   - 114: {fileID: 11472988}
+  - 114: {fileID: 11494456}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &166908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 405224}
+  m_Layer: 0
+  m_Name: Face
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -68,6 +84,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &405224
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166908}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0.375}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 441154}
+  m_RootOrder: 1
 --- !u!4 &441154
 Transform:
   m_ObjectHideFlags: 1
@@ -80,6 +109,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 489784}
+  - {fileID: 405224}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &467676
@@ -235,7 +265,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b794a16d16934a3f8c4431ab0cd3f9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 5
+  Speed: 7
+--- !u!114 &11494456
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 116010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd76489c0a01145169112b577d493247, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Skills:
+  - {fileID: 11400000, guid: 55be0e752180f459badd108edc085112, type: 2}
+  AttackHitEffectPrefab: {fileID: 193306, guid: b8ee9b20588d641cab5411ad15b31452,
+    type: 2}
+  Face: {fileID: 405224}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

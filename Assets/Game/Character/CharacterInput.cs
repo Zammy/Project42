@@ -1,15 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
+using InControl;
 
 public class CharacterInput : MonoBehaviour 
 {
     PlayerActions playerActions;
+    CharacterSkills charSkills;
     CharacterMovement charMove;
+
+    PlayerAction[] skills;
 
 	void Start () 
     {
         charMove = GetComponent<CharacterMovement>();
-	    playerActions = PlayerActions.CreateWithDefaultBindings();
+        charSkills = GetComponent<CharacterSkills>();
+
+        playerActions = PlayerActions.CreateWithDefaultBindings();
+
+        skills = new PlayerAction[] { playerActions.Skill1, playerActions.Skill2, playerActions.Skill3, playerActions.Skill4 };
 	}
 	
 	// Update is called once per frame
@@ -17,5 +25,13 @@ public class CharacterInput : MonoBehaviour
     {
         var moveVec = playerActions.Move.Value;
         charMove.MovementDirection = new Vector3( -moveVec.x, 0, -moveVec.y);
+
+        for (int i = 0; i < skills.Length; i++)
+        {
+            if (skills[i].WasPressed)
+            {
+                charSkills.ExecuteSkill(i);
+            }
+        }
 	}
 }

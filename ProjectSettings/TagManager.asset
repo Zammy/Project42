@@ -3,11 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Crew
-  - Wall
-  - Projectile
-  - Creature
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -17,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - SightBlock
+  - 
   - 
   - 
   - 
@@ -42,21 +38,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Level
-    uniqueID: 1030337263
-    locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Projectiles
-    uniqueID: 885342655
-    locked: 0
-  - name: Characters
-    uniqueID: 3765708583
-    locked: 0
-  - name: FX
-    uniqueID: 552444257
-    locked: 0
-  - name: UI
-    uniqueID: 2765528729
     locked: 0
