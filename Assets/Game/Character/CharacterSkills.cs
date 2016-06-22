@@ -8,10 +8,17 @@ public class CharacterSkills : MonoBehaviour
     public GameObject AttackHitEffectPrefab;
     public Transform Face;
 
+    CharacterHealth charHealth;
+
     public bool CastingSkill
     {
         get;
         set;
+    }
+
+    void Start()
+    {
+        charHealth = GetComponent<CharacterHealth>();
     }
 
     public void ExecuteSkill(int index)
@@ -30,22 +37,34 @@ public class CharacterSkills : MonoBehaviour
 
     IEnumerator ExecuteSkill(SkillData skillData)
     {
-        
+        if (charHealth.Health <= 0)
+            yield break;
+
         this.CastingSkill = true;
 
         yield return new WaitForSeconds(skillData.CastTime);
+
+        if (charHealth.Health <= 0)
+            yield break;
 
         var attackSkill = skillData as AttackSkillData ; 
         if (attackSkill != null)
         {
             var instantiatePos = Face.transform.position + Face.transform.forward * attackSkill.Depth/2;
-            var attackHitEffect = (GameObject) Instantiate( AttackHitEffectPrefab, instantiatePos, Quaternion.identity);
-            attackHitEffect.transform.localScale = new Vector3(attackSkill.Breadth, 1, attackSkill.Depth);
+            var attackHitEffectGo = (GameObject) Instantiate( AttackHitEffectPrefab, instantiatePos, Quaternion.identity);
+            attackHitEffectGo.transform.localScale = new Vector3(attackSkill.Breadth, 1, attackSkill.Depth);
 
-            var hitEffect = attackHitEffect.GetComponent<HitEffect>();
+            var hitEffect = attackHitEffectGo.GetComponent<HitEffect>();
             hitEffect.Life = attackSkill.AttackTime;
 
-            attackHitEffect.transform.localRotation = Quaternion.LookRotation(this.transform.forward);
+            var dmgDealer = attackHitEffectGo.GetComponent<DamageDealer>();
+            for (int i = 0; i < attackSkill.Damage.Length; i++)
+            {
+                dmgDealer.AddDamage(attackSkill.Damage[i]);
+            }
+            dmgDealer.SourceTag = this.gameObject.tag;
+
+            attackHitEffectGo.transform.localRotation = Quaternion.LookRotation(this.transform.forward);
         }
 
         yield return new WaitForSeconds(skillData.WindTime);

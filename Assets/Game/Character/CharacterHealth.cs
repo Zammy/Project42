@@ -5,24 +5,34 @@ using UnityEngine;
 public class CharacterHealth : MonoBehaviour 
 {
     public int Health;
-    public SpriteRenderer SpriteToFlash;
+    public MeshRenderer Renderer;
 
-    public event Action<int> DealtDamage;
+    public float KineticDamage_Multiplier;
+    public float FireDamage_Multiplier;
+    public float ElectricalDamage_Multiplier;
+
+    public event Action<Damage> DealtDamage;
     public event Action<GameObject> CharacterDied;
 
-    public void DealDamage(int damage, Vector2 projectileDir)
+    public void DealDamage(Damage damage)
     {
-        if (this.SpriteToFlash != null)
+        if (this.Renderer != null)
         {
             var flashColor = Color.red;
+            var originalColor = Renderer.material.color;
 
             DOTween.Sequence()
-                .Append(this.SpriteToFlash.DOColor(flashColor, .15f))
-                .Append(this.SpriteToFlash.DOColor(Color.white, .15f));
+                .Append(this.Renderer.material.DOColor(flashColor, .15f))
+                .Append(this.Renderer.material.DOColor(originalColor, .15f));
         }
 
+        float multiplier = KineticDamage_Multiplier;
+        if (damage.Type == DamageType.Fire)
+            multiplier = FireDamage_Multiplier;
+        else if (damage.Type == DamageType.Electrical)
+            multiplier = ElectricalDamage_Multiplier;
 
-        this.Health -= damage;
+        this.Health -= Mathf.RoundToInt( damage.Amount * multiplier );
         this.RaiseOnDealtDamage(damage);
 
         if (this.Health <= 0)
@@ -30,7 +40,7 @@ public class CharacterHealth : MonoBehaviour
             this.RaiseOnCharacterDied();
         }
 
-        InGameUI.Instance.ShowDamageLabel(transform.position, this.Health);
+        InGameUI.Instance.ShowDamageLabel(transform.position, damage.Amount);
     }
 
     void RaiseOnCharacterDied()
@@ -41,7 +51,7 @@ public class CharacterHealth : MonoBehaviour
         }
     }
 
-    void RaiseOnDealtDamage(int dmg)
+    void RaiseOnDealtDamage(Damage dmg)
     {
         if (this.DealtDamage != null)
         {

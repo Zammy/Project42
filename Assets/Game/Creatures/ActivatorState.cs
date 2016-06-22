@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 public class ActivatorState : AIState
 {
-    public bool ShouldBeVisible = false;
     public float Range = 10f;
     public float ActivateCreaturesAround = 0f;
 
@@ -28,23 +27,23 @@ public class ActivatorState : AIState
 
     public override void StateUpdate()
     {
-        Vector3 fromCreatureToCrew = this.CrewPos - CreatureTransform.position;
+        Vector3 fromCreatureToCrew = this.PlayerPos - CreatureTransform.position;
         float distance = fromCreatureToCrew.magnitude;
         if (distance < Range)
         {
-            if (ShouldBeVisible)
-            {
-                RaycastHit2D hit = Physics2D.Raycast(CreatureTransform.position, fromCreatureToCrew);
-                if (hit.collider != null 
-                    && (hit.collider.tag == "Crew" || hit.collider.tag == "Player"))
-                {
-                    Activate();
-                }
-            }
-            else
-            {
+//            if (ShouldBeVisible)
+//            {
+//                RaycastHit2D hit = Physics2D.Raycast(CreatureTransform.position, fromCreatureToCrew);
+//                if (hit.collider != null 
+//                    && (hit.collider.tag == "Crew" || hit.collider.tag == "Player"))
+//                {
+//                    Activate();
+//                }
+//            }
+//            else
+//            {
                 Activate();
-            }
+//            }
         }
     }
 
@@ -56,7 +55,7 @@ public class ActivatorState : AIState
         }
     }
 
-    private void OnDealtDamage(int dmg)
+    private void OnDealtDamage(Damage dmg)
     {
         Activate();
     }
@@ -64,6 +63,8 @@ public class ActivatorState : AIState
     void Activate()
     {
         this.StateManager.ActivateStateWithHighestPriorty();
+
+
 //        List<GameObject> creaturesAround = Level.Instance.GetCreaturesAround(this.CreatureTransform, ActivateCreaturesAround);
         var creaturesAround = new List<GameObject>();
         for (int i = 0; i < creaturesAround.Count; i++)

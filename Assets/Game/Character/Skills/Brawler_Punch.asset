@@ -13,8 +13,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Punch
   CastTime: 0.15
-  WindTime: 0.05
-  Damage: 5
+  WindTime: 0.15
+  Damage:
+  - Amount: 11
+    Type: 0
   AttackTime: 0.15
   Breadth: 0.75
   Depth: 1

@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 public class HitEffect : MonoBehaviour 
 {
-    public MeshRenderer[] AnimateMaterials;
+    public MeshRenderer Renderer;
+
+    float dieAfter;
 
     public float Life
     {
@@ -11,33 +14,25 @@ public class HitEffect : MonoBehaviour
         set;
     }
 
-    float x = -1f;
-    float animSpeed;
-
     void Start()
     {
-        SetTextureOffset();
-
-        animSpeed =  2f / Life;
+        dieAfter = Time.time + Life;
     }
 
 	// Update is called once per frame
 	void Update () 
     {
-	    x += animSpeed * Time.deltaTime;
-
-        if (x > 1f) 
+	    if (Time.time > dieAfter)
         {
             Destroy(this.gameObject);
         }
-        SetTextureOffset();
-	}
-
-    void SetTextureOffset()
-    {
-        foreach (var renderer in AnimateMaterials)
-        {
-            renderer.material.SetTextureOffset("_MainTex", new Vector2(x, 0));
-        }
     }
+
+//    void SetTextureOffset()
+//    {
+//        foreach (var renderer in AnimateMaterials)
+//        {
+//            renderer.material.SetTextureOffset("_MainTex", new Vector2(x, 0));
+//        }
+//    }
 }

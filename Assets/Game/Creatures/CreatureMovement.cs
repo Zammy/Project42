@@ -4,18 +4,17 @@ using System.Collections.Generic;
 
 public class CreatureMovement : CharacterMovement 
 {
-    //public float AngularSpeed = 360f;
-
-    public Animator Animator;
     public Transform BehaviorsBase;
 
     AIBehavior[] behaviors;
 
-    List<Vector2[]> interestMaps = new List<Vector2[]>();
-    List<Vector2[]> dangerMaps = new List<Vector2[]>();
+    List<Vector3[]> interestMaps = new List<Vector3[]>();
+    List<Vector3[]> dangerMaps = new List<Vector3[]>();
 
-	void Start () 
+	protected override void Start () 
     {
+        base.Start();
+
         this.behaviors = BehaviorsBase.GetComponentsInChildren<AIBehavior>();
     }
 
@@ -36,7 +35,7 @@ public class CreatureMovement : CharacterMovement
             }
         }
 
-        Vector2 newDirection = Vector2.zero;
+        var newDirection = Vector3.zero;
         for (int i = 0; i < interestMaps.Count; i++)
         {
             var interestMap = interestMaps[i];
@@ -46,7 +45,7 @@ public class CreatureMovement : CharacterMovement
             }
         }
 
-        if (newDirection != Vector2.zero)
+        if (newDirection != Vector3.zero)
         {
             for (int i = 0; i < dangerMaps.Count; i++)
             {
@@ -63,20 +62,11 @@ public class CreatureMovement : CharacterMovement
             newDirection.Normalize();
 
             this.MovementDirection = newDirection;
-            this.transform.xLookAt(this.transform.position + newDirection.xToVector3());
-
-            //float angle = transform.up.xAngleSigned(MovementDirection, transform.forward);
-            //float perFrame = Time.fixedDeltaTime * AngularSpeed;
-            //float clampedAngle = Mathf.Clamp(angle, -perFrame, perFrame);
-            //transform.Rotate(transform.forward, clampedAngle);
-
-            this.Animator.SetBool("Moving", true);
+            this.transform.LookAt(this.transform.position + newDirection);
         }
         else
         {
-            this.MovementDirection = Vector2.zero;
-
-            this.Animator.SetBool("Moving", false);
+            this.MovementDirection = Vector3.zero;
         }
 
         base.Update();

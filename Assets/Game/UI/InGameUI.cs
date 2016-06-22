@@ -6,14 +6,14 @@ using UnityEngine.UI;
 public class InGameUI : SingletonBehavior<InGameUI>
 {
     public GameObject DamageTextPrefab;
-    public GameObject CrewKilledDialog;
+    public GameObject YouDiedDialog;
 
-    Canvas canvas;
-
-    void Start()
-    {
-        this.canvas = this.GetComponent<Canvas>();
-    }
+//    Canvas canvas;
+//
+//    void Start()
+//    {
+//        this.canvas = this.GetComponent<Canvas>();
+//    }
 
     public void ShowDamageLabel(Vector3 pos, int amount)
     {
@@ -30,6 +30,6 @@ public class InGameUI : SingletonBehavior<InGameUI>
 
     public void CrewKilled()
     {
-        this.CrewKilledDialog.SetActive(true);
+        this.YouDiedDialog.SetActive(true);
     }
 }

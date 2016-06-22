@@ -7,6 +7,13 @@ public abstract class AIState : MonoBehaviour
     public AIBehavior[] Behaviors;
     public int Priority;
 
+    CharactersManager charMnger;
+
+    void Awake()
+    {
+        charMnger = this.CreatureTransform.parent.GetComponent<CharactersManager>();
+    }
+
     protected AIStateManager StateManager
     {
         get
@@ -23,17 +30,17 @@ public abstract class AIState : MonoBehaviour
         }
     }
 
-    protected Vector3 CrewPos
+    protected Vector3 PlayerPos
     {
         get
         {
-            return Vector3.zero; //return Crew.Instance.GetPos(CreatureTransform.position);
+            return charMnger.Player.transform.position;
         }
     }
 
     public virtual void OnEnter(AIState previousState)
     {
-        //Debug.LogFormat("OnEnter {0}", GetType().Name);
+//        Debug.LogFormat("OnEnter {0}", GetType().Name);
         foreach (var bhv in Behaviors)
         {
             bhv.enabled = true;
@@ -41,7 +48,7 @@ public abstract class AIState : MonoBehaviour
     }
     public virtual void OnExit(AIState nextState)
     {
-        //Debug.LogFormat("OnExit {0}", GetType().Name);
+//        Debug.LogFormat("OnExit {0}", GetType().Name);
         foreach (var bhv in Behaviors)
         {
             bhv.enabled = false;

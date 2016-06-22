@@ -8,7 +8,7 @@ public class Avoid : AIBehavior
 
     void Start() { }
 
-    public override Vector2[] GetDanger()
+    public override Vector3[] GetDanger()
     {
         //var goalDirection = this.CalculateDirection();
         //if (goalDirection == Vector2.zero)
@@ -32,15 +32,15 @@ public class Avoid : AIBehavior
         return AIBehavior.Empty;
     }
 
-    public override Vector2[] GetInterest()
+    public override Vector3[] GetInterest()
     {
         var goalDirection = this.CalculateDirection();
-        if (goalDirection == Vector2.zero)
+        if (goalDirection == Vector3.zero)
         {
             return AIBehavior.Empty;
         }
 
-        var interestContext = new Vector2[5];
+        var interestContext = new Vector3[5];
         interestContext[0] = goalDirection;
         interestContext[1] = Quaternion.Euler(0, 0, -45f) * interestContext[0];
         interestContext[2] = Quaternion.Euler(0, 0, 45f) * interestContext[0];
@@ -55,7 +55,7 @@ public class Avoid : AIBehavior
         return interestContext;
     }
 
-    private Vector2 CalculateDirection()
+    private Vector3 CalculateDirection()
     {
         if (Goal == Vector3.zero)
         {
@@ -66,7 +66,7 @@ public class Avoid : AIBehavior
         if (diff.sqrMagnitude < 0.05f)
         {
             Goal = Vector3.zero;
-            return Vector2.zero;
+            return Vector3.zero;
         }
         return diff.normalized * this.Strength;
     }

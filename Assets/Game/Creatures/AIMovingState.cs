@@ -7,7 +7,7 @@ public abstract class AIMovingState : AIState
 
     const float FRAME_MIN_DISTANCE = 0.01f;
     int frameCounter = 0;
-    Vector2 samplePos;
+    Vector3 samplePos;
 
     public override void OnEnter(AIState previousState)
     {
@@ -20,7 +20,7 @@ public abstract class AIMovingState : AIState
     {
         if (++frameCounter % FramesIdle == 0)
         {
-            Vector2 currentPos = CreatureTransform.position.xToVector2();
+            var currentPos = CreatureTransform.position;
             float sqrDist = (currentPos - samplePos).sqrMagnitude;
             if (sqrDist < FRAME_MIN_DISTANCE * FramesIdle)
             {

@@ -15,4 +15,18 @@ public static class TransformExt
     {
         return trans as RectTransform;
     }
+
+    public static T xFindComponentInParents<T>(this Transform trns) 
+         where T : Component
+    {
+        if (trns.parent == null)
+            return null;
+
+        var component = trns.parent.GetComponent<T>();
+        if (component != null)
+        {
+            return component;
+        }
+        return trns.parent.xFindComponentInParents<T>();
+    }
 }
