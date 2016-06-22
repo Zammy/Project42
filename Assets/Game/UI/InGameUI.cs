@@ -7,6 +7,7 @@ public class InGameUI : SingletonBehavior<InGameUI>
 {
     public GameObject DamageTextPrefab;
     public GameObject YouDiedDialog;
+    public Text PlayerHealth;
 
 //    Canvas canvas;
 //
@@ -26,6 +27,11 @@ public class InGameUI : SingletonBehavior<InGameUI>
             .Insert(0, textGo.transform.DOMoveY(pos.y + 1f, 1f))
             .Insert(0, textGo.GetComponent<CanvasGroup>().DOFade(0f, 1f))
             .InsertCallback(1f, () => { Destroy(textGo); });
+    }
+
+    public void SetPlayerHealth(int health)
+    {
+        PlayerHealth.text = health.ToString();
     }
 
     public void CrewKilled()
