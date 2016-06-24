@@ -15,7 +15,7 @@ MonoBehaviour:
   CastTime: 0.15
   WindTime: 0.15
   Damage:
-  - Amount: 11
+  - Amount: 2
     Type: 0
   AttackTime: 0.15
   Breadth: 0.75

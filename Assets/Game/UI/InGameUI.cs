@@ -9,12 +9,15 @@ public class InGameUI : SingletonBehavior<InGameUI>
     public GameObject YouDiedDialog;
     public Text PlayerHealth;
 
-//    Canvas canvas;
-//
-//    void Start()
-//    {
-//        this.canvas = this.GetComponent<Canvas>();
-//    }
+    public RectTransform CutsceneHeader;
+    public RectTransform CutsceneFooter;
+
+    //    Canvas canvas;
+    //
+    void Start()
+    {
+        //this.canvas = this.GetComponent<Canvas>();
+    }
 
     public void ShowDamageLabel(Vector3 pos, int amount)
     {
@@ -37,5 +40,17 @@ public class InGameUI : SingletonBehavior<InGameUI>
     public void CrewKilled()
     {
         this.YouDiedDialog.SetActive(true);
+    }
+
+    public void ActivateCutsceneView()
+    {
+        CutsceneFooter.DOSizeDelta(new Vector2(0, 80), 1f);
+        CutsceneHeader.DOSizeDelta(new Vector2(0, 80), 1f);
+    }
+
+    public void DeactivateCutsceneView()
+    {
+        CutsceneFooter.DOSizeDelta(new Vector2(0, 0), 1f);
+        CutsceneHeader.DOSizeDelta(new Vector2(0, 0), 1f);
     }
 }

@@ -11,7 +11,7 @@ public abstract class AIState : MonoBehaviour
 
     void Awake()
     {
-        charMnger = this.CreatureTransform.parent.GetComponent<CharactersManager>();
+        charMnger = CharactersManager.Instance;
     }
 
     protected AIStateManager StateManager
