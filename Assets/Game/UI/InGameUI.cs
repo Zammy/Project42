@@ -23,13 +23,16 @@ public class InGameUI : SingletonBehavior<InGameUI>
     {
         var textGo = (GameObject)Instantiate(DamageTextPrefab, pos, Quaternion.identity);
         textGo.transform.localScale = Vector3.one;
+        textGo.transform.position = new Vector3(textGo.transform.position.x, textGo.transform.position.y + 3f, textGo.transform.position.z);
 
         textGo.transform.GetChild(0).GetComponent<Text>().text = amount.ToString();
 
+        textGo.transform.LookAt(Camera.main.transform.position);
+
         DOTween.Sequence()
-            .Insert(0, textGo.transform.DOMoveY(pos.y + 1f, 1f))
-            .Insert(0, textGo.GetComponent<CanvasGroup>().DOFade(0f, 1f))
-            .InsertCallback(1f, () => { Destroy(textGo); });
+            .Insert(0, textGo.transform.DOMoveY(textGo.transform.position.y + 2f, 1.5f))
+            .Insert(0.5f , textGo.GetComponent<CanvasGroup>().DOFade(0f, 1f))
+            .InsertCallback(1.5f, () => { Destroy(textGo); });
     }
 
     public void SetPlayerHealth(int health)
