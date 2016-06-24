@@ -14,6 +14,8 @@ public class CharacterHealth : MonoBehaviour
     public event Action<Damage> DealtDamage;
     public event Action<GameObject> CharacterDied;
 
+    public bool Invurnable { get; set; }
+
     Color originalColor;
 
     void Start()
@@ -23,6 +25,9 @@ public class CharacterHealth : MonoBehaviour
 
     public void DealDamage(Damage damage)
     {
+        if (Invurnable)
+            return;
+
         if (this.Renderer != null)
         {
             var flashColor = Color.red;

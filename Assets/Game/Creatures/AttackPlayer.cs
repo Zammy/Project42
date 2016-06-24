@@ -11,7 +11,7 @@ public abstract class AttackPlayer : AIState
 
     CharacterSkills charSkills;
 
-    Rigidbody rigidbody;
+    new Rigidbody rigidbody;
 
     public override void OnEnter(AIState previousState)
     {

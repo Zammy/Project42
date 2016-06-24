@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using DG.Tweening;
 
 public class CharacterSkills : MonoBehaviour 
 {
@@ -9,6 +8,8 @@ public class CharacterSkills : MonoBehaviour
     public Transform Face;
 
     CharacterHealth charHealth;
+    Animator animator;
+    CharacterInput playerInput;
 
     public bool CastingSkill
     {
@@ -19,6 +20,8 @@ public class CharacterSkills : MonoBehaviour
     void Start()
     {
         charHealth = GetComponent<CharacterHealth>();
+        animator = GetComponent<Animator>();
+        playerInput = GetComponent<CharacterInput>();
     }
 
     public void ExecuteSkill(int index)
@@ -50,29 +53,58 @@ public class CharacterSkills : MonoBehaviour
         var attackSkill = skillData as AttackSkillData ; 
         if (attackSkill != null)
         {
-            var instantiatePos = Face.transform.position + Face.transform.forward * attackSkill.Depth/2;
-            var attackHitEffectGo = (GameObject) Instantiate( AttackHitEffectPrefab, instantiatePos, Quaternion.identity);
-            attackHitEffectGo.transform.localScale = new Vector3(attackSkill.Breadth, 1, attackSkill.Depth);
+            AttackSkill(attackSkill);
+        }
 
-            var hitEffect = attackHitEffectGo.GetComponent<HitEffect>();
-            hitEffect.Life = attackSkill.AttackTime;
-
-            var dmgDealer = attackHitEffectGo.GetComponent<DamageDealer>();
-            for (int i = 0; i < attackSkill.Damage.Length; i++)
-            {
-                dmgDealer.AddDamage(attackSkill.Damage[i]);
-            }
-            dmgDealer.SourceTag = this.gameObject.tag;
-
-            var forceDealer = attackHitEffectGo.GetComponent<ForceDealer>();
-            forceDealer.Force = attackSkill.Force;
-            forceDealer.SourceTag = this.gameObject.tag;
-
-            attackHitEffectGo.transform.localRotation = Quaternion.LookRotation(this.transform.forward);
+        var dodgeSkill = skillData as DodgeSkillData;
+        if (dodgeSkill != null)
+        {
+            yield return StartCoroutine(DodgeSkill(dodgeSkill));
         }
 
         yield return new WaitForSeconds(skillData.WindTime);
 
         this.CastingSkill = false;
+    }
+
+    private void AttackSkill(AttackSkillData attackSkill)
+    {
+        var instantiatePos = Face.transform.position + Face.transform.forward * attackSkill.Depth / 2;
+        var attackHitEffectGo = (GameObject)Instantiate(AttackHitEffectPrefab, instantiatePos, Quaternion.identity);
+        attackHitEffectGo.transform.localScale = new Vector3(attackSkill.Breadth, 1, attackSkill.Depth);
+
+        var hitEffect = attackHitEffectGo.GetComponent<HitEffect>();
+        hitEffect.Life = attackSkill.AttackTime;
+
+        var dmgDealer = attackHitEffectGo.GetComponent<DamageDealer>();
+        for (int i = 0; i < attackSkill.Damage.Length; i++)
+        {
+            dmgDealer.AddDamage(attackSkill.Damage[i]);
+        }
+        dmgDealer.SourceTag = this.gameObject.tag;
+
+        var forceDealer = attackHitEffectGo.GetComponent<ForceDealer>();
+        forceDealer.Force = attackSkill.Force;
+        forceDealer.SourceTag = this.gameObject.tag;
+
+        attackHitEffectGo.transform.localRotation = Quaternion.LookRotation(this.transform.forward);
+    }
+
+    IEnumerator DodgeSkill(DodgeSkillData dodgeSkill)
+    {
+        playerInput.enabled = false;
+
+        animator.SetTrigger(dodgeSkill.AnimatorTrigger + "Begin");
+
+        yield return new WaitForSeconds(dodgeSkill.InvurnabilityBegin);
+
+        charHealth.Invurnable = true;
+
+        yield return new WaitForSeconds(dodgeSkill.InvurnabilityEnd);
+        animator.SetTrigger(dodgeSkill.AnimatorTrigger + "End");
+
+        charHealth.Invurnable = false;
+
+        playerInput.enabled = true;
     }
 }

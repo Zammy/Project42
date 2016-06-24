@@ -9,7 +9,6 @@ public class CharacterMovement : MonoBehaviour
     public Animator Animator;
     //
 
-    CharacterSkills charSkills;
     Rigidbody body;
 
     public Vector3 MovementDirection
@@ -20,14 +19,12 @@ public class CharacterMovement : MonoBehaviour
 
     protected virtual void Start()
     {
-        charSkills = GetComponent<CharacterSkills>();
         body = GetComponent<Rigidbody>();
     }
 
     protected virtual void Update()
     {
-        if (MovementDirection.sqrMagnitude < 0.5f || 
-            charSkills.CastingSkill)
+        if (MovementDirection.sqrMagnitude < 0.5f)
         {
             this.Animator.SetBool("Moving", false);
             return;

@@ -122,7 +122,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 179586}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.93, z: 0.62}
+  m_LocalPosition: {x: 0, y: 1.899, z: 0.62}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.75}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -135,7 +135,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 194888}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 0.75, y: 2, z: 0.75}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -150,7 +150,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 89.98022, y: 0, z: 0}
   m_Children:
   - {fileID: 470716}
   - {fileID: 467676}
@@ -331,6 +331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Skills:
   - {fileID: 11400000, guid: 55be0e752180f459badd108edc085112, type: 2}
+  - {fileID: 11400000, guid: f8aff8a78e8a96f419bd4537ab5e7d93, type: 2}
   AttackHitEffectPrefab: {fileID: 193306, guid: b8ee9b20588d641cab5411ad15b31452,
     type: 2}
   Face: {fileID: 405224}
