@@ -11,7 +11,7 @@ GameObject:
   - 33: {fileID: 3350112}
   - 65: {fileID: 6594162}
   - 23: {fileID: 2355912}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 416876}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AI
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - 4: {fileID: 430972}
   - 33: {fileID: 3371562}
   - 23: {fileID: 2327838}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pointer
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 446298}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Visual
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - 114: {fileID: 11488682}
   - 114: {fileID: 11435194}
   - 95: {fileID: 9587090}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Punker
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 473708}
   - 114: {fileID: 11468766}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wonder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 436924}
   - 114: {fileID: 11423606}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stupified
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,9 +126,25 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 471916}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Behaviors
   m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &176202
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 431528}
+  - 114: {fileID: 11412270}
+  m_Layer: 9
+  m_Name: Wonder
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142,7 +158,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 470700}
   - 114: {fileID: 11454766}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AttackPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +174,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 445890}
   - 114: {fileID: 11492836}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SeekPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +190,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 480990}
   - 114: {fileID: 11495886}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Seek
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -189,7 +205,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 427456}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: States
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -205,7 +221,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 478144}
   - 114: {fileID: 11437724}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dying
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +236,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 479022}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Face
   m_TagString: Enemy
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -272,6 +288,19 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 446298}
+  m_RootOrder: 1
+--- !u!4 &431528
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176202}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 471916}
   m_RootOrder: 1
 --- !u!4 &433732
 Transform:
@@ -368,6 +397,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 480990}
+  - {fileID: 431528}
   m_Father: {fileID: 416876}
   m_RootOrder: 0
 --- !u!4 &473708
@@ -548,6 +578,22 @@ MonoBehaviour:
   KineticDamage_Multiplier: 1
   FireDamage_Multiplier: 1.5
   ElectricalDamage_Multiplier: 0.75
+--- !u!114 &11412270
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176202}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abdba9b510a2b234baefc4dfd2c78c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CreatureTransform: {fileID: 461826}
+  Strength: 0.75
+  circleForward: 2
+  circleSize: 1
+  angleChangerPerSec: 45
 --- !u!114 &11414898
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -671,6 +717,7 @@ MonoBehaviour:
   CreatureObject: {fileID: 135302}
   Behaviors:
   - {fileID: 11495886}
+  - {fileID: 11412270}
   Priority: 0
   HowClose: 1.5
 --- !u!114 &11495886
