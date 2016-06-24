@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Brawler_Punch
   m_EditorClassIdentifier: 
   Name: Punch
-  CastTime: 0.15
+  CastTime: 0.05
   WindTime: 0.15
   Damage:
   - Amount: 2
@@ -20,3 +20,4 @@ MonoBehaviour:
   AttackTime: 0.15
   Breadth: 0.75
   Depth: 1
+  Force: 10

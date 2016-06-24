@@ -64,6 +64,10 @@ public class CharacterSkills : MonoBehaviour
             }
             dmgDealer.SourceTag = this.gameObject.tag;
 
+            var forceDealer = attackHitEffectGo.GetComponent<ForceDealer>();
+            forceDealer.Force = attackSkill.Force;
+            forceDealer.SourceTag = this.gameObject.tag;
+
             attackHitEffectGo.transform.localRotation = Quaternion.LookRotation(this.transform.forward);
         }
 

@@ -11,6 +11,7 @@ public abstract class AttackPlayer : AIState
 
     CharacterSkills charSkills;
 
+    Rigidbody rigidbody;
 
     public override void OnEnter(AIState previousState)
     {
@@ -18,9 +19,12 @@ public abstract class AttackPlayer : AIState
 
         charSkills = CreatureObject.GetComponent<CharacterSkills>();
 
-        CreatureTransform.LookAt( PlayerPos );
+        CreatureTransform.LookAt(PlayerPos);
 
         charSkills.ExecuteSkill(SkillIndex);
+
+        rigidbody = CreatureObject.GetComponent<Rigidbody>();
+        rigidbody.drag *= 2f;
 
 //        this.Animator.SetTrigger("Attack");
     }
@@ -36,6 +40,7 @@ public abstract class AttackPlayer : AIState
     {
         if (!charSkills.CastingSkill)
         {
+            rigidbody.drag /= 2f;
             this.OnAttackFinished();
         }
 

@@ -20,3 +20,4 @@ MonoBehaviour:
   AttackTime: 0.15
   Breadth: 0.75
   Depth: 1.5
+  Force: 15

@@ -8,4 +8,6 @@ public class AttackSkillData : SkillData
     public float AttackTime;
     public float Breadth;
     public float Depth;
+
+    public float Force;
 }

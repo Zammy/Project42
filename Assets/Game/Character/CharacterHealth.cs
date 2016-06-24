@@ -14,12 +14,18 @@ public class CharacterHealth : MonoBehaviour
     public event Action<Damage> DealtDamage;
     public event Action<GameObject> CharacterDied;
 
+    Color originalColor;
+
+    void Start()
+    {
+        originalColor = Renderer.material.color;
+    }
+
     public void DealDamage(Damage damage)
     {
         if (this.Renderer != null)
         {
             var flashColor = Color.red;
-            var originalColor = Renderer.material.color;
 
             DOTween.Sequence()
                 .Append(this.Renderer.material.DOColor(flashColor, .15f))

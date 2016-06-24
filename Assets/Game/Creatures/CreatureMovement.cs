@@ -62,7 +62,6 @@ public class CreatureMovement : CharacterMovement
             newDirection.Normalize();
 
             this.MovementDirection = newDirection;
-            this.transform.LookAt(this.transform.position + newDirection);
         }
         else
         {

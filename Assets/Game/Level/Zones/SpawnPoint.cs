@@ -11,10 +11,10 @@ public class SpawnPoint : MonoBehaviour
     {
         charMnger = CharactersManager.Instance;
     }
+
     public void Spawn()
     {
         GameObject enemyGo = (GameObject)Instantiate(EnemyPrefab, this.transform.position, Quaternion.identity);
-
         charMnger.AddCharacter(enemyGo);
     }
 }
