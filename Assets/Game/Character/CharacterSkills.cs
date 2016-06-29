@@ -43,14 +43,15 @@ public class CharacterSkills : MonoBehaviour
 
         this.CastingSkill = true;
 
-        var meleeAttack = skillData as MeleeAttackSkillData ; 
+        var meleeAttack = skillData as MeleeAttackSkillData; 
         if (meleeAttack != null)
         {
             yield return StartCoroutine(AttackSkill(meleeAttack));
         }
 
         var dodgeSkill = skillData as DodgeSkillData;
-        if (dodgeSkill != null)
+        if (dodgeSkill != null
+             && movement.MovementDirection != Vector3.zero)
         {
             yield return StartCoroutine(DodgeSkill(dodgeSkill));
         }
@@ -114,20 +115,22 @@ public class CharacterSkills : MonoBehaviour
 
     IEnumerator DodgeSkill(DodgeSkillData dodgeSkill)
     {
-        playerInput.enabled = false;
+        if (playerInput)
+            playerInput.enabled = false;
 
-        animator.SetTrigger(dodgeSkill.AnimatorTrigger + "Begin");
+        movement.SetMovementMode(dodgeSkill.MoveMode);
+        movement.MovementDirection = this.transform.forward;
 
-        yield return new WaitForSeconds(dodgeSkill.InvurnabilityBegin);
+        yield return StartCoroutine(WaitForCastTime(dodgeSkill));
+        if (charHealth.Health <= 0)
+            yield break;
 
-        charHealth.Invurnable = true;
+        yield return StartCoroutine(WaitForWindTime(dodgeSkill));
 
-        yield return new WaitForSeconds(dodgeSkill.InvurnabilityEnd);
-        animator.SetTrigger(dodgeSkill.AnimatorTrigger + "End");
+        if (playerInput)
+            playerInput.enabled = true;
 
-        charHealth.Invurnable = false;
-
-        playerInput.enabled = true;
+        movement.ResetMovementMode();
     }
 
     IEnumerator RangeAttack(RangeAttackData rangeAttack)

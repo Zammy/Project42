@@ -13,7 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Roll
   CastTime: 0
-  WindTime: 0
-  InvurnabilityBegin: 0.15
-  InvurnabilityEnd: 0.85
-  AnimatorTrigger: Dodge
+  CastTime_AnimTrigger: Dodge
+  WindTime: 0.4
+  WindTime_AnimTrigger: 
+  MoveMode:
+    MaxSpeed: 25
+    Acceleration: 300

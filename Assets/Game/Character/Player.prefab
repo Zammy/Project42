@@ -8,7 +8,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 489784}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Visual
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -25,7 +25,7 @@ GameObject:
   - 4: {fileID: 485910}
   - 33: {fileID: 3313932}
   - 23: {fileID: 2331888}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Leg
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   - 95: {fileID: 9517446}
   - 114: {fileID: 11467534}
   - 54: {fileID: 5448082}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ GameObject:
   - 4: {fileID: 441606}
   - 33: {fileID: 3337282}
   - 23: {fileID: 2360606}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Leg
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ GameObject:
   - 4: {fileID: 470686}
   - 33: {fileID: 3315128}
   - 23: {fileID: 2318344}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RightLeg
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - 33: {fileID: 3385638}
   - 65: {fileID: 6579928}
   - 23: {fileID: 2318000}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Body
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 405224}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Face
   m_TagString: Player
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -131,7 +131,7 @@ GameObject:
   - 4: {fileID: 448690}
   - 33: {fileID: 3372186}
   - 23: {fileID: 2372234}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LeftLeg
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -511,6 +511,10 @@ MonoBehaviour:
   DefaultMoveMode:
     MaxSpeed: 7
     Acceleration: 150
+  MovementDirection: {x: 0, y: 0, z: 0}
+  MoveMode:
+    MaxSpeed: 0
+    Acceleration: 0
 --- !u!114 &11494456
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -528,6 +532,7 @@ MonoBehaviour:
   AttackHitEffectPrefab: {fileID: 193306, guid: b8ee9b20588d641cab5411ad15b31452,
     type: 2}
   Face: {fileID: 405224}
+  Nuzzle: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
