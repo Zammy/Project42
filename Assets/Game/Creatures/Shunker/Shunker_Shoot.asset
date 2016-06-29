@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41be3c2914bc42942aedf1e20cc79a2b, type: 3}
+  m_Name: Shunker_Shoot
+  m_EditorClassIdentifier: 
+  Name: Shoot
+  CastTime: 0.3
+  CastTime_AnimTrigger: Aim
+  WindTime: 0.3
+  WindTime_AnimTrigger: AimEnd
+  Damage:
+  - Amount: 3
+    Type: 0
+  Force: 5
+  ProjectilePrefab: {fileID: 125426, guid: 2b8d1d1a55c147a4ead6133f22ff52f0, type: 2}

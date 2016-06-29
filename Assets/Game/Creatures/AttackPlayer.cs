@@ -4,14 +4,11 @@ using UnityEngine;
 
 public abstract class AttackPlayer : AIState
 {
-//    public Weapon Weapon;
-//    public Animator Animator;
-
     public int SkillIndex;
 
     CharacterSkills charSkills;
 
-    new Rigidbody rigidbody;
+    Rigidbody body;
 
     public override void OnEnter(AIState previousState)
     {
@@ -19,39 +16,30 @@ public abstract class AttackPlayer : AIState
 
         charSkills = CreatureObject.GetComponent<CharacterSkills>();
 
-        CreatureTransform.LookAt(PlayerPos);
+        Attack();
 
-        charSkills.ExecuteSkill(SkillIndex);
-
-        rigidbody = CreatureObject.GetComponent<Rigidbody>();
-        rigidbody.drag *= 2f;
-
-//        this.Animator.SetTrigger("Attack");
+        body = CreatureObject.GetComponent<Rigidbody>();
+        body.drag *= 2f;
     }
 
     public override void OnExit(AIState nextState)
     {
         base.OnExit(nextState);
-
-//        this.Weapon.IsActive = false;
+        body.drag /= 2f;
     }
 
     public override void StateUpdate()
     {
         if (!charSkills.CastingSkill)
         {
-            rigidbody.drag /= 2f;
             this.OnAttackFinished();
         }
+    }
 
-//        AnimatorStateInfo info = Animator.GetCurrentAnimatorStateInfo(0);
-
-//        bool isAttacking = info.IsName("Attack");
-//        if (!isAttacking && this.Weapon.IsActive && info.IsName("Default"))
-//        {
-//            this.OnAttackFinished();
-//        }
-//        this.Weapon.IsActive = isAttacking;
+    protected void Attack()
+    {
+        CreatureTransform.LookAt(PlayerPos);
+        charSkills.ExecuteSkill(SkillIndex);
     }
 
     protected abstract void OnAttackFinished();

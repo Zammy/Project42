@@ -28,7 +28,7 @@ public class DamageDealer : MonoBehaviour
                 foreach (var dmg in damages)
                 {
                     charHealth.DealDamage(dmg);
-                }   
+                }
             }
         }
     }

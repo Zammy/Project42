@@ -8,9 +8,41 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 474646}
-  - 114: {fileID: 11495300}
+  - 114: {fileID: 11454850}
   m_Layer: 9
   m_Name: Stupified
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &110338
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 456052}
+  - 114: {fileID: 11468980}
+  m_Layer: 9
+  m_Name: ShootPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &112462
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 488766}
+  - 114: {fileID: 11475916}
+  m_Layer: 9
+  m_Name: Charge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,7 +56,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 402076}
-  - 114: {fileID: 11442704}
+  - 114: {fileID: 11493878}
   m_Layer: 9
   m_Name: SeekPlayer
   m_TagString: Untagged
@@ -137,7 +169,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 476550}
-  - 114: {fileID: 11413662}
+  - 114: {fileID: 11411500}
   m_Layer: 9
   m_Name: AttackPlayer
   m_TagString: Untagged
@@ -268,7 +300,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 488308}
-  - 114: {fileID: 11475328}
+  - 114: {fileID: 11438220}
   m_Layer: 9
   m_Name: Wonder
   m_TagString: Untagged
@@ -338,7 +370,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 496148}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!4 &402076
 Transform:
   m_ObjectHideFlags: 1
@@ -449,6 +481,19 @@ Transform:
   - {fileID: 496148}
   m_Father: {fileID: 470930}
   m_RootOrder: 1
+--- !u!4 &456052
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110338}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 496148}
+  m_RootOrder: 2
 --- !u!4 &462532
 Transform:
   m_ObjectHideFlags: 1
@@ -503,7 +548,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 496148}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!4 &479496
 Transform:
   m_ObjectHideFlags: 1
@@ -556,7 +601,20 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 496148}
-  m_RootOrder: 3
+  m_RootOrder: 4
+--- !u!4 &488766
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112462}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 496148}
+  m_RootOrder: 6
 --- !u!4 &490634
 Transform:
   m_ObjectHideFlags: 1
@@ -600,9 +658,11 @@ Transform:
   m_Children:
   - {fileID: 474646}
   - {fileID: 402076}
+  - {fileID: 456052}
   - {fileID: 476550}
   - {fileID: 488308}
   - {fileID: 402024}
+  - {fileID: 488766}
   m_Father: {fileID: 450084}
   m_RootOrder: 1
 --- !u!23 &2334100
@@ -847,7 +907,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11413662
+--- !u!114 &11411500
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -855,13 +915,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 150278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff6cfc091a9d34cdb838b2793c291d13, type: 3}
+  m_Script: {fileID: 11500000, guid: 25507319b548a4c098529e73c69ce6c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CreatureObject: {fileID: 153218}
   Behaviors: []
   Priority: 0
   SkillIndex: 0
+  NumOfAttacks: 3
 --- !u!114 &11431974
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -874,19 +935,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CreatureTransform: {fileID: 470930}
-  Strength: 0.75
+  Strength: 0.5
   circleForward: 2
   circleSize: 1
   angleChangerPerSec: 45
---- !u!114 &11442704
+--- !u!114 &11438220
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 113002}
+  m_GameObject: {fileID: 189216}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd478c32a95049968db4165f2748aa1, type: 3}
+  m_Script: {fileID: 11500000, guid: b759114209912483a80c04bd98dccf59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CreatureObject: {fileID: 153218}
@@ -894,7 +955,8 @@ MonoBehaviour:
   - {fileID: 11464552}
   - {fileID: 11431974}
   Priority: 0
-  HowClose: 1.5
+  FramesIdle: 30
+  Range: 2
 --- !u!114 &11443762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -919,9 +981,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c0facb126a494bd4a4742f35f8be4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxSpeed: 5
-  Acceleration: 50
   Animator: {fileID: 9581610}
+  DefaultMoveMode:
+    MaxSpeed: 5
+    Acceleration: 50
   BehaviorsBase: {fileID: 426598}
 --- !u!114 &11450060
 MonoBehaviour:
@@ -936,9 +999,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Skills:
   - {fileID: 11400000, guid: 9e35619b8797f4b6bab65d679fabf367, type: 2}
+  - {fileID: 11400000, guid: f416efd7dcd4bd141a6d93c936e2539e, type: 2}
   AttackHitEffectPrefab: {fileID: 193306, guid: b8ee9b20588d641cab5411ad15b31452,
     type: 2}
   Face: {fileID: 492298}
+  Nuzzle: {fileID: 405042}
+--- !u!114 &11454850
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5d87bfb6a4dd44dfaff2059221679fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CreatureObject: {fileID: 153218}
+  Behaviors: []
+  Priority: 1
+  WaitForLeast: 0.5
+  WaitForMost: 1
 --- !u!114 &11464552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -953,23 +1034,36 @@ MonoBehaviour:
   CreatureTransform: {fileID: 470930}
   Strength: 1
   Goal: {x: 0, y: 0, z: 0}
---- !u!114 &11475328
+--- !u!114 &11468980
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 189216}
+  m_GameObject: {fileID: 110338}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fedded28cb8684558b206a8281a2b38d, type: 3}
+  m_Script: {fileID: 11500000, guid: 74c3f24cc954e594399252d6932867ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CreatureObject: {fileID: 153218}
-  Behaviors:
-  - {fileID: 11464552}
+  Behaviors: []
   Priority: 0
-  FramesIdle: 30
-  Range: 2
+  SkillIndex: 1
+--- !u!114 &11475916
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8cba52ba4fb1d44ba4c5d794212d004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CreatureObject: {fileID: 153218}
+  Behaviors: []
+  Priority: 0
+  ChargeWhenPlayerDistance: 4
 --- !u!114 &11487340
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -986,6 +1080,26 @@ MonoBehaviour:
   KineticDamage_Multiplier: 1
   FireDamage_Multiplier: 1.5
   ElectricalDamage_Multiplier: 0.75
+--- !u!114 &11493878
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8026b76d5a21341c5a9731701d3aa90d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CreatureObject: {fileID: 153218}
+  Behaviors:
+  - {fileID: 11464552}
+  Priority: 0
+  FramesIdle: 30
+  Charge:
+    MaxSpeed: 8
+    Acceleration: 50
+  HowClose: 2
 --- !u!114 &11495224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1004,22 +1118,6 @@ MonoBehaviour:
   CharacterHealth: {fileID: 11487340}
   Colliders:
   - {fileID: 6502534}
---- !u!114 &11495300
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 926a9fa9c54e54955b7df3b5a25febb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CreatureObject: {fileID: 153218}
-  Behaviors: []
-  Priority: 1
-  WaitForLeast: 0.5
-  WaitForMost: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

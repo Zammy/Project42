@@ -4,7 +4,7 @@ using System;
 
 public class Zone : MonoBehaviour
 {
-    public CharacterInput PlayerInput;
+    public PlayerInput PlayerInput;
     public Transform CommandsBase;
     public ZoneTrigger ZoneTrigger;
 

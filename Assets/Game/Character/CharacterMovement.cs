@@ -4,25 +4,33 @@ using System.Collections;
 public class CharacterMovement : MonoBehaviour 
 {
     //Set through Unity
-    public float MaxSpeed;
-    public float Acceleration;
     public Animator Animator;
+    public MoveMode DefaultMoveMode;
     //
 
     Rigidbody body;
 
-    public Vector3 MovementDirection
+    public Vector3 MovementDirection { get; set; }
+
+    public MoveMode MoveMode { get; private set; }
+
+    public void SetMovementMode(MoveMode newMode)
     {
-        get;
-        set;
+        this.MoveMode = newMode;
+    }
+
+    public void ResetMovementMode()
+    {
+        this.MoveMode = DefaultMoveMode;
     }
 
     protected virtual void Start()
     {
         body = GetComponent<Rigidbody>();
+        MoveMode = DefaultMoveMode;
     }
 
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
         if (MovementDirection.sqrMagnitude < 0.5f)
         {
@@ -32,14 +40,11 @@ public class CharacterMovement : MonoBehaviour
 
         this.Animator.SetBool("Moving", true);
 
-        //var move = MovementDirection * (this.Speed * Time.deltaTime);
-        //transform.position += move;
+        body.AddForce(this.MovementDirection * MoveMode.Acceleration);
 
-        body.AddForce(this.MovementDirection * Acceleration);
-
-        if (body.velocity.magnitude > MaxSpeed)
+        if (body.velocity.magnitude > MoveMode.MaxSpeed)
         {
-            body.velocity = body.velocity.normalized * MaxSpeed;
+            body.velocity = body.velocity.normalized * MoveMode.MaxSpeed;
         }
 
         transform.localRotation = Quaternion.LookRotation(MovementDirection);

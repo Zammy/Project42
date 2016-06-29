@@ -2,7 +2,7 @@
 using System.Collections;
 using InControl;
 
-public class CharacterInput : MonoBehaviour 
+public class PlayerInput : MonoBehaviour 
 {
     PlayerActions playerActions;
     CharacterSkills charSkills;

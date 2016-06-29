@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Name: Shunker_Punch
   m_EditorClassIdentifier: 
   Name: Punch
-  CastTime: 0.5
-  WindTime: 0.25
+  CastTime: 0.15
+  CastTime_AnimTrigger: 
+  WindTime: 0.1
+  WindTime_AnimTrigger: 
   Damage:
   - Amount: 1
     Type: 0
+  Force: 15
   AttackTime: 0.15
   Breadth: 0.75
   Depth: 1.5
-  Force: 15

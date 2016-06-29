@@ -23,7 +23,8 @@ public class Shunker_StupifiedState : AIState
     {
         if (Time.time > waitUntil)
         {
-            this.StateManager.ActivateState<Shunker_SeekPlayer>();
+            this.StateManager.ActivateState<Shunker_ShootPlayer>();
+            //this.StateManager.ActivateState<Shunker_SeekPlayer>();
         }
     }
 }

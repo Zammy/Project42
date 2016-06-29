@@ -18,7 +18,7 @@ public class CreatureMovement : CharacterMovement
         this.behaviors = BehaviorsBase.GetComponentsInChildren<AIBehavior>();
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         this.interestMaps.Clear();
         this.dangerMaps.Clear();
@@ -68,6 +68,6 @@ public class CreatureMovement : CharacterMovement
             this.MovementDirection = Vector3.zero;
         }
 
-        base.Update();
+        base.FixedUpdate();
     }
 }
