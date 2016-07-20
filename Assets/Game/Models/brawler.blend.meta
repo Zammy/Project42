@@ -1,0 +1,198 @@
+fileFormatVersion: 2
+guid: c84462e4c3f098f4591abf1621b5a00e
+timeCreated: 1469031261
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Arm_L
+    100002: Arm_R
+    100004: Body
+    100006: //RootNode
+    100008: Calf
+    100010: Calf_002
+    100012: Chest1
+    100014: Chest2
+    100016: Elbow_L
+    100018: Elbow_R
+    100020: Fist_L
+    100022: Fist_R
+    100024: Foot
+    100026: Foot_002
+    100028: Forearm_L
+    100030: Forearm_R
+    100032: Gut
+    100034: Head
+    100036: Hip
+    100038: Knee
+    100040: Knee_002
+    100042: LeftLeg
+    100044: RightLeg
+    100046: Shoulders
+    100048: Thigh
+    100050: Thigh_002
+    100052: Upperarm_L
+    100054: Upperarm_R
+    400000: Arm_L
+    400002: Arm_R
+    400004: Body
+    400006: //RootNode
+    400008: Calf
+    400010: Calf_002
+    400012: Chest1
+    400014: Chest2
+    400016: Elbow_L
+    400018: Elbow_R
+    400020: Fist_L
+    400022: Fist_R
+    400024: Foot
+    400026: Foot_002
+    400028: Forearm_L
+    400030: Forearm_R
+    400032: Gut
+    400034: Head
+    400036: Hip
+    400038: Knee
+    400040: Knee_002
+    400042: LeftLeg
+    400044: RightLeg
+    400046: Shoulders
+    400048: Thigh
+    400050: Thigh_002
+    400052: Upperarm_L
+    400054: Upperarm_R
+    2300000: Calf
+    2300002: Calf_002
+    2300004: Chest1
+    2300006: Chest2
+    2300008: Elbow_L
+    2300010: Elbow_R
+    2300012: Fist_L
+    2300014: Fist_R
+    2300016: Foot
+    2300018: Foot_002
+    2300020: Forearm_L
+    2300022: Forearm_R
+    2300024: Gut
+    2300026: Head
+    2300028: Hip
+    2300030: Knee
+    2300032: Knee_002
+    2300034: Shoulders
+    2300036: Thigh
+    2300038: Thigh_002
+    2300040: Upperarm_L
+    2300042: Upperarm_R
+    2300044: //RootNode
+    3300000: Calf
+    3300002: Calf_002
+    3300004: Chest1
+    3300006: Chest2
+    3300008: Elbow_L
+    3300010: Elbow_R
+    3300012: Fist_L
+    3300014: Fist_R
+    3300016: Foot
+    3300018: Foot_002
+    3300020: Forearm_L
+    3300022: Forearm_R
+    3300024: Gut
+    3300026: Head
+    3300028: Hip
+    3300030: Knee
+    3300032: Knee_002
+    3300034: Shoulders
+    3300036: Thigh
+    3300038: Thigh_002
+    3300040: Upperarm_L
+    3300042: Upperarm_R
+    3300044: //RootNode
+    4300000: Chest1
+    4300002: Chest2
+    4300004: Hip
+    4300006: Calf_002
+    4300008: Knee_002
+    4300010: Thigh_002
+    4300012: Foot_002
+    4300014: Foot
+    4300016: Thigh
+    4300018: Knee
+    4300020: Calf
+    4300022: Gut
+    4300024: Shoulders
+    4300026: Head
+    4300028: Upperarm_R
+    4300030: Fist_R
+    4300032: Forearm_R
+    4300034: Elbow_R
+    4300036: Elbow_L
+    4300038: Forearm_L
+    4300040: Fist_L
+    4300042: Upperarm_L
+    4300044: Brawler
+    7400000: Default Take
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
