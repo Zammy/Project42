@@ -47,6 +47,13 @@ ModelImporter:
     100078: Thigh_R
     100080: UpperArm_L
     100082: UpperArm_R
+    100084: Arm_target_IK_L
+    100086: Arm_target_IK_R
+    100088: Elbow_Pole_IK_L
+    100090: Elbow_Pole_IK_R
+    100092: Foot-WGT
+    100094: Forearm_R_001
+    100096: Hand_Target_IK_R
     400000: Arm_L
     400002: Arm_R
     400004: Body
@@ -89,6 +96,13 @@ ModelImporter:
     400078: Thigh_R
     400080: UpperArm_L
     400082: UpperArm_R
+    400084: Arm_target_IK_L
+    400086: Arm_target_IK_R
+    400088: Elbow_Pole_IK_L
+    400090: Elbow_Pole_IK_R
+    400092: Foot-WGT
+    400094: Forearm_R_001
+    400096: Hand_Target_IK_R
     2300000: Calf
     2300002: Calf_002
     2300004: Chest1
@@ -112,6 +126,7 @@ ModelImporter:
     2300040: Upperarm_L
     2300042: Upperarm_R
     2300044: //RootNode
+    2300046: Foot-WGT
     3300000: Calf
     3300002: Calf_002
     3300004: Chest1
@@ -135,6 +150,7 @@ ModelImporter:
     3300040: Upperarm_L
     3300042: Upperarm_R
     3300044: //RootNode
+    3300046: Foot-WGT
     4300000: Chest1
     4300002: Chest2
     4300004: Hip
@@ -158,6 +174,7 @@ ModelImporter:
     4300040: Fist_L
     4300042: Upperarm_L
     4300044: Brawler
+    4300046: Foot-WGT
     7400000: Default Take
     9500000: //RootNode
     13700000: Brawler
