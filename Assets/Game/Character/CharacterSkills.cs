@@ -7,10 +7,10 @@ public class CharacterSkills : MonoBehaviour
     public GameObject AttackHitEffectPrefab;
     public Transform Face;
     public Transform Nuzzle;
+    public Animator Animator;
 
     CharacterHealth charHealth;
     CharacterMovement movement;
-    Animator animator;
     PlayerInput playerInput;
 
     public bool CastingSkill { get; set; }
@@ -18,7 +18,6 @@ public class CharacterSkills : MonoBehaviour
     void Start()
     {
         charHealth = GetComponent<CharacterHealth>();
-        animator = GetComponent<Animator>();
         playerInput = GetComponent<PlayerInput>();
         movement = GetComponent<CharacterMovement>();
     }
@@ -69,7 +68,7 @@ public class CharacterSkills : MonoBehaviour
     {
         if (skillData.CastTime_AnimTrigger != string.Empty)
         {
-            animator.SetTrigger(skillData.CastTime_AnimTrigger);
+            Animator.SetTrigger(skillData.CastTime_AnimTrigger);
         }
         yield return new WaitForSeconds(skillData.CastTime);
     }
@@ -78,7 +77,7 @@ public class CharacterSkills : MonoBehaviour
     {
         if (skillData.WindTime_AnimTrigger != string.Empty)
         {
-            animator.SetTrigger(skillData.WindTime_AnimTrigger);
+            Animator.SetTrigger(skillData.WindTime_AnimTrigger);
         }
         yield return new WaitForSeconds(skillData.WindTime);
     }
@@ -86,6 +85,9 @@ public class CharacterSkills : MonoBehaviour
     IEnumerator AttackSkill(MeleeAttackSkillData attackSkill)
     {
         movement.MovementDirection = Vector3.zero;
+
+        Animator.SetTrigger(attackSkill.Name);
+
         if (playerInput)
             playerInput.enabled = false;
 

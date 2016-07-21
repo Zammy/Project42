@@ -803,7 +803,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: e52da7d4d2e97b742b098d215ea7dfea, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -879,6 +879,7 @@ MonoBehaviour:
     type: 2}
   Face: {fileID: 405224}
   Nuzzle: {fileID: 0}
+  Animator: {fileID: 9553874}
 --- !u!137 &13725372
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
