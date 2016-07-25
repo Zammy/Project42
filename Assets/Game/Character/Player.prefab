@@ -301,6 +301,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 437424}
   - 95: {fileID: 9553874}
+  - 114: {fileID: 11419070}
   m_Layer: 11
   m_Name: brawler
   m_TagString: Untagged
@@ -448,7 +449,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 166908}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.074, y: 2.158, z: 0.439}
+  m_LocalPosition: {x: 0, y: 2.158, z: 0.161}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -590,10 +591,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 116010}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.14590116, z: 0, w: 0.98929924}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -16.7789, z: 0}
   m_Children:
   - {fileID: 489784}
   - {fileID: 405224}
@@ -802,8 +803,8 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: c84462e4c3f098f4591abf1621b5a00e, type: 3}
   m_Controller: {fileID: 9100000, guid: e52da7d4d2e97b742b098d215ea7dfea, type: 2}
   m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_UpdateMode: 1
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -824,6 +825,18 @@ MonoBehaviour:
   KineticDamage_Multiplier: 1
   FireDamage_Multiplier: 1
   ElectricalDamage_Multiplier: 1
+--- !u!114 &11419070
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cf3687679a0cce459ddb8470f660d78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetTrans: {fileID: 441154}
 --- !u!114 &11430754
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -888,13 +901,13 @@ SkinnedMeshRenderer:
   m_GameObject: {fileID: 175960}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_Materials:
   - {fileID: 2100000, guid: 17c2302897d939d40afebe980618e473, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
-  m_ReflectionProbeUsage: 1
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 0
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0

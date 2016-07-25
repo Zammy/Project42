@@ -56,6 +56,8 @@ ModelImporter:
     100096: Hand_Target_IK_R
     100098: Hand_R
     100100: Hand_L
+    100102: IK_WGT
+    100104: RFootAnchor
     400000: Arm_L
     400002: Arm_R
     400004: Body
@@ -107,6 +109,8 @@ ModelImporter:
     400096: Hand_Target_IK_R
     400098: Hand_R
     400100: Hand_L
+    400102: IK_WGT
+    400104: RFootAnchor
     2300000: Calf
     2300002: Calf_002
     2300004: Chest1
@@ -131,6 +135,7 @@ ModelImporter:
     2300042: Upperarm_R
     2300044: //RootNode
     2300046: Foot-WGT
+    2300048: IK_WGT
     3300000: Calf
     3300002: Calf_002
     3300004: Chest1
@@ -155,6 +160,7 @@ ModelImporter:
     3300042: Upperarm_R
     3300044: //RootNode
     3300046: Foot-WGT
+    3300048: IK_WGT
     4300000: Chest1
     4300002: Chest2
     4300004: Hip
@@ -179,10 +185,11 @@ ModelImporter:
     4300042: Upperarm_L
     4300044: Brawler
     4300046: Foot-WGT
+    4300048: IK_WGT
     7400000: Default Take
     7400002: Idle
     7400004: Run
-    7400006: Punch
+    7400006: Idle
     9500000: //RootNode
     13700000: Brawler
   materials:
@@ -219,13 +226,13 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 1
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
@@ -280,7 +287,7 @@ ModelImporter:
       name: Idle
       takeName: Idle
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -292,79 +299,9 @@ ModelImporter:
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Armature
-        weight: 1
-      - path: Armature/Hand_Target_IK_R
-        weight: 1
-      - path: Armature/Hand_Target_IK_R/Elbow_Pole_IK_R
-        weight: 1
-      - path: Armature/Hip
-        weight: 1
-      - path: Armature/Hip/Spine
-        weight: 1
-      - path: Armature/Hip/Spine/Chest
-        weight: 1
-      - path: Armature/Hip/Spine/Chest/Head
-        weight: 1
-      - path: Armature/Hip/Spine/Chest/Shoulder_L
-        weight: 1
-      - path: Armature/Hip/Spine/Chest/Shoulder_L/UpperArm_L
-        weight: 1
-      - path: Armature/Hip/Spine/Chest/Shoulder_L/UpperArm_L/Forearm_L
-        weight: 1
-      - path: Armature/Hip/Spine/Chest/Shoulder_R
-        weight: 1
-      - path: Armature/Hip/Spine/Chest/Shoulder_R/UpperArm_R
-        weight: 1
-      - path: Armature/Hip/Spine/Chest/Shoulder_R/UpperArm_R/Forearm_R
-        weight: 1
-      - path: Armature/Hip/Thigh_L
-        weight: 1
-      - path: Armature/Hip/Thigh_L/Shin_L
-        weight: 1
-      - path: Armature/Hip/Thigh_L/Shin_L/Foot_L
-        weight: 1
-      - path: Armature/Hip/Thigh_R
-        weight: 1
-      - path: Armature/Hip/Thigh_R/Shin_R
-        weight: 1
-      - path: Armature/Hip/Thigh_R/Shin_R/Foot_R
-        weight: 1
-      - path: Brawler
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Punch
-      takeName: Punch
-      firstFrame: 0
-      lastFrame: 30
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000

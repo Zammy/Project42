@@ -40,8 +40,6 @@ public class CharacterMovement : MonoBehaviour
 
         this.Animator.SetBool("Moving", true);
 
-        body.AddForce(this.MovementDirection * MoveMode.Acceleration);
-
         if (body.velocity.magnitude > MoveMode.MaxSpeed)
         {
             body.velocity = body.velocity.normalized * MoveMode.MaxSpeed;
