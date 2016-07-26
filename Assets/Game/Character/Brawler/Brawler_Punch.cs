@@ -6,7 +6,17 @@ public class Brawler_Punch : Skill
 {
     //
     public Animator Animator;
+    public GameObject LeftFistFire;
+    public GameObject RightFistFire;
     //
+
+    void Update()
+    {
+        var animState = Animator.GetCurrentAnimatorStateInfo(0);
+        bool activate = animState.IsName("Punch");
+        LeftFistFire.SetActive(activate);
+        RightFistFire.SetActive(activate);
+    }
 
     private new MeleeAttackSkillData SkillData
     {
@@ -19,29 +29,10 @@ public class Brawler_Punch : Skill
     public override void Activate()
     {
         Animator.SetBool("Punch", true);
-
-        //if (this.IsExecuting)
-        //{
-        //    return;
-        //}
-
-        //this.IsExecuting = true;
-
-        //StartCoroutine(DoExecute());
     }
 
     public override void Deactivate()
     {
         Animator.SetBool("Punch", false);
     }
-
-    //IEnumerator DoExecute()
-    //{
-    //    Animator.SetTrigger("Punch");
-
-    //    yield return StartCoroutine(Animator.xWaitWhileState("RightPunch"));
-
-    //    this.IsExecuting = false;
-    //}
-
 }

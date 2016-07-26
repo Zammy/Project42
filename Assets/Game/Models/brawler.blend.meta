@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c84462e4c3f098f4591abf1621b5a00e
-timeCreated: 1469106446
+timeCreated: 1469534717
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -662,7 +662,7 @@ ModelImporter:
       transformModified: 1
     - name: UpperArm_L
       position: {x: -0.30704778, y: 0.000000018626451, z: -0.000000060070306}
-      rotation: {x: -0.0957091, y: -0.010536472, z: 0.14811496, w: 0.9842717}
+      rotation: {x: -0.09677382, y: -0.0038688662, z: 0.12310077, w: 0.98765683}
       scale: {x: 1, y: 0.9999999, z: 1}
       transformModified: 1
     - name: Forearm_L
@@ -687,7 +687,7 @@ ModelImporter:
       transformModified: 1
     - name: Forearm_R
       position: {x: -0.35264903, y: 0.000000037252903, z: 0.00000012107193}
-      rotation: {x: 0.12240782, y: -0.030655766, z: -0.15530935, w: 0.9797732}
+      rotation: {x: 0.12529528, y: -0.00347454, z: -0.07068007, w: 0.9895925}
       scale: {x: 0.99999994, y: 0.99999994, z: 1.0000001}
       transformModified: 1
     - name: Hand_R
@@ -729,6 +729,11 @@ ModelImporter:
       position: {x: 0, y: 0, z: -1.263984}
       rotation: {x: 0.7071081, y: 0, z: 0, w: 0.7071055}
       scale: {x: 0.24268836, y: 0.24268836, z: 0.24268836}
+      transformModified: 1
+    - name: IK_WGT
+      position: {x: -0.19091265, y: 0.000000018775136, z: 0.42952505}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     armTwist: 0.5
     foreArmTwist: 0.5
