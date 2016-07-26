@@ -1,7 +1,6 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using UnityEngine;
 
 public static class Extensions
 {
@@ -10,6 +9,32 @@ public static class Extensions
         for (int i = list.Count; i <= count; i++)
         {
             list.Add(default(T));
+        }
+    }
+
+    public static IEnumerator xWaitForState(this Animator animator, string stateName)
+    {
+        while (true)
+        {
+            var state = animator.GetCurrentAnimatorStateInfo(0);
+            if (state.IsName(stateName))
+            {
+                break;
+            }
+            yield return null;
+        }
+    }
+
+    public static IEnumerator xWaitWhileState(this Animator animator, string stateName)
+    {
+        while (true)
+        {
+            var state = animator.GetCurrentAnimatorStateInfo(0);
+            if (!state.IsName(stateName))
+            {
+                break;
+            }
+            yield return null;
         }
     }
 }

@@ -12,10 +12,6 @@ MonoBehaviour:
   m_Name: Brawler_Roll
   m_EditorClassIdentifier: 
   Name: Roll
-  CastTime: 0
-  CastTime_AnimTrigger: Dodge
-  WindTime: 0.4
-  WindTime_AnimTrigger: 
   MoveMode:
     MaxSpeed: 25
     Acceleration: 300

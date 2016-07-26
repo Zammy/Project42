@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterHealth : MonoBehaviour 
 {
     public int Health;
-    public MeshRenderer Renderer;
+    public Renderer Renderer;
 
     public float KineticDamage_Multiplier;
     public float FireDamage_Multiplier;

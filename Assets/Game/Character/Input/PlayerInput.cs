@@ -4,33 +4,35 @@ using InControl;
 
 public class PlayerInput : MonoBehaviour 
 {
-    PlayerActions playerActions;
-    CharacterSkills charSkills;
-    CharacterMovement charMove;
+    public Skill[] Skills;
 
-    PlayerAction[] skills;
+    PlayerActions playerActions;
+    CharacterMovement charMove;
+    PlayerAction[] skillsMapping;
 
 	void Start () 
     {
         charMove = GetComponent<CharacterMovement>();
-        charSkills = GetComponent<CharacterSkills>();
 
         playerActions = PlayerActions.CreateWithDefaultBindings();
 
-        skills = new PlayerAction[] { playerActions.Skill1, playerActions.Skill2, playerActions.Skill3, playerActions.Skill4 };
+        skillsMapping = new PlayerAction[] { playerActions.Skill1, playerActions.Skill2, playerActions.Skill3, playerActions.Skill4 };
 	}
 	
-	// Update is called once per frame
 	void Update () 
     {
         var moveVec = playerActions.Move.Value;
         charMove.MovementDirection = new Vector3( -moveVec.x, 0, -moveVec.y);
 
-        for (int i = 0; i < skills.Length; i++)
+        for (int i = 0; i < Skills.Length; i++)
         {
-            if (skills[i].WasPressed)
+            if (skillsMapping[i].IsPressed)
             {
-                charSkills.ExecuteSkill(i);
+                Skills[i].Activate();
+            }
+            else
+            {
+                Skills[i].Deactivate();
             }
         }
 	}

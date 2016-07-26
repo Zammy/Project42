@@ -12,10 +12,6 @@ MonoBehaviour:
   m_Name: Brawler_Punch
   m_EditorClassIdentifier: 
   Name: Punch
-  CastTime: 0.05
-  CastTime_AnimTrigger: 
-  WindTime: 0.15
-  WindTime_AnimTrigger: 
   Damage:
   - Amount: 2
     Type: 0

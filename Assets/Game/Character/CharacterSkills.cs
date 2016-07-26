@@ -27,10 +27,10 @@ public class CharacterSkills : MonoBehaviour
         if (Skills.Length <= index)
             return;
 
-        var skillData = Skills[index];
-
         if (this.CastingSkill)
             return;
+
+        var skillData = Skills[index];
 
         StartCoroutine( ExecuteSkill (skillData) );
     }
@@ -42,45 +42,45 @@ public class CharacterSkills : MonoBehaviour
 
         this.CastingSkill = true;
 
-        var meleeAttack = skillData as MeleeAttackSkillData; 
+        var meleeAttack = skillData as MeleeAttackSkillData;
         if (meleeAttack != null)
         {
             yield return StartCoroutine(AttackSkill(meleeAttack));
         }
 
-        var dodgeSkill = skillData as DodgeSkillData;
-        if (dodgeSkill != null
-             && movement.MovementDirection != Vector3.zero)
-        {
-            yield return StartCoroutine(DodgeSkill(dodgeSkill));
-        }
+        //var dodgeSkill = skillData as DodgeSkillData;
+        //if (dodgeSkill != null
+        //     && movement.MovementDirection != Vector3.zero)
+        //{
+        //    yield return StartCoroutine(DodgeSkill(dodgeSkill));
+        //}
 
-        var rangeAttack = skillData as RangeAttackData;
-        if (rangeAttack != null)
-        {
-            yield return StartCoroutine(RangeAttack(rangeAttack));
-        }
+        //var rangeAttack = skillData as RangeAttackData;
+        //if (rangeAttack != null)
+        //{
+        //    yield return StartCoroutine(RangeAttack(rangeAttack));
+        //}
 
         this.CastingSkill = false;
     }
 
-    IEnumerator WaitForCastTime(SkillData skillData)
-    {
-        if (skillData.CastTime_AnimTrigger != string.Empty)
-        {
-            Animator.SetTrigger(skillData.CastTime_AnimTrigger);
-        }
-        yield return new WaitForSeconds(skillData.CastTime);
-    }
+    //IEnumerator WaitForCastTime(SkillData skillData)
+    //{
+    //    if (skillData.CastTime_AnimTrigger != string.Empty)
+    //    {
+    //        Animator.SetTrigger(skillData.CastTime_AnimTrigger);
+    //    }
+    //    yield return new WaitForSeconds(skillData.CastTime);
+    //}
 
-    IEnumerator WaitForWindTime(SkillData skillData)
-    {
-        if (skillData.WindTime_AnimTrigger != string.Empty)
-        {
-            Animator.SetTrigger(skillData.WindTime_AnimTrigger);
-        }
-        yield return new WaitForSeconds(skillData.WindTime);
-    }
+    //IEnumerator WaitForWindTime(SkillData skillData)
+    //{
+    //    if (skillData.WindTime_AnimTrigger != string.Empty)
+    //    {
+    //        Animator.SetTrigger(skillData.WindTime_AnimTrigger);
+    //    }
+    //    yield return new WaitForSeconds(skillData.WindTime);
+    //}
 
     IEnumerator AttackSkill(MeleeAttackSkillData attackSkill)
     {
@@ -91,25 +91,27 @@ public class CharacterSkills : MonoBehaviour
         if (playerInput)
             playerInput.enabled = false;
 
-        yield return StartCoroutine(WaitForCastTime(attackSkill));
+        //yield return StartCoroutine(WaitForCastTime(attackSkill));
 
         if (charHealth.Health <= 0)
             yield break;
 
-        var instantiatePos = Face.transform.position + Face.transform.forward * attackSkill.Depth / 2;
-        var attackHitEffectGo = (GameObject)Instantiate(AttackHitEffectPrefab, instantiatePos, Quaternion.identity);
-        attackHitEffectGo.transform.localScale = new Vector3(attackSkill.Breadth, 1, attackSkill.Depth);
+        //var instantiatePos = Face.transform.position + Face.transform.forward * attackSkill.Depth / 2;
+        //var attackHitEffectGo = (GameObject)Instantiate(AttackHitEffectPrefab, instantiatePos, Quaternion.identity);
+        //attackHitEffectGo.transform.localScale = new Vector3(attackSkill.Breadth, 1, attackSkill.Depth);
 
-        var hitEffect = attackHitEffectGo.GetComponent<HitEffect>();
-        hitEffect.Life = attackSkill.AttackTime;
+        //var hitEffect = attackHitEffectGo.GetComponent<HitEffect>();
+        //hitEffect.Life = attackSkill.AttackTime;
 
-        SetDamage(attackHitEffectGo, attackSkill.Damage);
+        //SetDamage(attackHitEffectGo, attackSkill.Damage);
 
-        SetForce(attackHitEffectGo, attackSkill.Force);
+        //SetForce(attackHitEffectGo, attackSkill.Force);
 
-        attackHitEffectGo.transform.localRotation = Quaternion.LookRotation(this.transform.forward);
+        //attackHitEffectGo.transform.localRotation = Quaternion.LookRotation(this.transform.forward);
 
-        yield return StartCoroutine(WaitForWindTime(attackSkill));
+        //yield return StartCoroutine(WaitForWindTime(attackSkill));
+
+        yield return StartCoroutine(Animator.xWaitForState("End" + attackSkill.Name));
 
         if (playerInput)
             playerInput.enabled = true;
@@ -123,11 +125,13 @@ public class CharacterSkills : MonoBehaviour
         movement.SetMovementMode(dodgeSkill.MoveMode);
         movement.MovementDirection = this.transform.forward;
 
-        yield return StartCoroutine(WaitForCastTime(dodgeSkill));
-        if (charHealth.Health <= 0)
-            yield break;
+        //yield return StartCoroutine(WaitForCastTime(dodgeSkill));
+        //if (charHealth.Health <= 0)
+        //    yield break;
 
-        yield return StartCoroutine(WaitForWindTime(dodgeSkill));
+        //yield return StartCoroutine(WaitForWindTime(dodgeSkill));
+
+        yield return null;
 
         if (playerInput)
             playerInput.enabled = true;
@@ -137,9 +141,9 @@ public class CharacterSkills : MonoBehaviour
 
     IEnumerator RangeAttack(RangeAttackData rangeAttack)
     {
-        yield return StartCoroutine(WaitForCastTime(rangeAttack));
-        if (charHealth.Health <= 0)
-            yield break;
+        //yield return StartCoroutine(WaitForCastTime(rangeAttack));
+        //if (charHealth.Health <= 0)
+        //    yield break;
 
         var projectileGo = (GameObject)Instantiate(rangeAttack.ProjectilePrefab, this.Nuzzle.position, this.Nuzzle.transform.rotation);
 
@@ -149,7 +153,9 @@ public class CharacterSkills : MonoBehaviour
         var projectile = projectileGo.GetComponent<Projectile>();
         projectile.SourceTag = gameObject.tag;
 
-        yield return StartCoroutine(WaitForWindTime(rangeAttack));
+        yield return null;
+
+        //yield return StartCoroutine(WaitForWindTime(rangeAttack));
     }
 
     void SetDamage(GameObject attackGo, Damage[] damages)
