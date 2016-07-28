@@ -13,10 +13,13 @@ ModelImporter:
     400004: //RootNode
     2300000: Brawler
     2300002: Circle
+    2300004: //RootNode
     3300000: Brawler
     3300002: Circle
+    3300004: //RootNode
     4300000: Circle
     4300002: Brawler
+    4300004: Punker
     7400000: Default Take
     9500000: //RootNode
   materials:
