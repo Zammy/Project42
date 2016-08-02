@@ -6,7 +6,4 @@ public abstract class Skill : MonoBehaviour
 
     public abstract void Activate();
     public abstract void Deactivate();
-
-
-    public bool IsExecuting { get; protected set; }
 }

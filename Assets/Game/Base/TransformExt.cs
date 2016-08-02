@@ -29,4 +29,11 @@ public static class TransformExt
         }
         return trns.parent.xFindComponentInParents<T>();
     }
+
+    public static void xCloneTransformFrom(this Transform trans, Transform target)
+    {
+        trans.transform.position = target.position;
+        trans.transform.rotation = target.rotation;
+        trans.transform.localScale = target.localScale;
+    }
 }

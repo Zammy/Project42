@@ -37,5 +37,20 @@ public static class Extensions
             yield return null;
         }
     }
+
+    public static void xResetParticleSystemsRecursive(this Transform obj)
+    {
+        var partSys = obj.GetComponent<ParticleSystem>();
+        if (partSys != null)
+        {
+            partSys.Clear();
+            partSys.Play();
+        }
+
+        foreach (Transform child in obj.transform)
+        {
+            child.xResetParticleSystemsRecursive();
+        }
+    }
 }
 

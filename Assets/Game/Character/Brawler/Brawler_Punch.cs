@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class Brawler_Punch : Skill
+public class Brawler_Punch : AttackSkill
 {
     //
     public Animator Animator;
@@ -14,14 +14,7 @@ public class Brawler_Punch : Skill
     {
         var fists = new GameObject[] { LeftFistFire, RightFistFire };
 
-        foreach (var dmg in SkillData.Damage)
-        {
-            foreach(var ffgo in fists)
-            {
-                ffgo.GetComponent<DamageDealer>().AddDamage(dmg);
-                ffgo.GetComponent<ForceDealer>().Force = SkillData.Force;
-            }
-        }
+        this.LoadSkillData(fists);
     }
 
     void Update()
@@ -30,14 +23,6 @@ public class Brawler_Punch : Skill
         bool activate = animState.IsName("Punch");
         LeftFistFire.SetActive(activate);
         RightFistFire.SetActive(activate);
-    }
-
-    private new MeleeAttackSkillData SkillData
-    {
-        get
-        {
-            return base.SkillData as MeleeAttackSkillData;
-        }
     }
 
     public override void Activate()
