@@ -7,14 +7,17 @@ public class Punker_Hammer : AttackSkill, AnimEventReceiver
     public Animator Animator;
 
     public Transform FistEffectTrans;
+
     public GameObject FistTrailEffectPrefab;
     public GameObject FistChargeEffectPrefab;
+    public GameObject GroundPoundEffectPrefab;
 
     public AnimEventRelay AnimEventRelay;
     //
 
     GameObject fistTrailEffect;
     GameObject fistChargeEfffect;
+    GameObject groundPoundEffect;
 
     const string ATTACK_STATE = "Hammer";
 
@@ -24,8 +27,10 @@ public class Punker_Hammer : AttackSkill, AnimEventReceiver
         AnimEventRelay.SubscribeToEvent("Hammer_Attack", this);
         AnimEventRelay.SubscribeToEvent("Hammer_Hit", this);
 
-        fistTrailEffect = InstantiateEffect(FistTrailEffectPrefab);
-        fistChargeEfffect = InstantiateEffect(FistChargeEffectPrefab);
+        fistTrailEffect = InstantiateEffect(FistTrailEffectPrefab, FistEffectTrans);
+        fistChargeEfffect = InstantiateEffect(FistChargeEffectPrefab, FistEffectTrans);
+
+        groundPoundEffect = (GameObject) Instantiate(GroundPoundEffectPrefab);
 
         this.LoadSkillData(fistTrailEffect);
     }
@@ -35,11 +40,11 @@ public class Punker_Hammer : AttackSkill, AnimEventReceiver
         AnimEventRelay.UnsubscribeToAll(this);
     }
 
-    GameObject InstantiateEffect(GameObject prefab)
+    GameObject InstantiateEffect(GameObject prefab, Transform trans)
     {
         var effect = (GameObject) Instantiate(prefab);
-        effect.transform.SetParent(FistEffectTrans.parent);
-        effect.transform.xCloneTransformFrom(FistEffectTrans);
+        effect.transform.SetParent(trans.parent);
+        effect.transform.xCloneTransformFrom(trans);
         effect.SetActive(false);
         return effect;
     }
@@ -52,7 +57,6 @@ public class Punker_Hammer : AttackSkill, AnimEventReceiver
 
             fistChargeEfffect.transform.SetParent(FistEffectTrans.parent);
             fistChargeEfffect.transform.xCloneTransformFrom(FistEffectTrans);
-
             fistChargeEfffect.transform.xResetParticleSystemsRecursive();
 
             fistChargeEfffect.SetActive(true);
@@ -65,6 +69,14 @@ public class Punker_Hammer : AttackSkill, AnimEventReceiver
         else if (name == "Hammer_Hit")
         {
             fistTrailEffect.SetActive(false);
+
+            groundPoundEffect.transform.position = FistEffectTrans.position;
+
+//            groundPoundEffect.transform.SetParent(FistEffectTrans.parent);
+//            groundPoundEffect.transform.xCloneTransformFrom(FistEffectTrans);
+            groundPoundEffect.transform.xResetParticleSystemsRecursive();
+
+            groundPoundEffect.SetActive(groundPoundEffect);
         }
     }
 
