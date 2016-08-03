@@ -65,6 +65,7 @@ namespace BindingsExample
 //			playerActions.ListenOptions.MaxAllowedBindingsPerType = 1;
 //			playerActions.ListenOptions.UnsetDuplicateBindingsOnSet = true;
 //			playerActions.ListenOptions.IncludeMouseButtons = true;
+//			playerActions.ListenOptions.IncludeModifiersAsFirstClassKeys = true;
 
 			playerActions.ListenOptions.OnBindingFound = ( action, binding ) =>
 			{
