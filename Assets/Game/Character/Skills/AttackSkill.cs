@@ -3,6 +3,15 @@ using System.Collections;
 
 public abstract class  AttackSkill : Skill 
 {
+    //Set through Unity
+    public Animator Animator;
+    //
+
+    protected string AnimatorAttackVar
+    {
+        get;
+        set;
+    }
 
     private new MeleeAttackSkillData SkillData
     {
@@ -10,6 +19,15 @@ public abstract class  AttackSkill : Skill
         {
             return base.SkillData as MeleeAttackSkillData;
         }
+    }
+
+    protected GameObject InstantiateEffect(GameObject prefab, Transform trans)
+    {
+        var effect = (GameObject) Instantiate(prefab);
+        effect.transform.SetParent(trans.parent);
+        effect.transform.xCloneTransformFrom(trans);
+        effect.SetActive(false);
+        return effect;
     }
 
     protected void LoadSkillData(GameObject effect)
@@ -27,5 +45,15 @@ public abstract class  AttackSkill : Skill
                 effect.GetComponent<ForceDealer>().Force = SkillData.Force;
             }
         }
+    }
+
+    public override void Activate()
+    {
+        Animator.SetBool(AnimatorAttackVar, true);
+    }
+
+    public override void Deactivate()
+    {
+        Animator.SetBool(AnimatorAttackVar, false);
     }
 }

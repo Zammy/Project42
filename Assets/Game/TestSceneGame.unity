@@ -639,7 +639,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb35718ae364242888f53d08c440b01a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &563086295
+--- !u!4 &581251984 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 470902, guid: ece24bc0c0ff84f4691907a3d415a185, type: 2}
+  m_PrefabInternal: {fileID: 85328151}
+--- !u!1001 &610498117
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -681,10 +685,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1993c5129a19445adbcab1831f6f9906, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &581251984 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 470902, guid: ece24bc0c0ff84f4691907a3d415a185, type: 2}
-  m_PrefabInternal: {fileID: 85328151}
 --- !u!1 &618653036
 GameObject:
   m_ObjectHideFlags: 0
@@ -1519,7 +1519,7 @@ MeshFilter:
 Transform:
   m_PrefabParentObject: {fileID: 4000013554324368, guid: 1993c5129a19445adbcab1831f6f9906,
     type: 2}
-  m_PrefabInternal: {fileID: 563086295}
+  m_PrefabInternal: {fileID: 610498117}
 --- !u!1 &1567906875
 GameObject:
   m_ObjectHideFlags: 0
@@ -1929,10 +1929,18 @@ MonoBehaviour:
   invertYAxis: 0
   useFixedUpdate: 0
   dontDestroyOnLoad: 0
-  enableXInput: 0
-  xInputUpdateRate: 0
-  xInputBufferSize: 0
+  suspendInBackground: 0
   enableICade: 0
+  enableXInput: 0
+  xInputOverrideUpdateRate: 0
+  xInputUpdateRate: 0
+  xInputOverrideBufferSize: 0
+  xInputBufferSize: 0
+  enableNativeInput: 0
+  nativeInputEnableXInput: 1
+  nativeInputPreventSleep: 0
+  nativeInputOverrideUpdateRate: 0
+  nativeInputUpdateRate: 0
   customProfiles: []
 --- !u!4 &1982388931
 Transform:

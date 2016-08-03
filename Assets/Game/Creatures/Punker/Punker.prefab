@@ -211,6 +211,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1000011725229784
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000012200445428}
+  - 114: {fileID: 114000013089271274}
+  m_Layer: 9
+  m_Name: Sweep
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1000011909605444
 GameObject:
   m_ObjectHideFlags: 1
@@ -229,21 +245,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1000012469893338
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 4000012812013474}
-  m_Layer: 9
-  m_Name: GroundPoundTrans
-  m_TagString: Enemy
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
 --- !u!1 &1000012691200608
 GameObject:
   m_ObjectHideFlags: 1
@@ -510,6 +511,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000013055669694}
+  - {fileID: 4000012200445428}
   m_Father: {fileID: 4000013554324368}
   m_RootOrder: 1
 --- !u!4 &4000011562298288
@@ -552,6 +554,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000012871200300}
   m_RootOrder: 2
+--- !u!4 &4000012200445428
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011725229784}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000011556001004}
+  m_RootOrder: 1
 --- !u!4 &4000012260539688
 Transform:
   m_ObjectHideFlags: 1
@@ -578,7 +593,6 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000013213277814}
-  - {fileID: 4000012812013474}
   m_Father: {fileID: 4000012260539688}
   m_RootOrder: 0
 --- !u!4 &4000012363813778
@@ -625,19 +639,6 @@ Transform:
   - {fileID: 4000013194887620}
   m_Father: {fileID: 4000012363813778}
   m_RootOrder: 2
---- !u!4 &4000012812013474
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012469893338}
-  m_LocalRotation: {x: -0.00000010430808, y: -0.7071067, z: 0.000000024214376, w: 0.7071069}
-  m_LocalPosition: {x: -0.2970003, y: -0.05000003, z: -0.012000317}
-  m_LocalScale: {x: 0.65, y: 0.65, z: 0.65}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
-  m_Children: []
-  m_Father: {fileID: 4000012342779498}
-  m_RootOrder: 1
 --- !u!4 &4000012871200300
 Transform:
   m_ObjectHideFlags: 1
@@ -939,6 +940,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Skills:
   - {fileID: 114000013141499574}
+  - {fileID: 114000013089271274}
 --- !u!114 &114000011342472844
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -966,6 +968,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetTrans: {fileID: 4000013554324368}
+--- !u!114 &114000013089271274
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011725229784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c4330a11f4ac456183f710038db8211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkillData: {fileID: 11400000, guid: 1663b63f3014e4151be3ab4b239ca01d, type: 2}
+  Animator: {fileID: 95000013730437330}
+  FistEffectTrans: {fileID: 4000013213277814}
+  FistTrailEffectPrefab: {fileID: 184426, guid: 142a685846f77ac46ac62b125fbffd7d,
+    type: 2}
+  FistChargeEffectPrefab: {fileID: 1000013940612368, guid: 2261b8be6f6f24399bb6215c5c210bec,
+    type: 2}
+  AnimEventRelay: {fileID: 114000010188816018}
 --- !u!114 &114000013141499574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -980,7 +1001,6 @@ MonoBehaviour:
   SkillData: {fileID: 11400000, guid: 9e35619b8797f4b6bab65d679fabf367, type: 2}
   Animator: {fileID: 95000013730437330}
   FistEffectTrans: {fileID: 4000013213277814}
-  GroundPoundTrans: {fileID: 4000012812013474}
   FistTrailEffectPrefab: {fileID: 184426, guid: 142a685846f77ac46ac62b125fbffd7d,
     type: 2}
   FistChargeEffectPrefab: {fileID: 1000013940612368, guid: 2261b8be6f6f24399bb6215c5c210bec,

@@ -5,10 +5,14 @@ using System;
 public class Brawler_Punch : AttackSkill
 {
     //
-    public Animator Animator;
     public GameObject LeftFistFire;
     public GameObject RightFistFire;
     //
+
+    void Awake()
+    {
+        this.AnimatorAttackVar = "Punch";
+    }
 
     void Start()
     {
@@ -23,15 +27,5 @@ public class Brawler_Punch : AttackSkill
         bool activate = animState.IsName("Punch");
         LeftFistFire.SetActive(activate);
         RightFistFire.SetActive(activate);
-    }
-
-    public override void Activate()
-    {
-        Animator.SetBool("Punch", true);
-    }
-
-    public override void Deactivate()
-    {
-        Animator.SetBool("Punch", false);
     }
 }

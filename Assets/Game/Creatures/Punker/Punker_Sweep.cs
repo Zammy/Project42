@@ -1,28 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Punker_Hammer : AttackSkill, AnimEventReceiver
+public class Punker_Sweep :  AttackSkill, AnimEventReceiver 
 {
     //Set through Unity
     public Transform FistEffectTrans;
 
     public GameObject FistTrailEffectPrefab;
     public GameObject FistChargeEffectPrefab;
-    public GameObject GroundPoundEffectPrefab;
 
     public AnimEventRelay AnimEventRelay;
     //
 
-    string[] events;
-
-
     GameObject fistTrailEffect;
     GameObject fistChargeEfffect;
-    GameObject groundPoundEffect;
+
+    string[] events;
 
     void Awake()
     {
-        this.AnimatorAttackVar = "Hammer";
+        this.AnimatorAttackVar = "Sweep";
 
         events = new string[]
         {
@@ -30,9 +27,11 @@ public class Punker_Hammer : AttackSkill, AnimEventReceiver
             AnimatorAttackVar + "_Attack",
             AnimatorAttackVar + "_Hit"
         };
+
     }
 
-    void Start()
+	// Use this for initialization
+	void Start ()
     {
         foreach (var e in events)
         {
@@ -42,17 +41,10 @@ public class Punker_Hammer : AttackSkill, AnimEventReceiver
         fistTrailEffect = InstantiateEffect(FistTrailEffectPrefab, FistEffectTrans);
         fistChargeEfffect = InstantiateEffect(FistChargeEffectPrefab, FistEffectTrans);
 
-        groundPoundEffect = (GameObject) Instantiate(GroundPoundEffectPrefab);
-        groundPoundEffect.SetActive(false);
-
         this.LoadSkillData(fistTrailEffect);
-    }
 
-    void OnDestroy()
-    {
-        AnimEventRelay.UnsubscribeToAll(this);
-    }
-
+	}
+	
     public void ReceiveEvent(string name)
     {
         if (name == events[0])
@@ -73,12 +65,6 @@ public class Punker_Hammer : AttackSkill, AnimEventReceiver
         else if (name == events[2])
         {
             fistTrailEffect.SetActive(false);
-
-            groundPoundEffect.transform.position = FistEffectTrans.position;
-
-            groundPoundEffect.transform.xResetParticleSystemsRecursive();
-
-            groundPoundEffect.SetActive(groundPoundEffect);
         }
     }
 }
