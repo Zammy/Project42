@@ -238,6 +238,7 @@ GameObject:
   - 95: {fileID: 95000013730437330}
   - 114: {fileID: 114000013054170212}
   - 114: {fileID: 114000010188816018}
+  - 114: {fileID: 114000010338874370}
   m_Layer: 9
   m_Name: punker
   m_TagString: Untagged
@@ -927,6 +928,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28b60f23f4df73542bac28db1a0ee7c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114000010338874370
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011909605444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5a1a1827f634f28bacfc900cbc98d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Renderer: {fileID: 137000013045619914}
+  FlashMaterial: {fileID: 2100000, guid: 577a83fadd7db4af491f1ac51adad0f3, type: 2}
 --- !u!114 &114000010716759634
 MonoBehaviour:
   m_ObjectHideFlags: 1

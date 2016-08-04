@@ -329,9 +329,9 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.76815647
-        functionName: ReceiveEvent
-        data: Hammer_Hit
+      - time: 0.41536245
+        functionName: BeforeAttack
+        data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
@@ -339,6 +339,13 @@ ModelImporter:
       - time: 0.575419
         functionName: ReceiveEvent
         data: Hammer_Attack
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.76815647
+        functionName: ReceiveEvent
+        data: Hammer_Hit
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
@@ -431,6 +438,13 @@ ModelImporter:
         messageOptions: 0
       - time: 0.76899695
         functionName: ReceiveEvent
+        data: Sweep_Hit
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.4327869
+        functionName: BeforeAttack
         data: Sweep_Hit
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
