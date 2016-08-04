@@ -392,7 +392,6 @@ GameObject:
   - 54: {fileID: 54000010847083970}
   - 114: {fileID: 114000013324206830}
   - 114: {fileID: 114000010716759634}
-  - 114: {fileID: 114000011342472844}
   m_Layer: 9
   m_Name: Punker
   m_TagString: Enemy
@@ -947,7 +946,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014063755114}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c185a0110b2146e4a0b0df42cf6e92e, type: 3}
   m_Name: 
@@ -955,21 +954,6 @@ MonoBehaviour:
   Skills:
   - {fileID: 114000013141499574}
   - {fileID: 114000013089271274}
---- !u!114 &114000011342472844
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014063755114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b794a16d16934a3f8c4431ab0cd3f9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Animator: {fileID: 95000013730437330}
-  DefaultMoveMode:
-    MaxSpeed: 0
-    Acceleration: 0
 --- !u!114 &114000013054170212
 MonoBehaviour:
   m_ObjectHideFlags: 1
