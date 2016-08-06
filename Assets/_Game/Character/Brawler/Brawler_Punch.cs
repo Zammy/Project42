@@ -14,8 +14,10 @@ public class Brawler_Punch : AttackSkill
         this.AnimatorAttackVar = "Punch";
     }
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         var fists = new GameObject[] { LeftFistFire, RightFistFire };
 
         this.LoadSkillData(fists);

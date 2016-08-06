@@ -31,8 +31,10 @@ public class Punker_Sweep :  AttackSkill, AnimEventReceiver
     }
 
 	// Use this for initialization
-	void Start ()
+	protected override void Start ()
     {
+        base.Start();
+
         foreach (var e in events)
         {
             AnimEventRelay.SubscribeToEvent(e, this);
@@ -56,11 +58,11 @@ public class Punker_Sweep :  AttackSkill, AnimEventReceiver
             fistChargeEfffect.transform.xResetParticleSystemsRecursive();
 
             fistChargeEfffect.SetActive(true);
-            fistTrailEffect.SetActive(true);
         }
         if (name == events[1])
         {
             fistChargeEfffect.transform.SetParent(null);
+            fistTrailEffect.SetActive(true);
         }
         else if (name == events[2])
         {

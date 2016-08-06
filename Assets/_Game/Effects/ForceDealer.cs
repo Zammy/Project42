@@ -19,7 +19,7 @@ public class ForceDealer : MonoBehaviour
             var rigidbody = collider.gameObject.transform.xFindComponentInParents<Rigidbody>();
             if (rigidbody != null)
             {
-                rigidbody.AddForce(this.transform.forward * Force, ForceMode.Impulse);
+                rigidbody.AddForce( (collider.gameObject.transform.position - this.transform.position).normalized * Force, ForceMode.Impulse);
             }
         }
     }

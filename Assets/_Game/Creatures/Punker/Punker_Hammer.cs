@@ -18,7 +18,7 @@ public class Punker_Hammer : AttackSkill, AnimEventReceiver
 
     GameObject fistTrailEffect;
     GameObject fistChargeEfffect;
-    GameObject groundPoundEffect;
+    DamageEffect groundPoundEffect;
 
     void Awake()
     {
@@ -32,8 +32,10 @@ public class Punker_Hammer : AttackSkill, AnimEventReceiver
         };
     }
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         foreach (var e in events)
         {
             AnimEventRelay.SubscribeToEvent(e, this);
@@ -42,10 +44,12 @@ public class Punker_Hammer : AttackSkill, AnimEventReceiver
         fistTrailEffect = InstantiateEffect(FistTrailEffectPrefab, FistEffectTrans);
         fistChargeEfffect = InstantiateEffect(FistChargeEffectPrefab, FistEffectTrans);
 
-        groundPoundEffect = (GameObject) Instantiate(GroundPoundEffectPrefab);
-        groundPoundEffect.SetActive(false);
+        var groundPoundEffectGo = (GameObject) Instantiate(GroundPoundEffectPrefab);
+        groundPoundEffectGo.SetActive(false);
 
-        this.LoadSkillData(fistTrailEffect);
+        this.LoadSkillData(groundPoundEffectGo);
+
+        groundPoundEffect = groundPoundEffectGo.GetComponent<DamageEffect>();
     }
 
     void OnDestroy()
@@ -76,9 +80,7 @@ public class Punker_Hammer : AttackSkill, AnimEventReceiver
 
             groundPoundEffect.transform.position = FistEffectTrans.position;
 
-            groundPoundEffect.transform.xResetParticleSystemsRecursive();
-
-            groundPoundEffect.SetActive(groundPoundEffect);
+            groundPoundEffect.Activate();
         }
     }
 }

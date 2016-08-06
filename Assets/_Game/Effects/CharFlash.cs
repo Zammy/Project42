@@ -10,17 +10,12 @@ public class CharFlash : MonoBehaviour
 
     Material material;
 
-    void Start()
+    protected virtual void Start()
     {
         material = Renderer.material;
     }
 
-    public void BeforeAttack()
-    {
-        StartCoroutine( Flash());
-    }
-
-    IEnumerator Flash()
+    protected IEnumerator Flash()
     {
         for (int i = 0; i < 3; i++)
         {
@@ -33,7 +28,6 @@ public class CharFlash : MonoBehaviour
 
             yield return null;
             yield return null;
-
         }
     }
 }

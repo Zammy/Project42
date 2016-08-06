@@ -21,6 +21,10 @@ GameObject:
   - 4: {fileID: 4000010551374680}
   - 198: {fileID: 198000014248962380}
   - 199: {fileID: 199000013497743066}
+  - 114: {fileID: 114000012042621234}
+  - 114: {fileID: 114000011578076294}
+  - 135: {fileID: 135000011631595346}
+  - 114: {fileID: 114000012189018416}
   m_Layer: 12
   m_Name: GroundPound
   m_TagString: Untagged
@@ -86,8 +90,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010003241060}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 1.26, y: 1.18, z: 3.82}
-  m_LocalScale: {x: 0.65, y: 0.65, z: 0.65}
+  m_LocalPosition: {x: -0.52980995, y: 0.9713397, z: 3.4851456}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000012704814772}
@@ -134,6 +138,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000010551374680}
   m_RootOrder: 0
+--- !u!114 &114000011578076294
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010003241060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19157330789be4a4c8ece01a9225ba8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000012042621234
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010003241060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ac14dda0aaa41ad977fb33595edd43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000012189018416
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010003241060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fb534b59929e41d0bb3aeb0b842244b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Lifetime: 0.25
+  Collider: {fileID: 135000011631595346}
+--- !u!135 &135000011631595346
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010003241060}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198000011044906882
 ParticleSystem:
   m_ObjectHideFlags: 1

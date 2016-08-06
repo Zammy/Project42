@@ -15,7 +15,4 @@ MonoBehaviour:
   Damage:
   - Amount: 4
     Type: 0
-  Force: 5
-  AttackTime: 0.15
-  Breadth: 0.75
-  Depth: 1.5
+  Force: 15

@@ -21,6 +21,13 @@ public abstract class  AttackSkill : Skill
         }
     }
 
+    void Update()
+    {
+        var stateInfo = Animator.GetCurrentAnimatorStateInfo(0);
+        
+        this.IsRunning = stateInfo.IsName(AnimatorAttackVar);
+    }
+
     protected GameObject InstantiateEffect(GameObject prefab, Transform trans)
     {
         var effect = (GameObject) Instantiate(prefab);
@@ -41,8 +48,13 @@ public abstract class  AttackSkill : Skill
         {
             foreach(var effect in effects)
             {
-                effect.GetComponent<DamageDealer>().AddDamage(dmg);
-                effect.GetComponent<ForceDealer>().Force = SkillData.Force;
+                var dmgDlr = effect.GetComponent<DamageDealer>();
+                dmgDlr.AddDamage(dmg);
+                dmgDlr.SourceTag = this.SourceTag;
+
+                var frcDlr = effect.GetComponent<ForceDealer>();
+                frcDlr.Force = SkillData.Force;
+                frcDlr.SourceTag = this.SourceTag;
             }
         }
     }
